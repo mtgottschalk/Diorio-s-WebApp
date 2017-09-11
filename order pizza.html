@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Pizza</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/mycss.css" />
+</head>
+
+<body>
+
+  <!-- 'form' collects user input via 'input' elements (text,checkboxes,buttons) -->
+  <!-- 'action=' specifies what to do when 'submit' button is clicked -->
+  <form method="post" name="forms" action=mailto:gambleallan@aim.com> 
+                              <!-- action="order submit.html"> -->
+    
+    <div class="forms">
+      <div class="cell1">
+        <center>
+        <h3>Mama's Pizza</h3>
+        <p>970-222-6262</p>
+        <hr />
+        </center>
+      </div>
+
+      <div class="forms2">
+        <!-- 'fieldset' draws a box around the included elements -->
+        <fieldset>
+          <legend>Personal Information</legend>
+          Name <input name="name" /> <br />
+        </fieldset>
+
+        <fieldset>
+          <legend>Pizza Size &amp; Crust</legend>
+
+          <!-- 'select' creates a drop-down list -->
+          <select name="size" size="2">
+            <option value="small">Small   $11.55</option>
+            <option value="medium">Medium  $15.25</option>
+            <option value="large">Large   $22.00</option>
+            <option value="x-large">X-Large $25.00</option>
+          </select>
+
+          <select name="crust" size="2">
+            <option value="regular">Regular Crust</option>
+            <option value="thin">Thin Crust</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Cheeses</legend>
+          <input type="radio" name="cheese" value="mozzarella"  />Mozzarella
+          <input type="radio" name="cheese" value="asiago"      />Asiago
+          <input type="radio" name="cheese" value="feta"        />Feta
+        </fieldset>
+
+        <fieldset>
+          <legend>Sauces</legend>
+          <input type="radio" name="sauce" value="tomato"   />Tomato Sauce
+          <input type="radio" name="sauce" value="bbq"      />BBQ Sauce
+          <input type="radio" name="sauce" value="garlic"   />Garlic Sauce
+        </fieldset>
+
+        <fieldset>
+          <legend>Special Instructions</legend>
+          <textarea name="instructions" rows="3" cols="42"></textarea>
+        </fieldset>
+ 
+        <fieldset>
+          <legend>Choose Toppings - $1.79 Each</legend>
+          <div class="forms2">
+            <input type="checkbox" name="topping" value="anchovies" /> Anchovies<br />
+            <input type="checkbox" name="topping" value="bacon"     /> Bacon<br />
+            <input type="checkbox" name="topping" value="ham"       /> Ham<br />
+            <input type="checkbox" name="topping" value="pepperoni" /> Pepperoni<br />
+            <input type="checkbox" name="topping" value="salami"    /> Salami<br />
+            <input type="checkbox" name="topping" value="sausage"   /> Sausage<br />
+          </div>
+          <div class="forms2">
+            <input type="checkbox" name="topping" value="broccoli"   /> Broccoli<br />
+            <input type="checkbox" name="topping" value="gr olives"  /> Green Olives<br />
+            <input type="checkbox" name="topping" value="bellpepper" /> Bell Peppers<br />
+            <input type="checkbox" name="topping" value="mushrooms"  /> Mushrooms<br />
+            <input type="checkbox" name="topping" value="red onions" /> Red Onions<br />
+            <input type="checkbox" name="topping" value="garlic"    /> Roasted Garlic<br />
+          </div>
+        </fieldset>
+
+        Your Price<br />
+        <input name="price" size="8" value=$ readonly="readonly" />
+        <!-- submit button sends the form-data to a page called "/order submit.html" -->
+        <input type="submit" value="PLACE YOUR ORDER" />
+        <input type="reset" value="START OVER" />
+      </div>
+
+    </div>
+  </form>
+
+</body>
+
+</html>
