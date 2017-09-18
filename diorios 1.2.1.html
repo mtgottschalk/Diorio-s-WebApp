@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Diorios</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/mycss.css" />
+
+  <script> 
+  var price = 0.00; 
+
+  function showPrice()
+  {
+    //fills text box called text in form called forms with the variable price
+    //convert decimal price into a string with leading $ and 2 decimal places
+    stringprice = "$" + price.toString();
+
+    var position = stringprice.indexOf(".");
+
+    if (position == -1)                               //no decimal point
+      stringprice = stringprice + ".00";
+    else if (position == stringprice.length - 2)      //add 2nd decimal place = zero
+      stringprice = stringprice + "0";
+
+    document.forms.text.value=stringprice; //price;  
+  }
+
+  function addPrices()
+  {
+    price = 0.00
+    pertopping = 0.00
+
+    if (document.forms.pizza[0].checked)                            <!-- name="pizza" -->
+      {
+      price = price + 2.65;                        
+      pertopping = .30;
+      }
+    else if (document.forms.pizza[1].checked)
+      {
+      price = price + 12.50;
+      pertopping = 1.00
+      }
+    else if (document.forms.pizza[2].checked)
+      {
+      price = price + 14.25;
+      pertopping = 1.50
+      }
+    else if (document.forms.pizza[3].checked)
+      {
+      price = price + 15.50;
+      pertopping = 1.50
+      }
+    else if (document.forms.pizza[4].checked)
+      {
+      price = price + 3.50;
+      pertopping = .30
+      }
+    else if (document.forms.pizza[5].checked)
+      {
+      price = price + 16.25;
+      pertopping = 1.00
+      }
+    else if (document.forms.pizza[6].checked)
+      {
+      price = price + 19.75;
+      pertopping = 1.50
+      }
+    else if (document.forms.pizza[7].checked)
+      {
+      price = price + 20.75;
+      pertopping = 1.50
+      }
+    else if (document.forms.pizza[8].checked)
+      {
+      price = price + 3.50;
+      pertopping = .30
+      }
+    else if (document.forms.pizza[9].checked)
+      {
+      price = price + 16.25;
+      pertopping = 1.00
+      }
+    else if (document.forms.pizza[10].checked)
+      {
+      price = price + 19.75;
+      pertopping = 1.50
+      }
+    else if (document.forms.pizza[11].checked)
+      {
+      price = price + 20.74;
+      pertopping = 1.50
+      }
+
+    if (document.forms.top[0].checked) price = price + pertopping;     <!-- name="top" -->
+    if (document.forms.top[1].checked) price = price + pertopping;
+    if (document.forms.top[2].checked) price = price + pertopping;
+    if (document.forms.top[3].checked) price = price + pertopping;
+    if (document.forms.top[4].checked) price = price + pertopping;
+    if (document.forms.top[5].checked) price = price + pertopping;
+    if (document.forms.top[6].checked) price = price + pertopping;
+    if (document.forms.top[7].checked) price = price + pertopping;
+    if (document.forms.top[8].checked) price = price + pertopping;
+    if (document.forms.top[9].checked) price = price + pertopping;
+    if (document.forms.top[10].checked) price = price + pertopping;
+    if (document.forms.top[11].checked) price = price + pertopping;
+    if (document.forms.top[12].checked) price = price + pertopping;
+    if (document.forms.top[13].checked) price = price + pertopping;
+
+
+    if (document.forms.sm_stromboli[0].checked)               <!-- name="sm_stromboli" -->
+      {
+      price = price + 20.25;                        
+      }
+    else if (document.forms.sm_stromboli[1].checked)
+      {
+      price = price + 40.50;
+      }
+    else if (document.forms.sm_stromboli[2].checked)
+      {
+      price = price + 60.75;
+      }
+    else if (document.forms.sm_stromboli[3].checked)
+      {
+      price = price + 81.00;
+      }
+    else if (document.forms.sm_stromboli[4].checked)
+      {
+      price = price + 101.25;
+      }
+
+
+    if (document.forms.lg_stromboli[0].checked)               <!-- name="lg_stromboli" -->
+      {
+      price = price + 23.75;                        
+      }
+    else if (document.forms.lg_stromboli[1].checked)
+      {
+      price = price + 47.50;
+      }
+    else if (document.forms.lg_stromboli[2].checked)
+      {
+      price = price + 71.25;
+      }
+    else if (document.forms.lg_stromboli[3].checked)
+      {
+      price = price + 95.00;
+      }
+    else if (document.forms.lg_stromboli[4].checked)
+      {
+      price = price + 118.75;
+      }
+
+
+    if (document.forms.sausage_roll[0].checked)               <!-- name="sausage_roll" -->
+      {
+      price = price + 18.25;                        
+      }
+    else if (document.forms.sausage_roll[1].checked)
+      {
+      price = price + 36.50;
+      }
+    else if (document.forms.sausage_roll[2].checked)
+      {
+      price = price + 54.75;
+      }
+    else if (document.forms.sausage_roll[3].checked)
+      {
+      price = price + 73.00;
+      }
+    else if (document.forms.sausage_roll[4].checked)
+      {
+      price = price + 91.25;
+      }
+
+
+    if (document.forms.calzone[0].checked)                         <!-- name="calzone" -->
+      {
+      price = price + 15.25;                        
+      }
+    else if (document.forms.calzone[1].checked)
+      {
+      price = price + 8.25;
+      }
+
+
+    if (document.forms.side[0].checked)                             <!-- name="side" -->
+      {
+      price = price + 3.75;                        
+      }
+    else if (document.forms.side[1].checked)
+      {
+      price = price + 7.50;
+      }
+    else if (document.forms.side[2].checked)
+      {
+      price = price + 11.25;
+      }
+    else if (document.forms.side[3].checked)
+      {
+      price = price + 15.00;
+      }
+    else if (document.forms.side[4].checked)
+      {
+      price = price + 18.75;
+      }
+
+
+    if (document.forms.garden[0].checked)                          <!-- name="garden" -->
+      {
+      price = price + 4.75;                        
+      }
+    else if (document.forms.garden[1].checked)
+      {
+      price = price + 9.50;
+      }
+    else if (document.forms.garden[2].checked)
+      {
+      price = price + 14.25;
+      }
+    else if (document.forms.garden[3].checked)
+      {
+      price = price + 19.00;
+      }
+    else if (document.forms.garden[4].checked)
+      {
+      price = price + 23.75;
+      }
+
+
+    if (document.forms.chef[0].checked)                              <!-- name="chef" -->
+      {
+      price = price + 7.50;                        
+      }
+    else if (document.forms.chef[1].checked)
+      {
+      price = price + 15.00;
+      }
+    else if (document.forms.chef[2].checked)
+      {
+      price = price + 22.50;
+      }
+    else if (document.forms.chef[3].checked)
+      {
+      price = price + 30.00;
+      }
+    else if (document.forms.chef[4].checked)
+      {
+      price = price + 37.50;
+      }
+
+
+    if (document.forms.antipasto[0].checked)                     <!-- name="antipasto" -->
+      {
+      price = price + 7.50;                        
+      }
+    else if (document.forms.antipasto[1].checked)
+      {
+      price = price + 15.00;
+      }
+    else if (document.forms.antipasto[2].checked)
+      {
+      price = price + 22.50;
+      }
+    else if (document.forms.antipasto[3].checked)
+      {
+      price = price + 30.00;
+      }
+    else if (document.forms.antipasto[4].checked)
+      {
+      price = price + 37.50;
+      }
+
+
+    if (document.forms.tuna[0].checked)                              <!-- name="tuna" -->
+      {
+      price = price + 7.50;                        
+      }
+    else if (document.forms.tuna[1].checked)
+      {
+      price = price + 15.00;
+      }
+    else if (document.forms.tuna[2].checked)
+      {
+      price = price + 22.50;
+      }
+    else if (document.forms.tuna[3].checked)
+      {
+      price = price + 30.00;
+      }
+    else if (document.forms.tuna[4].checked)
+      {
+      price = price + 37.50;
+      }
+
+
+
+    if (document.forms.roll[0].checked)                              <!-- name="roll" -->
+      {
+      price = price + .75;                        
+      }
+    else if (document.forms.roll[1].checked)
+      {
+      price = price + 1.50;
+      }
+    else if (document.forms.roll[2].checked)
+      {
+      price = price + 2.25;
+      }
+    else if (document.forms.roll[3].checked)
+      {
+      price = price + 3.00;
+      }
+    else if (document.forms.roll[4].checked)
+      {
+      price = price + 3.75;
+      }
+
+
+
+    if (document.forms.sub1.checked)price = price + 9.75;             <!-- name="sub" -->
+    if (document.forms.sub2.checked)price = price + 7.75;
+    if (document.forms.sub3.checked)price = price + 9.75;
+    if (document.forms.sub4.checked)price = price + 7.75;
+    if (document.forms.sub5.checked)price = price + 9.75;
+    if (document.forms.sub6.checked)price = price + 7.75;
+    if (document.forms.sub7.checked)price = price + 10.25;
+    if (document.forms.sub8.checked)price = price + 8.25;
+    if (document.forms.sub9.checked)price = price + 9.75;
+    if (document.forms.sub10.checked)price = price + 7.75;
+    if (document.forms.sub11.checked)price = price + 9.75;
+    if (document.forms.sub12.checked)price = price + 7.75;
+    if (document.forms.sub13.checked)price = price + 9.75;
+    if (document.forms.sub14.checked)price = price + 7.75;
+    if (document.forms.sub15.checked)price = price + 9.75;
+    if (document.forms.sub16.checked)price = price + 7.75;
+    if (document.forms.sub17.checked)price = price + 9.75;
+    if (document.forms.sub18.checked)price = price + 7.75;
+    if (document.forms.sub19.checked)price = price + 9.75;
+    if (document.forms.sub20.checked)price = price + 7.75;
+    if (document.forms.sub21.checked)price = price + 9.75;
+    if (document.forms.sub22.checked)price = price + 7.75;
+    if (document.forms.sub23.checked)price = price + 9.75;           <!--  Hot subs  -->
+    if (document.forms.sub24.checked)price = price + 7.75;
+    if (document.forms.sub25.checked)price = price + 9.25;
+    if (document.forms.sub26.checked)price = price + 7.25;
+    if (document.forms.sub27.checked)price = price + 9.25;
+    if (document.forms.sub28.checked)price = price + 7.25;
+    if (document.forms.sub29.checked)price = price + 9.75;
+    if (document.forms.sub30.checked)price = price + 7.75;
+    if (document.forms.sub31.checked)price = price + 9.25;
+    if (document.forms.sub32.checked)price = price + 7.25;
+    if (document.forms.sub33.checked)price = price + 9.75;
+    if (document.forms.sub34.checked)price = price + 7.75;
+    if (document.forms.sub35.checked)price = price + 10.25;
+    if (document.forms.sub36.checked)price = price + 8.25;
+    if (document.forms.sub37.checked)price = price + 10.25;
+    if (document.forms.sub38.checked)price = price + 8.25;
+
+    showPrice();
+  }
+
+  </script>
+</head>
+
+
+
+<body>
+  <font face = "monaco">                  <!-- all characters are same width in monaco -->
+
+  <!-- 'form' collects user input via 'input' elements (text,checkboxes,buttons) -->
+  <!-- 'action=' specifies what to do when 'submit' button is clicked -->
+  <form method="post" name="forms" action=mailto:gambleallan@aim.com> 
+                              <!-- action="order submit.html"> -->
+    
+    <div class="forms">
+      <div class="cell1">
+        <center>
+        <h3>Diorio's on North Ave</h3>
+        1125 North Ave, Grand Junction, Colorado 81501
+        <br />970-243-1700
+        <hr />
+        </center>
+      </div>
+
+      <div class="forms2">
+
+        <!-- 'fieldset' draws a box around the included elements -->
+        <fieldset>
+          <legend>PIZZA SIZE, TYPE AND TOPPINGS</legend>
+ 
+<img src="sicilian.png" alt="Sicilian" style="float:right;width:192px;height:192px;">
+<img src="newyork.png"  alt="New York" style="float:left;width:192px;height:192px;">  
+
+          <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Slice
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14"&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18"&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sicilian
+
+          <br />Cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_slice"    />$2.65
+<!--                                                 onclick="addPrices(2.65);" -->
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_14"       />$12.50
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_18"       />$14.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_Sicilian" />$15.50
+
+          <br />All-The-Way(x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_slice"    />$3.50
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_14"       />$16.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_18"       />$19.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_Sicilian" />$20.75
+
+          <br />Veggie(✓)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_slice"    />$3.50
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_14"       />$16.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_18"       />$19.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_Sicilian" />$20.75
+
+          <br /><br />
+          Each Extra Topping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$0.30
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          $1.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
+          $1.50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          $1.50
+
+          <div class="forms2">
+            <br />
+            <input type="checkbox" name="top" value="pepperoni"    /> Pepperoni(x)&nbsp
+            <input type="checkbox" name="top" value="onions"       /> Onions(x,✓)&nbsp
+            <input type="checkbox" name="top" value="bacon"        /> Canadian Bacon&nbsp;
+            <input type="checkbox" name="top" value="sausage"      /> Sausage(x)    <br />
+            <input type="checkbox" name="top" value="peppers"      /> Peppers(x,✓)&nbsp;
+            <input type="checkbox" name="top" value="pineapple"    /> Pineapple
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top" value="mushrooms"    /> Mushrooms(x,✓)&nbsp;
+            <input type="checkbox" name="top" value="garlic"       /> Garlic(x,✓)   <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top" value="jalapenos"    /> Jalapenos&nbsp;&nbsp
+                                                                      &nbsp;
+            <input type="checkbox" name="top" value="olives"       /> Olives(x,✓)&nbsp;
+            <input type="checkbox" name="top" value="anchovies"    /> Anchovies
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top" value="extra_cheese" /> Extra Cheese  <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top" value="spinach"      /> Spinach&nbsp;&nbsp
+                                                       &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top" value="meatball"     /> Meatball      <br />
+          </div>
+
+        </fieldset>
+
+
+        <br />
+ 
+        <fieldset>
+          <legend>STROMBOLI (pizza roll in spiral crust with ham, pepperoni, salami and provolone)
+          </legend>
+
+<img src="stromboli.png" alt="Sicilian" style="float:left;width:128px;height:128px;">
+
+          <br />Small (4 servings) $20.25 How many small?
+          <input type="radio" name="sm_stromboli" value="1sm_stromboli"  />1
+          <input type="radio" name="sm_stromboli" value="2sm_stromboli"  />2
+          <input type="radio" name="sm_stromboli" value="3sm_stromboli"  />3
+          <input type="radio" name="sm_stromboli" value="4sm_stromboli"  />4
+          <input type="radio" name="sm_stromboli" value="5sm_stromboli"  />5
+
+          <br />Large (6 servings) $23.75 How many large?
+          <input type="radio" name="lg_stromboli" value="1lg_stromboli"  />1
+          <input type="radio" name="lg_stromboli" value="2lg_stromboli"  />2
+          <input type="radio" name="lg_stromboli" value="3lg_stromboli"  />3
+          <input type="radio" name="lg_stromboli" value="4lg_stromboli"  />4
+          <input type="radio" name="lg_stromboli" value="5lg_stromboli"  />5
+
+        </fieldset>
+
+        <br />
+
+        <fieldset>
+
+          <legend>SAUSAGE ROLLS (Italian Sausage, Ricotta, Sweet Peppers, Provolone
+                  wrapped in crust)
+          </legend>
+
+<img src="sausagerolls.png" alt="SausRolls" style="float:left;width:128px;height:128px;">
+
+          <br />
+          $18.25 for an order of 6.  How many sausage roll orders?
+          <input type="radio" name="sausage_roll" value="1sausage_roll"  />1
+          <input type="radio" name="sausage_roll" value="2sausage_roll"  />2
+          <input type="radio" name="sausage_roll" value="3sausage_roll"  />3
+          <input type="radio" name="sausage_roll" value="4sausage_roll"  />4
+          <input type="radio" name="sausage_roll" value="5sausage_roll"  />5
+
+        </fieldset>
+
+        <br />
+
+        <fieldset>
+          <legend>CALZONE (Pizza "turnover" with Ricotta and any 4 fillings
+          </legend>
+
+<img src="calzone.jpg" alt="Calzone" style="float:left;width:160px;height:160px;">
+
+          Family Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="calzone" value="family_calzone"     />$15.25
+          <br />Individual Size&nbsp;
+          <input type="radio" name="calzone" value="individual_calzone" />$8.25
+
+         <div class="forms2">
+            <br />Choose 4 Fillings: <br />
+            <input type="checkbox" name="fil" value="pepperoni"    /> Pepperoni(x)&nbsp
+            <input type="checkbox" name="fil" value="onions"       /> Onions(x,✓)&nbsp
+            <input type="checkbox" name="fil" value="bacon"        /> Canadian Bacon&nbsp;
+            <input type="checkbox" name="fil" value="sausage"      /> Sausage(x)    <br />
+            <input type="checkbox" name="fil" value="peppers"      /> Peppers(x,✓)&nbsp;
+            <input type="checkbox" name="fil" value="pineapple"    /> Pineapple
+            &nbsp;&nbsp;
+            <input type="checkbox" name="fil" value="mushrooms"    /> Mushrooms(x,✓)&nbsp;
+            <input type="checkbox" name="fil" value="garlic"       /> Garlic(x,✓)   <br />
+            <input type="checkbox" name="fil" value="jalapenos"    /> Jalapenos&nbsp;&nbsp
+                                                                      &nbsp;
+            <input type="checkbox" name="fil" value="olives"       /> Olives(x,✓)&nbsp;
+            <input type="checkbox" name="fil" value="anchovies"    /> Anchovies
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fil" value="extra cheese" /> Extra Cheese  <br />
+            <input type="checkbox" name="fil" value="spinach"      /> Spinach&nbsp;&nbsp
+                                                       &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fil" value="meatball"     /> Meatball      <br />
+          </div>
+
+        </fieldset>
+
+        <br />
+
+        <fieldset>
+          <legend>SALADS</legend>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How many?
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Dressings
+
+          <br />
+          Side:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               greens and veggies (serves one)
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$3.75&nbsp;&nbsp;
+          <input type="radio" name="side" value="1side_salad"  />1
+          <input type="radio" name="side" value="2side_salad"  />2
+          <input type="radio" name="side" value="3side_salad"  />3
+          <input type="radio" name="side" value="4side_salad"  />4
+          <input type="radio" name="side" value="5side_salad"  />5
+
+           &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="dress" value="vinaigrette"  /> Vinaigrette&nbsp
+            <input type="checkbox" name="dress" value="blue_cheese"  /> Blue Cheese&nbsp
+            <input type="checkbox" name="dress" value="ranch"        /> Ranch
+
+          <br />Garden:&nbsp;&nbsp;&nbsp;
+                greens and veggies (serves 2-3)
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$4.75&nbsp;&nbsp;
+          <input type="radio" name="garden" value="1garden"  />1
+          <input type="radio" name="garden" value="2garden"  />2
+          <input type="radio" name="garden" value="3garden"  />3
+          <input type="radio" name="garden" value="4garden"  />4
+          <input type="radio" name="garden" value="5garden"  />5
+
+           &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="dressg" value="vinaigrette"  /> Vinaigrette&nbsp
+            <input type="checkbox" name="dressg" value="blue_cheese"  /> Blue Cheese&nbsp
+            <input type="checkbox" name="dressg" value="ranch"        /> Ranch
+
+          <br />Chef:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                greens, veggies, ham, turkey, provolone $7.50&nbsp;&nbsp;
+          <input type="radio" name="chef" value="1chef"  />1
+          <input type="radio" name="chef" value="2chef"  />2
+          <input type="radio" name="chef" value="3chef"  />3
+          <input type="radio" name="chef" value="4chef"  />4
+          <input type="radio" name="chef" value="5chef"  />5
+
+           &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="dressc" value="vinaigrette"  /> Vinaigrette&nbsp
+            <input type="checkbox" name="dressc" value="blue_cheese"  /> Blue Cheese&nbsp
+            <input type="checkbox" name="dressc" value="ranch"        /> Ranch
+
+          <br />Antipasto:&nbsp;greens, meats, cheeses, peppers, olives $7.50&nbsp;&nbsp;
+          <input type="radio" name="antipasto" value="1antipasto"  />1
+          <input type="radio" name="antipasto" value="2antipasto"  />2
+          <input type="radio" name="antipasto" value="3antipasto"  />3
+          <input type="radio" name="antipasto" value="4antipasto"  />4
+          <input type="radio" name="antipasto" value="5antipasto"  />5
+
+          <br />Tuna Salad:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$7.50&nbsp;&nbsp;
+          <input type="radio" name="tuna" value="1tuna"  />1
+          <input type="radio" name="tuna" value="2tuna"  />2
+          <input type="radio" name="tuna" value="3tuna"  />3
+          <input type="radio" name="tuna" value="4tuna"  />4
+          <input type="radio" name="tuna" value="5tuna"  />5
+
+          <br />Roll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $0.75 How many?
+          <input type="radio" name="roll" value="1roll"  />1
+          <input type="radio" name="roll" value="2roll"  />2
+          <input type="radio" name="roll" value="3roll"  />3
+          <input type="radio" name="roll" value="4roll"  />4
+          <input type="radio" name="roll" value="5roll"  />5
+
+        </fieldset>
+
+
+<!-- *************************** Sub menu starts here **************************** -->
+
+        <br />
+
+	<fieldset>
+          <legend>SUBS</legend>
+
+<img src="sub.jpg" alt="Sub" style="width:269px;height:128px;">
+
+          <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Full
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Half
+
+
+          <br />Turkey&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub1" value="turkey_full"       />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub2" value="turkey_half"       />$7.75
+                     
+          <br />Ham&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub3" value="ham_full"         />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub4" value="ham_half"         />$7.75
+                     
+	  <br />Salami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub5" value="salami_full"       />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub6" value="salami_half"       />$7.75
+
+	  <br />Roast Beef&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub7" value="roast_beef_full"    />$10.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub8" value="roast_beef_half"    />$8.25
+
+	  <br />#1 Salami, Ham, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub9" value="#1_full"        />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub10" value="#1_half"       />$7.75
+
+	  <br />#2 Turkey, Ham, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub11" value="#2_full"       />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub12" value="#2_half"       />$7.75
+
+	  <br />#3 Roast Beef, Ham, Turkey, Salami, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub13" value="#3_full"       />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub14" value="#3_half"       />$7.75
+
+	  <br />#4 Capacollo, Salami, Pepperoni, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub15" value="#4_full"       />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub16" value="#4_half"       />$7.75
+
+	  <br />
+	  <br />
+
+	  ALL SERVED ON a fresh-baked roll with mayo, mustard, vinaigrette, lettuce, tomatoes, olives, and onions.
+
+	  <br />
+
+
+	  <br />Mancinelli - Salami, Ham, Cpacello, Mortadella, Provolone, Lettuce, Peppers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub17" value="mancinelli_full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub18" value="mancinelli_half"    />$7.75
+
+	  <br />Veggie - Mushrooms, Tomatoes, Onions, Olives, Lettuce, Peppers, Provolone, Mustard, Mayo&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub19" value="veggie_full"       />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub20" value="veggie_half"       />$7.75
+
+	  <br />Tuna - Albacore Tuna & veggies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub21" value="Tuna_full"         />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub22" value="Tuna_half"         />$7.75
+	  
+	  <br />
+	  <br />
+
+	  HOT SUBS
+
+	  <br />
+
+	  <br />Meatball Parmesan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub23" value="meatball_parmesan_full"      />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub24" value="meatball_parmesan_half"      />$7.75
+
+	  <br />Meatball without cheese &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub25" value="meatball_no_cheese full"      />$9.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub26" value="meatball_no_cheese half"      />$7.25
+
+	  <br />Italian Sausage without cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub27" value="italian_no_cheese_full"       />$9.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub28" value="italian no_cheese_half"       />$7.25
+
+	  <br />Italian Sausage Parmesan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub29" value="italian_sausage_parmesan_full"/>$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub30" value="italian_sausage_parmesan_half"/>$7.75
+
+	  <br />Pastrami with tomatoes and mustard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub31" value="pastrami_full"               />$9.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub32" value="pastrami_half"               />$7.25
+
+	  <br />Pastrami & Provolone with tomatoes and mustard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub33" value="pastrami&provolone_full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub34" value="pastrami&provolone_half"    />$7.75
+
+	  <br />Reuben with corned beef, sauerkraut, swiss cheese, 1000 island&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub35" value="reuben_full"                />$10.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub36" value="reuben_half"                />$8.25
+
+	  <br />Brooklyn Reuben with pastrami, sauerkraut, swiss cheese, 1000 island&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub37" value="brooklyn_reuben_full"       />$10.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="sub38" value="brooklyn_reuben_half"       />$8.25
+
+
+          
+          </div>
+        </fieldset>
+
+
+        Name <input name="name" />
+        Click Button to Update Price
+        <input type="radio" name="Get Price" value="Get Price" onclick="addPrices()" /> 
+        <textarea cols="6" rows="1" style="font-size: 12pt" name="text"
+                  readonly="readonly"> price</textarea>       
+                  <!-- readonly means user can't type into text box -->
+
+<!--
+
+
+        <input name="price" size="8" id="price" readonly="readonly" />
+        <input type="radio" name="price" size="8" value="Get Price" readonly="readonly"
+                     onclick="addPrices()" />
+
+        <p id="price"></p>
+        document.getElementById("price").innerHTML = 222;
+-->
+
+        <!-- submit button sends the form-data to wherever the form's action= specifies-->
+        <input type="submit" value="PLACE YOUR ORDER" />
+
+        <input type="reset" value="START OVER" />
+
+      </div>
+
+    </div>
+  </form>
+
+
+
+</body>
+
+</html>
