@@ -1,0 +1,26 @@
+Version 1.2.2 
+
+Added onsubmit="return validateNameAndPrice()" to validate that:
+   a NAME is entered
+   that the order has been confirmed and PRICE totalled
+   and that the price is greater than zero (something is ordered)
+
+Figured out how to use SELECT OPTION for quantity
+and how to omit an entry from the FORM data when quantity = 0
+
+Discovered "?subject=Diorios Online Order" to add subject line to email.
+
+Discovered enctype="text/plain" which makes email body much more readable.
+Example:
+
+pizza=cheese_slice
+top=pepperoni
+top=peppers
+sub1=turkey_full
+name=Kirby Gamble
+price=$13.00
+
+Further work required:
+
+1. implement SELECT OPTION for most items
+2. implement multiple pizza/calzone orders
