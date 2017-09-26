@@ -1,0 +1,19 @@
+Version 1.3.1 
+
+Added SELECT OPTION for pulldown quantity to everything except PIZZA & CALZONE, which still need further work because of the filling selectability.
+
+Added buttons with image backgrounds to turn on/turn off the display of a section of menu.
+The pizza, stromboli, sausage rolls, calzone, salads, and subs sections can now be 
+individually selected to be displayed in any combination.
+
+Fixed the bug that required two mouse clicks for the first display button press.  This
+was done by initializing the style.display to 'none'.
+
+Did away with the "Confirm Order and Show Price" button and instead, the price is now automatically updated anytime a change is made to a SELECT/OPTION pull down quantity.
+
+
+
+Further work required:
+ 
+1. implement multiple pizza/calzone orders with different filling combinations.
+2. implement a text box showing the customer's order so far (a shopping cart).
