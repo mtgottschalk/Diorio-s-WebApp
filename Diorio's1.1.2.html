@@ -8,7 +8,9 @@
   <link rel="stylesheet" type="text/css" href="css/mycss.css" />
 </head>
 <style>
-div.formsFood{display: none;}
+.formsFood{display: none;}
+button{margin: 10px;}
+input[type = number]{width: 35px;}
 </style>
 <body>
 
@@ -28,12 +30,15 @@ div.formsFood{display: none;}
         <hr />
         </center>
       </div>
+<div style="text-align: center;">
       <button type="button" onclick="ShowPizza()">Pizza</button>
       <button type="button" onclick="ShowStromboli()">Stromboli</button>
       <button type="button" onclick="ShowSausageRolls()">SausageRolls</button>
+      <br />
       <button type="button" onclick="ShowCalzone()">Calzone</button>
       <button type="button" onclick="ShowSalad()">Salad</button>
       <button type="button" onclick="ShowSubs()">Subs</button>
+</div>
       <div id ="Pizza" class="formsFood">
         <!-- 'fieldset' draws a box around the included elements -->
         <fieldset>
@@ -101,28 +106,30 @@ div.formsFood{display: none;}
             <input type="checkbox" name="top" value="spinach"      /> Spinach&nbsp;&nbsp
                                                        &nbsp;&nbsp;&nbsp;
             <input type="checkbox" name="top" value="meatball"     /> Meatball      <br />
+            <button type="button" onclick="ShowPizzaNum(); ShowPizza();">Next</button>
           </div>
         </fieldset>
-
+        <div id = "PizzaNum" class = "formsFood">
+          <fieldset>
+            How many would you like? <br/>
+            <input type="number" name="SrNum" value="1" min="0" max = "99">
+            <button type="button" onclick="ShowPizza(); ShowPizzaNum();">Add Pizza</button>
+            <button type="button" onclick="ShowPizzaNum();">Submit order</button>
         <br />
-        <div id="Stromboli" class ="formsFood">
+      </div>
+        </fieldset>
+        <div id="Stromboli" class ="formsFood" style="none">
         <fieldset>
           <legend>STROMBOLI (pizza roll in spiral crust with ham, pepperoni, salami and provolone)
           </legend>
 
           Small (4 servings) $20.25 How many small?
-          <input type="radio" name="sm stromboli" value="1sm stromboli"  />1
-          <input type="radio" name="sm stromboli" value="2sm stromboli"  />2
-          <input type="radio" name="sm stromboli" value="3sm stromboli"  />3
-          <input type="radio" name="sm stromboli" value="4sm stromboli"  />4
-          <input type="radio" name="sm stromboli" value="5sm stromboli"  />5
+          <input type="number" name="SmlStrNum" value="1" min="0" max = "99" >
+
 
           <br />Large (6 servings) $23.75 How many large?
-          <input type="radio" name="lg stromboli" value="1lg stromboli"  />1
-          <input type="radio" name="lg stromboli" value="2lg stromboli"  />2
-          <input type="radio" name="lg stromboli" value="3lg stromboli"  />3
-          <input type="radio" name="lg stromboli" value="4lg stromboli"  />4
-          <input type="radio" name="lg stromboli" value="5lg stromboli"  />5
+          <input type="number" name="LrgStrNum" value="1" min="0" max = "99">
+          <button type="button" onclick="ShowStromboli()">Hide</button>
 
         </fieldset>
       </div>
@@ -133,12 +140,9 @@ div.formsFood{display: none;}
           <legend>SAUSAGE ROLLS (Italian Sausage, Ricotta, Sweet Peppers, Provolone
                   wrapped in crust)
           </legend>
-          $18.25 for an order of 6.  How many sausage roll orders?
-          <input type="radio" name="sausage roll" value="1sausage roll"  />1
-          <input type="radio" name="sausage roll" value="2sausage roll"  />2
-          <input type="radio" name="sausage roll" value="3sausage roll"  />3
-          <input type="radio" name="sausage roll" value="4sausage roll"  />4
-          <input type="radio" name="sausage roll" value="5sausage roll"  />5
+          $18.25 for an order of 6.  How many sausage roll orders? <br/>
+           <input type="number" name="SrNum" value="1" min="0" max = "99">
+           <button type="button" onclick="ShowSausageRolls()">Hide</button>
 
         </fieldset>
       </div>
@@ -163,19 +167,25 @@ div.formsFood{display: none;}
             &nbsp;&nbsp;
             <input type="checkbox" name="fil" value="mushrooms"    /> Mushrooms(x,✓)&nbsp;
             <input type="checkbox" name="fil" value="garlic"       /> Garlic(x,✓)   <br />
-            <input type="checkbox" name="fil" value="jalapenos"    /> Jalapenos&nbsp;&nbsp
+            <input type="checkbox" name="fil" value="jalapenos"    /> Jalapenos&nbsp;&nbsp;
                                                                       &nbsp;
             <input type="checkbox" name="fil" value="olives"       /> Olives(x,✓)&nbsp;
             <input type="checkbox" name="fil" value="anchovies"    /> Anchovies
                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="checkbox" name="fil" value="extra cheese" /> Extra Cheese  <br />
-            <input type="checkbox" name="fil" value="spinach"      /> Spinach&nbsp;&nbsp
+            <input type="checkbox" name="fil" value="spinach"      /> Spinach&nbsp;&nbsp;
                                                        &nbsp;&nbsp;&nbsp;
             <input type="checkbox" name="fil" value="meatball"     /> Meatball      <br />
+            <button type="button" onclick="ShowCalzoneNum()">Next</button>
           </div>
 
         </fieldset>
-
+        <div id="CalzoneNum" class ="formsFood">
+          <fieldset>
+          <input type="number" name="CalNum" value="1" min="0" max = "99">
+          <button type="button" onclick="ShowCalzone(); ShowCalzoneNum();">Hide</button>
+        </div>
+      </fieldset>
         <br />
         <div id ="Salad" class="formsFood">
         <fieldset>
@@ -194,12 +204,7 @@ div.formsFood{display: none;}
           Side:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                greens and veggies (serves one)
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$3.75&nbsp;&nbsp;
-          <input type="radio" name="side" value="1side salad"  />1
-          <input type="radio" name="side" value="2side salad"  />2
-          <input type="radio" name="side" value="3side salad"  />3
-          <input type="radio" name="side" value="4side salad"  />4
-          <input type="radio" name="side" value="5side salad"  />5
-
+          <input type="number" name="SSNum" value="1" min="0" max = "99">
            &nbsp;&nbsp;&nbsp;
             <input type="checkbox" name="dresss" value="vinaigrette"  /> Vinaigrette&nbsp
             <input type="checkbox" name="dresss" value="blue cheese"  /> Blue Cheese&nbsp
@@ -208,54 +213,34 @@ div.formsFood{display: none;}
           <br />Garden:&nbsp;&nbsp;&nbsp;
                 greens and veggies (serves 2-3)
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$4.75&nbsp;&nbsp;
-          <input type="radio" name="garden" value="1garden"  />1
-          <input type="radio" name="garden" value="2garden"  />2
-          <input type="radio" name="garden" value="3garden"  />3
-          <input type="radio" name="garden" value="4garden"  />4
-          <input type="radio" name="garden" value="5garden"  />5
+          <input type="number" name="GardenNum" value="1" min="0" max = "99">
 
            &nbsp;&nbsp;&nbsp;
-            <input type="checkbox" name="dressg" value="vinaigrette"  /> Vinaigrette&nbsp
-            <input type="checkbox" name="dressg" value="blue cheese"  /> Blue Cheese&nbsp
+            <input type="checkbox" name="dressg" value="vinaigrette"  /> Vinaigrette&nbsp;
+            <input type="checkbox" name="dressg" value="blue cheese"  /> Blue Cheese&nbsp;
             <input type="checkbox" name="dressg" value="ranch"        /> Ranch
 
           <br />Chef:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 greens, veggies, ham, turkey, provolone $7.50&nbsp;&nbsp;
-          <input type="radio" name="chef" value="1chef"  />1
-          <input type="radio" name="chef" value="2chef"  />2
-          <input type="radio" name="chef" value="3chef"  />3
-          <input type="radio" name="chef" value="4chef"  />4
-          <input type="radio" name="chef" value="5chef"  />5
+          <input type="number" name="ChefNum" value="1" min="0" max = "99">
 
            &nbsp;&nbsp;&nbsp;
-            <input type="checkbox" name="dressc" value="vinaigrette"  /> Vinaigrette&nbsp
-            <input type="checkbox" name="dressc" value="blue cheese"  /> Blue Cheese&nbsp
+            <input type="checkbox" name="dressc" value="vinaigrette"  /> Vinaigrette &nbsp;
+            <input type="checkbox" name="dressc" value="blue cheese"  /> Blue Cheese &nbsp;
             <input type="checkbox" name="dressc" value="ranch"        /> Ranch
 
           <br />Antipasto:&nbsp;greens, meats, cheeses, peppers, olives $7.50&nbsp;&nbsp;
-          <input type="radio" name="anti" value="1antipasto"  />1
-          <input type="radio" name="anti" value="2antipasto"  />2
-          <input type="radio" name="anti" value="3antipasto"  />3
-          <input type="radio" name="anti" value="4antipasto"  />4
-          <input type="radio" name="anti" value="5antipasto"  />5
+          <input type="number" name="AntiNum" value="1" min="0" max = "99">
 
           <br />Tuna Salad:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$7.50&nbsp;&nbsp;
-          <input type="radio" name="tuna" value="1tuna"  />1
-          <input type="radio" name="tuna" value="2tuna"  />2
-          <input type="radio" name="tuna" value="3tuna"  />3
-          <input type="radio" name="tuna" value="4tuna"  />4
-          <input type="radio" name="tuna" value="5tuna"  />5
+          <input type="number" name="TunaNum" value="1" min="0" max = "99">
 
           <br />Roll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $0.75 How many?
-          <input type="radio" name="roll" value="1roll"  />1
-          <input type="radio" name="roll" value="2roll"  />2
-          <input type="radio" name="roll" value="3roll"  />3
-          <input type="radio" name="roll" value="4roll"  />4
-          <input type="radio" name="roll" value="5roll"  />5
-
+          <input type="number" name="RollNum" value="1" min="0" max = "99">
+          <button type="button" onclick="ShowSalad()">Hide</button>
         </fieldset>
 
       </div>
@@ -403,6 +388,15 @@ div.formsFood{display: none;}
     </div>
   </form>
   <script>
+  document.getElementById('Pizza').style.display = "none";
+  document.getElementById('Stromboli').style.display = "none";
+  document.getElementById('Calzone').style.display = "none";
+  document.getElementById('Salad').style.display = "none";
+  document.getElementById('Subs').style.display = "none";
+  document.getElementById('SausageRolls').style.display = "none";
+  document.getElementById('PizzaNum').style.display = "none";
+  document.getElementById('CalzoneNum').style.display = "none";
+
   function ShowPizza() {
       var x = document.getElementById('Pizza');
       if (x.style.display == 'none') {
@@ -445,6 +439,22 @@ div.formsFood{display: none;}
   }
   function ShowSubs() {
       var x = document.getElementById('Subs');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowPizzaNum() {
+      var x = document.getElementById('PizzaNum');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowCalzoneNum() {
+      var x = document.getElementById('CalzoneNum');
       if (x.style.display == 'none') {
           x.style.display = 'block';
       } else {
