@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<?php 
+        require_once("Config.php");
+        require_once("Pizza.Class.php");
+        require_once("Toppings.Class.php");
+        ?>
+<head>
+  <meta charset="UTF-8" />
+  <title>Diorios</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/mycss.css" />
+</head>
+<style>
+.formsFood{display: none;}
+button{margin: 10px;}
+input[type = number]{width: 35px;}
+</style>
+<body>
+
+  <font face = "monaco">
+
+  <!-- 'form' collects user input via 'input' elements (text,checkboxes,buttons) -->
+  <!-- 'action=' specifies what to do when 'submit' button is clicked -->
+  <form method="post" name="forms" action=mailto:gambleallan@aim.com>
+                              <!-- action="order submit.html"> -->
+
+    <div class="forms">
+      <div class="cell1">
+        <center>
+        <h3>Diorio's on North Ave</h3>
+        1125 North Ave, Grand Junction, Colorado 81501
+        <br />970-243-1700
+        <hr />
+        </center>
+      </div>
+<div style="text-align: center;">
+      <button type="button" onclick="ShowPizza()">Pizza</button>
+      <button type="button" onclick="ShowStromboli()">Stromboli</button>
+      <button type="button" onclick="ShowSausageRolls()">SausageRolls</button>
+      <br />
+      <button type="button" onclick="ShowCalzone()">Calzone</button>
+      <button type="button" onclick="ShowSalad()">Salad</button>
+      <button type="button" onclick="ShowSubs()">Subs</button>
+</div>
+      <div id ="Pizza" class="formsFood">
+        <!-- 'fieldset' draws a box around the included elements -->
+        <?php 
+        $pizza = new Pizza();
+        $allpizzas = array();
+        $allpizzas = $pizza->getAllPizzas();
+        echo($allpizzas[0]["Name"]);
+        ?>        
+      </div>
+        <br />
+        <div id="SausageRolls" class="formsFood">
+        <fieldset>
+
+          <legend>SAUSAGE ROLLS (Italian Sausage, Ricotta, Sweet Peppers, Provolone
+                  wrapped in crust)
+          </legend>
+          $18.25 for an order of 6.  How many sausage roll orders? <br/>
+           <input type="number" name="SrNum" value="1" min="0" max = "99">
+           <button type="button" onclick="ShowSausageRolls()">Hide</button>
+
+        </fieldset>
+      </div>
+        <br />
+        <div id="Calzone" class ="formsFood">
+        <fieldset>
+          <legend>CALZONE (Pizza "turnover" with Ricotta and any 4 fillings</legend>
+
+          Family Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="calzone" value="family calzone"     />$15.25
+          <br />Individual Size&nbsp;
+          <input type="radio" name="calzone" value="individual calzone" />$8.25
+
+
+            <br />Choose 4 Fillings: <br />
+            <input type="checkbox" name="fil" value="pepperoni"    /> Pepperoni(x)&nbsp
+            <input type="checkbox" name="fil" value="onions"       /> Onions(x,✓)&nbsp
+            <input type="checkbox" name="fil" value="bacon"        /> Canadian Bacon&nbsp;
+            <input type="checkbox" name="fil" value="sausage"      /> Sausage(x)    <br />
+            <input type="checkbox" name="fil" value="peppers"      /> Peppers(x,✓)&nbsp;
+            <input type="checkbox" name="fil" value="pineapple"    /> Pineapple
+            &nbsp;&nbsp;
+            <input type="checkbox" name="fil" value="mushrooms"    /> Mushrooms(x,✓)&nbsp;
+            <input type="checkbox" name="fil" value="garlic"       /> Garlic(x,✓)   <br />
+            <input type="checkbox" name="fil" value="jalapenos"    /> Jalapenos&nbsp;&nbsp;
+                                                                      &nbsp;
+            <input type="checkbox" name="fil" value="olives"       /> Olives(x,✓)&nbsp;
+            <input type="checkbox" name="fil" value="anchovies"    /> Anchovies
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fil" value="extra cheese" /> Extra Cheese  <br />
+            <input type="checkbox" name="fil" value="spinach"      /> Spinach&nbsp;&nbsp;
+                                                       &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fil" value="meatball"     /> Meatball      <br />
+            <button type="button" onclick="ShowCalzoneNum()">Next</button>
+          </div>
+
+        </fieldset>
+        <div id="CalzoneNum" class ="formsFood">
+          <fieldset>
+          <input type="number" name="CalNum" value="1" min="0" max = "99">
+          <button type="button" onclick="ShowCalzone(); ShowCalzoneNum();">Hide</button>
+        </div>
+      </fieldset>
+        <br />
+        <div id ="Salad" class="formsFood">
+        <fieldset>
+          <legend>SALADS</legend>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How many?
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Dressings
+
+          <br />
+          Side:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               greens and veggies (serves one)
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$3.75&nbsp;&nbsp;
+          <input type="number" name="SSNum" value="1" min="0" max = "99">
+           &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="dresss" value="vinaigrette"  /> Vinaigrette&nbsp
+            <input type="checkbox" name="dresss" value="blue cheese"  /> Blue Cheese&nbsp
+            <input type="checkbox" name="dresss" value="ranch"        /> Ranch
+
+          <br />Garden:&nbsp;&nbsp;&nbsp;
+                greens and veggies (serves 2-3)
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$4.75&nbsp;&nbsp;
+          <input type="number" name="GardenNum" value="1" min="0" max = "99">
+
+           &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="dressg" value="vinaigrette"  /> Vinaigrette&nbsp;
+            <input type="checkbox" name="dressg" value="blue cheese"  /> Blue Cheese&nbsp;
+            <input type="checkbox" name="dressg" value="ranch"        /> Ranch
+
+          <br />Chef:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                greens, veggies, ham, turkey, provolone $7.50&nbsp;&nbsp;
+          <input type="number" name="ChefNum" value="1" min="0" max = "99">
+
+           &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="dressc" value="vinaigrette"  /> Vinaigrette &nbsp;
+            <input type="checkbox" name="dressc" value="blue cheese"  /> Blue Cheese &nbsp;
+            <input type="checkbox" name="dressc" value="ranch"        /> Ranch
+
+          <br />Antipasto:&nbsp;greens, meats, cheeses, peppers, olives $7.50&nbsp;&nbsp;
+          <input type="number" name="AntiNum" value="1" min="0" max = "99">
+
+          <br />Tuna Salad:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$7.50&nbsp;&nbsp;
+          <input type="number" name="TunaNum" value="1" min="0" max = "99">
+
+          <br />Roll:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $0.75 How many?
+          <input type="number" name="RollNum" value="1" min="0" max = "99">
+          <button type="button" onclick="ShowSalad()">Hide</button>
+        </fieldset>
+
+      </div>
+
+
+<!-- Subs menu starts here -->
+        <br />
+<div id="Subs" class ="formsFood">
+	<fieldset>
+          <legend>SUBS</legend>
+          <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Full
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Half
+
+
+          <br />Turkey&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub1" value="turkey full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub2" value="turkey half"       />$7.75
+
+          <br />Ham&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub3" value="ham full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub4" value="ham half"       />$7.75
+
+	  <br />Salami&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub5" value="salami full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub6" value="salami half"       />$7.75
+
+	  <br />Roast Beef&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub7" value="roast beef full"    />$10.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub8" value="roast beef half"       />$8.25
+
+	  <br />#1 Salami, Ham, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub9" value="#1 full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub10" value="#1 half"       />$7.75
+
+	  <br />#2 Turkey, Ham, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub11" value="#2 full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub12" value="#2 half"       />$7.75
+
+	  <br />#3 Roast Beef, Ham, Turkey, Salami, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub13" value="#3 full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub14" value="#3 half"       />$7.75
+
+	  <br />#4 Capacollo, Salami, Pepperoni, Provolone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub15" value="#4 full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub16" value="#4 half"       />$7.75
+
+	  <br />
+	  <br />
+
+	  ALL SERVED ON a fresh-baked roll with mayo, mustard, vinaigrette, lettuce, tomatoes, olives, and onions.
+
+	  <br />
+
+
+	  <br />Mancinelli - Salami, Ham, Cpacello, Mortadella, Provolone, Lettuce, Peppers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub17" value="mancinelli full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub18" value="mancinelli half"       />$7.75
+
+	  <br />Veggie - Mushrooms, Tomatoes, Onions, Olives, Lettuce, Peppers, Provolone, Mustard, Mayo&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub19" value="veggie full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub20" value="veggie half"       />$7.75
+
+	  <br />Tuna - Albacore Tuna & veggies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub21" value="Tuna full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub22" value="Tuna half"       />$7.75
+
+	  <br />
+	  <br />
+
+	  HOT SUBS
+
+	  <br />
+
+	  <br />Meatball Parmesan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub23" value="meatball parmesan full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub24" value="meatball parmesan half"       />$7.75
+
+	  <br />Meatball without cheese &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub25" value="meatball no cheese full"    />$9.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub26" value="meatball no chese half"       />$7.25
+
+	  <br />Italian Sausage without cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub27" value="italian no cheese full"    />$9.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub28" value="italian no cheese half"       />$7.25
+
+	  <br />Italian Sausage Parmesan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub29" value="italian sausage parmesan full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub30" value="italian sausage parmesan half"   />$7.75
+
+	  <br />Pastrami with tomatoes and mustard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub31" value="pastrami full"    />$9.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub32" value="pastrami half"       />$7.25
+
+	  <br />Pastrami & Provolone with tomatoes and mustard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub33" value="pastrami & provolone full"    />$9.75
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub34" value="pastrami & provolone half"       />$7.75
+
+	  <br />Reuben with corned beef, sauerkraut, swiis cheese, Thousand island&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub35" value="reuben full"    />$10.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub36" value="reuben half"       />$8.25
+
+	  <br />Brooklyn Reuben with pastrami, sauerkraut, swiss cheese, Thousand island&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub37" value="brooklyn reuben full"    />$10.25
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="sub38" value="brooklyn reuben half"       />$8.25
+
+
+
+          </div>
+        </fieldset>
+
+        Name <input name="name" />
+
+        Your Price <input name="price" size="8" value=$ readonly="readonly" />
+
+        <!-- submit button sends the form-data to a page called "/order submit.html" -->
+        <input type="submit" value="PLACE YOUR ORDER" />
+
+        <input type="reset" value="START OVER" />
+      </div>
+
+    </div>
+  </form>
+  <script>
+  document.getElementById('Pizza').style.display = "none";
+  document.getElementById('Stromboli').style.display = "none";
+  document.getElementById('Calzone').style.display = "none";
+  document.getElementById('Salad').style.display = "none";
+  document.getElementById('Subs').style.display = "none";
+  document.getElementById('SausageRolls').style.display = "none";
+  document.getElementById('PizzaNum').style.display = "none";
+  document.getElementById('CalzoneNum').style.display = "none";
+
+  function ShowPizza() {
+      var x = document.getElementById('Pizza');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowStromboli() {
+      var x = document.getElementById('Stromboli');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowCalzone() {
+      var x = document.getElementById('Calzone');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowSausageRolls() {
+      var x = document.getElementById('SausageRolls');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowSalad() {
+      var x = document.getElementById('Salad');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowSubs() {
+      var x = document.getElementById('Subs');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowPizzaNum() {
+      var x = document.getElementById('PizzaNum');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+  function ShowCalzoneNum() {
+      var x = document.getElementById('CalzoneNum');
+      if (x.style.display == 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+  }
+
+  </script>
+</body>
+
+</html>

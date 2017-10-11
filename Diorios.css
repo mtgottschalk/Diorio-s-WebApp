@@ -1,0 +1,22 @@
+.title
+{
+color: blue;
+text-align: center;
+}
+
+#Subs
+{
+Display: inline;
+margin-left:auto;
+margin-right: auto;
+width: 60%
+}
+#hotsubs input
+{
+    margin-left: 60px;
+}
+#coldsubs input
+{
+ margin-left: 60px;
+}
+
