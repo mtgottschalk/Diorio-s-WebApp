@@ -12,13 +12,23 @@ Class Pizza
 		$pricem = 0.0;
 		$pricel = 0.0;
 		$pricesl = 0.0;
+		$toppings = "";
 	}
-	function savePizza($id, $name, $prices, $pricem, $pricel, $pricesl, $description)
+	/*NEED FUNCTION GET PRICE BY SIZE*/
+	function savePizza($id, $name, $prices, $pricem, $pricel, $pricesl, $description, $toppings)
 	{
 		global $pdo;
-		$stmt = $pdo->prepare("INSERT INTO pizza (`id`, `name`, `prices`, `pricem`, `pricel`, `pricesl`, `description`) VALUES(:id, :name, :prices, :pricem, :pricel, :pricesl, :description)");
-		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricem'=>$pricem, ':pricel'=>$pricel, ':pricesl'=>$pricesl, ':description'=>$description));
+		$stmt = $pdo->prepare("INSERT INTO pizza (`id`, `name`, `prices`, `pricem`, `pricel`, `pricesl`, `description`, `toppings`) VALUES(:id, :name, :prices, :pricem, :pricel, :pricesl, :description, :toppings)");
+		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricem'=>$pricem, ':pricel'=>$pricel, ':pricesl'=>$pricesl, ':description'=>$description, ':toppings' =>$toppings));
 		echo "result: $result\n";
+		return $result;
+	}
+	function getToppingsByName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT toppings FROM pizza WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		var_dump($stmt->fetch());
 		return $result;
 	}
 	function getAllPizzas()
@@ -71,5 +81,22 @@ Class Pizza
 		var_dump($stmt->fetch());
 		return $result;
 	}
-		
+	function getPizzaToppings($pizzatoppings)
+	{
+		$temp = "";
+		$allpizzatoppings = array();
+	for($i = 0; $i < strlen($pizzatoppings); $i++)
+	{
+		if($pizzatoppings[$i] != " ")
+		{
+		$temp .= $pizzatoppings[$i];
+	}
+		else 
+		{array_push($allpizzatoppings, $temp);
+		$temp = "";
+	}
+	}
+	return $allpizzatoppings;	
+}
+
 }

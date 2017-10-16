@@ -46,18 +46,32 @@ input[type = number]{width: 35px;}
      
 </div>
  <button type="button" id="backtomenu" onclick="ShowMenu()">Main menu</button>
-      <div id ="Pizza" class="formsFood">
+      <div id ="Pizza" >
+		  <button onclick="addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, 16,document.getElementById('pizzaselect'));">Click</button>
+		  <!--function addPizzaToCart(quanity, size, name) return addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, 16,document.getElementById('pizzaselect').value)-->
+      <form id ="PizzasForm2" onsubmit="return addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, 16,document.getElementById('pizzaselect').name); ">
+	    Quanity<input type="text" id="quanity">
+	    </br>
+	    Size<select id="size"><option name="slice" value="slice">Slice</option>
+	    <option name="small" value="small">Small</option>
+	    <option name="medium" value="medium">Medium</option>
+	    <option name="Large" value="Large">Large</option>
+	    </select>
+	    </br>
 		 <?php
 		$pizza = new Pizza();
 		$allpizzas = array();
 		$allpizzas = $pizza->getAllPizzas();
 		$idp=1;
+		echo('Type<select class="pizzanames" id="pizzaselect"  onchange="getNewVal(this);"><option name="custom" value="custom">Custom</option>');
 		while(!empty($allpizzas[$idp]))
        {
-		  echo('<input type="checkbox" class="pizzanames" name="'.$allpizzas[$idp]["Name"].'" value="'.$allpizzas[$idp]["Name"].'">');
+		  echo('<option name="'.$allpizzas[$idp]["Name"].'" value="'.$allpizzas[$idp]["Toppings"].'">');
 		   echo($allpizzas[$idp]["Name"]);
+		   echo('</option>');
 		   $idp++;
 	   }
+	   echo('</select>');
 	echo('</br></br></br>');
        $topping = new Topping();
        $alltoppings = array();
@@ -65,12 +79,13 @@ input[type = number]{width: 35px;}
        $id=1;
        while(!empty($alltoppings[$id]))
        {
-		  echo('<input type="checkbox" class="toppings" name="'.$alltoppings[$id]["name"].'" value="'.$alltoppings[$id]["name"].'">');
+	    echo('<input type="checkbox" class="toppings" id="'.$alltoppings[$id]["name"].'" value="'.$alltoppings[$id]["name"].'">');
 		   echo($alltoppings[$id]["name"]);
-		   $id++;
-	   }
+		    $id++;
+		}
        ?>
-       
+       <input type="submit">
+       </form>
         <br/>
         </div>
         <div id="SausageRolls" class="formsFood">
@@ -252,7 +267,70 @@ input[type = number]{width: 35px;}
           x.style.display = 'none';
       }
   }
+  document.addEventListener("selectionchange", function() {
+   document.get
+});
+function getNewVal(item)
+{
+	uncheckAll("Pizza");
+	var temp = "";
+	var pizzatoppings = item.value;
+	for(var i=0; i < pizzatoppings.length-1; i++)
+	{
+		if(pizzatoppings[i]!= " ")
+		{
+			temp+= pizzatoppings[i];
+		}else 
+		{
+			document.getElementById(temp).checked = true;
+			temp = "";
+		}
+}
+}
+function uncheckAll(formname){
 
+  var checkboxes = []; 
+  checkboxes = document.getElementsByTagName('input');
+ 
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox')   {
+      checkboxes[i].checked = false;
+    }
+  }
+	
+}
+function counttoppings(formname)
+{
+	var count = 0;
+	 var checkboxes = []; 
+  checkboxes = document.getElementsByTagName('input');
+ 
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox')   {
+      if(checkboxes[i].checked == true)
+      count++;
+    }
+  }
+  return count;
+}
+function addPizzaToCart(quanity, size, price, name)
+{
+	alert("here");
+	var count = counttoppings('pizza');
+	var toppingtotal = 0;
+	if(size == "slice") toppingtotal = count * .30;
+	if(size == "small") toppingtotal = count * .50;
+	if(size =="medium") toppingtotal = count * .80;
+	if(size == "Large") toppingtotal = count * 1;
+	var subtotal = (quanity * price) + toppingtotal;
+	var total = subtotal + (subtotal * .08);
+	alert(quanity + "Pizza name: "+ name.options[name.selectedIndex].text +" Size " + size + " Price: $" + total);
+	
+}
+function test()
+{
+	alert("here");
+}
   </script>
 </body>
 
