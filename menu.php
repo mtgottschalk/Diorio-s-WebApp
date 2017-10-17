@@ -48,7 +48,7 @@ input[type = number]{width: 35px;}
  <button type="button" id="backtomenu" onclick="ShowMenu()">Main menu</button>
       <div id ="Pizza" >
 		 <!--onsubmit="return addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, document.getElementById('pizzaselect'));"-->
-      <form id ="PizzasForm2" action="test.php" method="POST">
+      <form id ="PizzasForm2" action="addpizzastocart.php" method="POST">
 		 <input type="text" id="alltoppings" name="alltoppings"></input>
 	    Quanity<input type="text" id="quanity">
 	    </br>
@@ -103,20 +103,24 @@ input[type = number]{width: 35px;}
         <br />
         <div id ="Salad" class="formsFood">
         <?php
-        echo('</br></br></br>');
+        echo('</br></br></br><form id="saladpicker" action="addsaladtocart.php" method="POST">');
        $salad = new Salad();
        $allsalads = array();
        $allsalads = $salad->getAllSalads();
        $ids=1;
        while(!empty($allsalads[$ids]))
        {
-		  echo('</br><input type="checkbox" class="toppings" name="'.$allsalads[$ids]["Name"].'" value="'.$allsalads[$ids]["Name"].'">');
-		   echo($allsalads[$ids]["Name"]);
-		   echo('	Price: $'.$allsalads[$ids]["Price"]);
+		  echo('</br><input type="checkbox" class="salad" name="'.$allsalads[$ids]["Name"].'" value="'.$allsalads[$ids]["Name"].'">');
+		   echo('<span class="saladname">'.$allsalads[$ids]["Name"].'</span>');
+		   echo('<span class="saladprice">$'.$allsalads[$ids]["Price"].'</span>');
+		   echo('<span class="saladdescription">$'.$allsalads[$ids]["Description"].'</span><input type="text" name="quanity'.$allsalads[$ids]["Name"].'">');
+		   
 		   $ids++;
 	   }
-       ?>
-      </div>
+       ?></br>
+       <input type ="text" id="saladstoreturn" name="saladstoreturn">
+       <input type="submit">
+     </form> </div>
 
 
 <!-- Subs menu starts here -->
@@ -133,7 +137,7 @@ input[type = number]{width: 35px;}
        {
 		   if($allsubs[$idsub]["Temp"] == "Hot")
 		   {
-		  echo('</br><input type="checkbox" class="subs" name="'.$allsubs[$idsub]["Name"].'" value="'.$allsubs[$idsub]["Name"].'">');
+		  echo('</br>');
 		   echo($allsubs[$idsub]["Name"]);
 		   echo('<input type="checkbox" class="subprice half" name="half'.$allsubs[$idsub]["Name"].'" value="'.$allsubs[$idsub]["PriceH"].'">');
 		   echo($allsubs[$idsub]["PriceH"]);
@@ -147,7 +151,7 @@ input[type = number]{width: 35px;}
 	   echo("<div id='coldsubs'><h1 class='title'>Cold Subs</h1>");
 	   while($idsub < count($coldsubs)+1)
 	   {
-		   		  echo('</br><input type="checkbox" class="subs" name="'.$allsubs[$idsub]["Name"].'" value="'.$allsubs[$idsub]["Name"].'">');
+		   		  echo('</br>');
 		   echo($allsubs[$idsub]["Name"]);
 		   echo('<input type="checkbox" class="subprice half" name="half'.$allsubs[$idsub]["Name"].'" value="'.$allsubs[$idsub]["PriceH"].'">');
 		   echo($allsubs[$idsub]["PriceH"].'</input>');
@@ -311,7 +315,33 @@ function getalltoppings(formname){
   document.getElementById('alltoppings').value = alltoppings;
   return alltoppings;
 }
-/*function addPizzaToCart(quanity, size, name)
+function getallsalads(formname)
+{
+	var checkboxes = [];
+	 var allsalads = []; 
+  checkboxes = document.getElementById('Salad').getElementsByTagName('input');
+ 
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox')   {
+      if(checkboxes[i].checked == true)
+      allsalads.push(checkboxes[i].value);
+    }
+  }
+  document.getElementById('saladstoreturn').value = allsalads;
+  return allsalads;
+}
+$(".pizzatoppings").change(function() {
+    getalltoppings('pizza');
+}); // When input is checked changes value of alltoppings input box to equal the toppings checked
+
+$(".salad").change(function() {
+    getallsalads('Salad');
+});
+  </script>
+</body>
+</html>
+
+<!--function addPizzaToCart(quanity, size, name)
 {  
 	var alltoppings = [];
 	alltoppings = getalltoppings('Pizza');
@@ -352,10 +382,4 @@ function test()
 	if(size == "Large") toppingtotal = count * 1;
 	var subtotal = (quanity * price) + toppingtotal;
 	var total = subtotal + (subtotal * .08);
-	*/
-$(".pizzatoppings").change(function() {
-    getalltoppings('pizza');
-}); // When input is checked changes value of alltoppings input box to equal the toppings checked
-  </script>
-</body>
-</html>
+	-->
