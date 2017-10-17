@@ -31,6 +31,14 @@ Class Pizza
 		var_dump($stmt->fetch());
 		return $result;
 	}
+	function getNameByToppings($toppings)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT name FROM pizza WHERE toppings=:toppings");
+		$result = $stmt->execute(array(':toppings'=>$toppings));
+		return $stmt->fetchColumn();
+		
+	}
 	function getAllPizzas()
 	{
 		global $pdo;
@@ -54,32 +62,35 @@ Class Pizza
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT * FROM pizza WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		var_dump($stmt->fetch());
-		return $result;
+		return $stmt->fetch();
+	}
+	function getPriceslbyName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT pricesl FROM pizza WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
 	}
 	function getPricesbyName($name)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT prices FROM pizza WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		var_dump($stmt->fetch());
-		return $result;
+		return $stmt->fetchColumn();
 	}
 	function getPricembyName($name)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT pricem FROM pizza WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		var_dump($stmt->fetch());
-		return $result;
+		return $stmt->fetchColumn();
 	}
 	function getPricelbyName($name)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT pricel FROM pizza WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		var_dump($stmt->fetch());
-		return $result;
+		return $stmt->fetchColumn();
 	}
 	function getPizzaToppings($pizzatoppings)
 	{

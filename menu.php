@@ -12,6 +12,7 @@ require_once("Pizza.Class.php");
   <meta charset="UTF-8" />
   <title>Diorios</title>
   <link rel="stylesheet" type="text/css" href="./Diorios.css" >
+  <script src="jquery-3.2.1.min.js"></script>
 </head>
 <style>
 .formsFood{display: none;}
@@ -23,7 +24,6 @@ input[type = number]{width: 35px;}
   <font face = "monaco">
 
 
-  <form method="post" name="forms" action=mailto:gambleallan@aim.com>
                               <!-- action="order submit.html"> -->
 
     <div class="forms">
@@ -47,12 +47,12 @@ input[type = number]{width: 35px;}
 </div>
  <button type="button" id="backtomenu" onclick="ShowMenu()">Main menu</button>
       <div id ="Pizza" >
-		  <button onclick="addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, 16,document.getElementById('pizzaselect'));">Click</button>
-		  <!--function addPizzaToCart(quanity, size, name) return addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, 16,document.getElementById('pizzaselect').value)-->
-      <form id ="PizzasForm2" onsubmit="return addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, 16,document.getElementById('pizzaselect').name); ">
+		 <!--onsubmit="return addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, document.getElementById('pizzaselect'));"-->
+      <form id ="PizzasForm2" action="test.php" method="POST">
+		 <input type="text" id="alltoppings" name="alltoppings"></input>
 	    Quanity<input type="text" id="quanity">
 	    </br>
-	    Size<select id="size"><option name="slice" value="slice">Slice</option>
+	    Size<select name="size"><option name="slice" value="slice">Slice</option>
 	    <option name="small" value="small">Small</option>
 	    <option name="medium" value="medium">Medium</option>
 	    <option name="Large" value="Large">Large</option>
@@ -63,7 +63,7 @@ input[type = number]{width: 35px;}
 		$allpizzas = array();
 		$allpizzas = $pizza->getAllPizzas();
 		$idp=1;
-		echo('Type<select class="pizzanames" id="pizzaselect"  onchange="getNewVal(this);"><option name="custom" value="custom">Custom</option>');
+		echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this);"><option name="custom" value="">Custom</option>');
 		while(!empty($allpizzas[$idp]))
        {
 		  echo('<option name="'.$allpizzas[$idp]["Name"].'" value="'.$allpizzas[$idp]["Toppings"].'">');
@@ -79,7 +79,7 @@ input[type = number]{width: 35px;}
        $id=1;
        while(!empty($alltoppings[$id]))
        {
-	    echo('<input type="checkbox" class="toppings" id="'.$alltoppings[$id]["name"].'" value="'.$alltoppings[$id]["name"].'">');
+	    echo('<input type="checkbox"  class="pizzatoppings" id="'.$alltoppings[$id]["name"].'" value="'.$alltoppings[$id]["name"].'">');
 		   echo($alltoppings[$id]["name"]);
 		    $id++;
 		}
@@ -158,15 +158,8 @@ input[type = number]{width: 35px;}
 	   ?>
 	   </div>
           </div>
-
-        Name <input name="name" />
-
-        Your Price <input name="price" size="8" value=$ readonly="readonly" />
-
-        <!-- submit button sends the form-data to a page called "/order submit.html" -->
-        <input type="submit" value="PLACE YOUR ORDER" />
-
-        <input type="reset" value="START OVER" />
+<div id= "cart">
+       Checkout<textarea></textarea>
       </div>
 
   <script>
@@ -270,8 +263,11 @@ input[type = number]{width: 35px;}
   document.addEventListener("selectionchange", function() {
    document.get
 });
-function getNewVal(item)
+function initialCheck(item)
 {
+	//makes array of toppings that initially come on pizza this is important because 
+	//if someone takes one of the toppings off the initial pizza but adds another topping
+	//they need to be charged for the additional topping I believe
 	uncheckAll("Pizza");
 	var temp = "";
 	var pizzatoppings = item.value;
@@ -288,7 +284,7 @@ function getNewVal(item)
 }
 }
 function uncheckAll(formname){
-
+//unchecks all the checkboxes
   var checkboxes = []; 
   checkboxes = document.getElementsByTagName('input');
  
@@ -299,23 +295,55 @@ function uncheckAll(formname){
   }
 	
 }
-function counttoppings(formname)
-{
-	var count = 0;
-	 var checkboxes = []; 
+function getalltoppings(formname){
+
+//makes array of all toppings checked when submitted
+	 var checkboxes = [];
+	 var alltoppings = []; 
   checkboxes = document.getElementsByTagName('input');
  
   for (var i=0; i<checkboxes.length; i++)  {
     if (checkboxes[i].type == 'checkbox')   {
       if(checkboxes[i].checked == true)
-      count++;
+      alltoppings.push(checkboxes[i].value);
     }
   }
-  return count;
+  document.getElementById('alltoppings').value = alltoppings;
+  return alltoppings;
 }
-function addPizzaToCart(quanity, size, price, name)
+/*function addPizzaToCart(quanity, size, name)
+{  
+	var alltoppings = [];
+	alltoppings = getalltoppings('Pizza');
+	var initialtoppings = [];
+	var toppings = name.value;
+	var name = name.options[name.selectedIndex].text;
+	var temp = "";
+	var count = 0;
+	for(var i=0; i < toppings.length-1; i++)
+	{
+		if(toppings[i]!= " ")
+		{
+			temp+= toppings[i];
+			
+		}else 
+		{
+			initialtoppings.push(temp);
+			temp = "";
+		}
+}
+for(var j = 0; j < alltoppings.length; j++)
+for(var k = 0; k < initialtoppings.length; k++)
+if(alltoppings[j] == initialtoppings[k])count++;
+
+	//from here need to post the name of pizza, size, alltoppings on the pizza, number of extra toppings
+// then pull in the price of the pizza and turn it store info in an array
+}
+function test()
 {
 	alert("here");
+}
+/*alert("here");
 	var count = counttoppings('pizza');
 	var toppingtotal = 0;
 	if(size == "slice") toppingtotal = count * .30;
@@ -324,14 +352,10 @@ function addPizzaToCart(quanity, size, price, name)
 	if(size == "Large") toppingtotal = count * 1;
 	var subtotal = (quanity * price) + toppingtotal;
 	var total = subtotal + (subtotal * .08);
-	alert(quanity + "Pizza name: "+ name.options[name.selectedIndex].text +" Size " + size + " Price: $" + total);
-	
-}
-function test()
-{
-	alert("here");
-}
+	*/
+$(".pizzatoppings").change(function() {
+    getalltoppings('pizza');
+}); // When input is checked changes value of alltoppings input box to equal the toppings checked
   </script>
 </body>
-
 </html>
