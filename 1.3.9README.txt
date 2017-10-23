@@ -1,0 +1,11 @@
+Version 1.3.9 
+
+Changed all SELECT OPTION buttons to INPUT TYPE="NUMBER" buttons.
+
+Used CSS styling on the INPUT TYPE="NUMBER" buttons to color the up and down arrows and make them larger.
+
+Implemented multiple pizza ordering with different filling combinations.
+
+Implemented an "internal" database to make editing of pricing centralized.  The "internal" database is simply a javascript array embedded in the code, not anything like SQL.
+
+The DIOROS.HTML file is still a "single-file solution". It's straightforward and gets the job done without the use of PHP or SQL.

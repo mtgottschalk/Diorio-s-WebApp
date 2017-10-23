@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Diorios</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/mycss.css" />
+
+
+<!--
+        input 
+        {
+	  color: #777;
+	  width: 2em;
+	  font-size: 2em;
+	  border-radius: 10px;
+	  border: 2px solid #ccc;
+	  padding: 5px;
+	  padding-left: 10px;
+	}
+-->
+
+  <style>
+
+        label {float: left; width: 900px;}  <!-- used to space over in subs menu -->
+
+	input[type=number]::-webkit-inner-spin-button
+        {
+	  -webkit-appearance: none;
+	  cursor: pointer;
+	  display: block;
+	  width: 9px;
+	  text-align: center;
+	  position: relative;
+	  background: transparent;
+	}
+	input[type=number]::-webkit-inner-spin-button::before,
+	input[type=number]::-webkit-inner-spin-button::after
+        {
+	  content: "";
+	  position: absolute;
+	  right: 0;
+	  width: 0;
+	  height: 0;
+	  border-left: 7px solid transparent;
+	  border-right: 7px solid transparent;
+	  border-bottom: 10px solid blue;
+	}
+	input[type=number]::-webkit-inner-spin-button::before
+        {
+	  top: 10px;
+	  transform: rotate(180deg);
+	}
+	input[type=number]::-webkit-inner-spin-button::after
+        {
+	  bottom: 10px;
+	}
+  </style>
+
+
+
+  <script> 
+
+  var price = 0.00;
+
+  var itemsAndPricesPizza = 
+  [
+    ["cheese_slice",                     2.65],
+    ["cheese_14",                       12.50],
+    ["cheese_18",                       14.25],
+    ["cheese_Sicilian",                 15.50],
+    ["atw_slice",                        3.50],
+    ["atw_14",                          16.25],
+    ["atw_18",                          19.75],
+    ["atw_Sicilian",                    20.75],
+    ["veg_slice",                        3.50],
+    ["veg_14",                          16.25],
+    ["veg_18",                          19.75],
+    ["veg_Sicilian",                    20.75],                                                                    
+    ["top_slice",                        0.30],
+    ["top_14",                           1.00],
+    ["top_18",                           1.50],
+    ["top_Sicilian",                     1.50],
+  ];
+
+  var itemsAndPrices = 
+  [
+    ["small_stromboli",                  20.25],
+    ["large_stromboli",                  23.75],
+    ["sausage_rolls",                    18.25],
+    ["family_calzone1",                  15.25],
+    ["family_calzone2",                  15.25],
+    ["individual_calzone1",               8.25],
+    ["individual_calzone2",               8.25],
+    ["side_salad",                        3.75],
+    ["garden_salad",                      4.75],
+    ["chef_salad",                        7.50],
+    ["antipasto_salad",                   7.50],
+    ["tuna_salad",                        7.50],                                                                    
+    ["vinaigrette",                       0.00],
+    ["blue_cheese",                       0.00],
+    ["ranch",                             0.00],
+    ["rolls",                              .75],
+    ["turkey_full",                       9.75],
+    ["turkey_half",                       7.75],
+    ["ham_full",                          9.75],
+    ["ham_half",                          7.75],
+    ["salami_full",                       9.75],
+    ["salami_half",                       7.75],
+    ["roast_beef_full",                  10.25],
+    ["roast_beef_half",                   8.25],
+    ["sub#1_full",                        9.75],
+    ["sub#1_half",                        7.75],
+    ["sub#2_full",                        9.75],
+    ["sub#2_half",                        7.75],
+    ["sub#3_full",                        9.75],
+    ["sub#3_half",                        7.75],
+    ["sub#4_full",                        9.75],
+    ["sub#4_half",                        7.75],
+    ["mancinelli_full",                   9.75],
+    ["mancinelli_half",                   7.75],
+    ["veggie_full",                       9.75],
+    ["veggie_half",                       7.75],
+    ["tuna_full",                         9.75],
+    ["tuna_half",                         7.75],
+    ["meatball_parmesan_full",            9.75],
+    ["meatball_parmesan_half",            7.75],
+    ["meatball_no_cheese_full",           9.25],
+    ["meatball_no_cheese_half",           7.25],
+    ["italian_no_cheese_full",            9.25],
+    ["italian_no_cheese_half",            7.25],
+    ["italian_sausage_parmesan_full",     9.75],
+    ["italian_sausage_parmesan_half",     7.75],
+    ["pastrami_full",                     9.25],
+    ["pastrami_half",                     7.25],
+    ["pastrami&provolone_full",           9.75],
+    ["pastrami&provolone_half",           7.75],
+    ["reuben_full",                      10.25],
+    ["reuben_half",                       8.25],
+    ["brooklyn_reuben_full",             10.25],
+    ["brooklyn_reuben_half",              8.25],
+  ];
+
+
+  function validateNameAndPrice()
+  {
+    if (document.forms.name.value == "")
+    {
+      alert("Please enter your name.");
+      return (false);
+    }
+
+    if (document.formsubmit.price.value == " price ")
+    {
+      alert("No Items Selected");
+      return (false);
+    }
+
+    if (price == 0.00)
+    {
+      alert("No Items Selected");
+      return (false);
+    }
+
+    return (true);
+  }
+
+  function dm(amount) 
+  {
+    string = "" + amount;
+    dec = string.length - string.indexOf('.');
+
+    if (string.indexOf('.') == -1) return string + '.00';
+
+    if (dec == 1)                  return string + '00';
+    if (dec == 2)                  return string + '0';
+    if (dec > 3)                   return string.substring(0,string.length-dec+3);
+    return string;
+  }
+
+  function addSelectPrices(id, amount)
+  {
+    var dropDown = document.getElementById(id);
+    var nrSelected = document.getElementById(id).value; 
+
+    if (dropDown.selectedIndex == -1 && nrSelected == 0)
+    {
+      return
+    }
+
+    if (nrSelected == "0")
+      {
+      dropDown.selectedIndex = -1;
+      }
+    else
+      {
+      price = price + parseInt(nrSelected) * amount;
+      //put item, qty, cost into textarea with name=cart;
+      document.formsubmit.cart.value = document.formsubmit.cart.value +
+                  id + '      qty: ' + nrSelected + '     $' 
+                     + dm(amount*parseInt(nrSelected)) + '\n';     
+      }                        
+  }
+
+  function showPrice()
+  {
+    //fills text box called "price" in form called "forms" with the variable "price"
+    //convert decimal price into a string with leading $ and 2 decimal places
+
+    //put total price into textarea with name=price;  
+    document.formsubmit.price.value = 'Total Price:  $' + dm(price);     
+  }
+
+  function addPrices()
+  {
+    price = 0.00
+    pertopping = 0.00
+
+    //clear the cart
+    document.formsubmit.cart.value = '';
+
+    // ******************************* pizza #1 ***********************************
+
+    for (var i = 0; i < 12; i++)                                       //12 pizza types
+    {
+      if (document.forms.pizza[i].checked)                         // name="pizza"
+      {
+        price = price + itemsAndPricesPizza[i][1];                        
+
+        //put item, qty, cost into textarea with name=cart;
+        document.formsubmit.cart.value = document.formsubmit.cart.value
+                                  + document.forms.pizza[i].value 
+                                  + '      qty: 1' 
+                                  + '     $' 
+                                  + dm(itemsAndPricesPizza[i][1]) 
+                                  + '\n'; 
+
+        //check for extra toppings on non-specialty pizzas
+
+        if (i < 4)
+        {
+          pertopping = itemsAndPricesPizza[i%4 + 12][1];           //depends on pizza size
+
+          for (var j = 0; j < 14; j++)                                //14 topping types
+          {
+            if (document.forms.top[j].checked) 
+            {
+              price = price + pertopping;
+
+              //put topping, qty, cost into textarea with name=cart;
+              document.formsubmit.cart.value = document.formsubmit.cart.value
+                                        + document.forms.top[j].value  
+                                        + '     $' 
+                                        + dm(pertopping) 
+                                        + '\n'; 
+            }
+          }
+        }
+      }
+    }
+
+    //  ******************************* pizza #2 ***********************************
+
+    for (var i = 0; i < 12; i++)                                       //12 pizza types
+    {
+      if (document.forms.pizza2[i].checked)                         // name="pizza"
+      {
+        price = price + itemsAndPricesPizza[i][1];                        
+
+        //put item, qty, cost into textarea with name=cart;
+        document.formsubmit.cart.value = document.formsubmit.cart.value
+                                  + document.forms.pizza2[i].value 
+                                  + '      qty: 1' 
+                                  + '     $' 
+                                  + dm(itemsAndPricesPizza[i][1]) 
+                                  + '\n'; 
+
+        //check for extra toppings on non-specialty pizzas
+
+        if (i < 4)
+        {
+          pertopping = itemsAndPricesPizza[i%4 + 12][1];           //depends on pizza size
+
+          for (var j = 0; j < 14; j++)                                //14 topping types
+          {
+            if (document.forms.top2[j].checked) 
+            {
+              price = price + pertopping;
+
+              //put topping, qty, cost into textarea with name=cart;
+              document.formsubmit.cart.value = document.formsubmit.cart.value
+                                        + document.forms.top2[j].value  
+                                        + '     $' 
+                                        + dm(pertopping) 
+                                        + '\n'; 
+            }
+          }
+        }
+      }
+    }
+
+    //  ******************************* pizza #3 ***********************************
+
+    for (var i = 0; i < 12; i++)                                       //12 pizza types
+    {
+      if (document.forms.pizza3[i].checked)                         // name="pizza"
+      {
+        price = price + itemsAndPricesPizza[i][1];                        
+
+        //put item, qty, cost into textarea with name=cart;
+        document.formsubmit.cart.value = document.formsubmit.cart.value
+                                  + document.forms.pizza3[i].value 
+                                  + '      qty: 1' 
+                                  + '     $' 
+                                  + dm(itemsAndPricesPizza[i][1]) 
+                                  + '\n'; 
+
+        //check for extra toppings on non-specialty pizzas
+
+        if (i < 4)
+        {
+          pertopping = itemsAndPricesPizza[i%4 + 12][1];           //depends on pizza size
+
+          for (var j = 0; j < 14; j++)                                //14 topping types
+          {
+            if (document.forms.top3[j].checked) 
+            {
+              price = price + pertopping;
+
+              //put topping, qty, cost into textarea with name=cart;
+              document.formsubmit.cart.value = document.formsubmit.cart.value
+                                        + document.forms.top3[j].value  
+                                        + '     $' 
+                                        + dm(pertopping) 
+                                        + '\n'; 
+            }
+          }
+        }
+      }
+    }
+
+    //  ******************************* pizza #4 ***********************************
+
+    for (var i = 0; i < 12; i++)                                       //12 pizza types
+    {
+      if (document.forms.pizza4[i].checked)                         // name="pizza"
+      {
+        price = price + itemsAndPricesPizza[i][1];                        
+
+        //put item, qty, cost into textarea with name=cart;
+        document.formsubmit.cart.value = document.formsubmit.cart.value
+                                  + document.forms.pizza4[i].value 
+                                  + '      qty: 1' 
+                                  + '     $' 
+                                  + dm(itemsAndPricesPizza[i][1]) 
+                                  + '\n'; 
+
+        //check for extra toppings on non-specialty pizzas
+
+        if (i < 4)
+        {
+          pertopping = itemsAndPricesPizza[i%4 + 12][1];           //depends on pizza size
+
+          for (var j = 0; j < 14; j++)                                //14 topping types
+          {
+            if (document.forms.top4[j].checked) 
+            {
+              price = price + pertopping;
+
+              //put topping, qty, cost into textarea with name=cart;
+              document.formsubmit.cart.value = document.formsubmit.cart.value
+                                        + document.forms.top4[j].value  
+                                        + '     $' 
+                                        + dm(pertopping) 
+                                        + '\n'; 
+            }
+          }
+        }
+      }
+    }
+
+
+    for (var i = 0; i < itemsAndPrices.length; i++)
+      addSelectPrices(itemsAndPrices[i][0], itemsAndPrices[i][1]);
+
+    showPrice();
+  }
+
+  function InitializeStyleDisplay()
+  {
+      var x = document.getElementById('Pizza');
+      x.style.display = 'none';
+      var x = document.getElementById('Stromboli');
+      x.style.display = 'none';
+      var x = document.getElementById('Calzone');
+      x.style.display = 'none';
+      var x = document.getElementById('SausageRolls');
+      x.style.display = 'none';
+      var x = document.getElementById('Salad');
+      x.style.display = 'none';
+      var x = document.getElementById('Subs');
+      x.style.display = 'none';
+  }
+
+  function InitializePriceDisplay()
+  {
+      var string = "";
+
+      for (var i = 0; i < itemsAndPricesPizza.length; i++)
+      {
+        string = itemsAndPricesPizza[i][0];
+        document.getElementById(string+"_1").innerHTML= "$"+dm(itemsAndPricesPizza[i][1]);    
+        document.getElementById(string+"_2").innerHTML= "$"+dm(itemsAndPricesPizza[i][1]);
+        document.getElementById(string+"_3").innerHTML= "$"+dm(itemsAndPricesPizza[i][1]);
+        document.getElementById(string+"_4").innerHTML= "$"+dm(itemsAndPricesPizza[i][1]);
+      }
+
+      for (var i = 0; i < itemsAndPrices.length; i++)
+      {
+        string = itemsAndPrices[i][0] + "_price";
+        if (itemsAndPrices[i][1] < 10.00)
+          document.getElementById(string).innerHTML = "$ " + dm(itemsAndPrices[i][1]);
+        else     
+          document.getElementById(string).innerHTML = "$" + dm(itemsAndPrices[i][1]);
+      }
+  }
+
+  function ShowPizza()
+  {
+      var x = document.getElementById('Pizza');
+
+      if (x.style.display == 'none') 
+      {
+          x.style.display = 'block';
+      } 
+      else 
+      {
+          x.style.display = 'none';
+      }
+  }
+  function ShowStromboli()
+  {
+      var x = document.getElementById('Stromboli');
+      if (x.style.display == 'none') 
+      {
+          x.style.display = 'block';
+      }
+      else
+      {
+          x.style.display = 'none';
+      }
+  }
+  function ShowCalzone()
+  {
+      var x = document.getElementById('Calzone');
+      if (x.style.display == 'none')
+      {
+          x.style.display = 'block';
+      }
+      else
+      {
+          x.style.display = 'none';
+      }
+  }
+  function ShowSausageRolls()
+  {
+      var x = document.getElementById('SausageRolls');
+      if (x.style.display == 'none')
+      {
+          x.style.display = 'block';
+      }
+      else
+      {
+          x.style.display = 'none';
+      }
+  }
+  function ShowSalad()
+  {
+      var x = document.getElementById('Salad');
+      if (x.style.display == 'none')
+      {
+          x.style.display = 'block';
+      }
+      else
+      {
+          x.style.display = 'none';
+      }
+  }
+  function ShowSubs()
+  {
+      var x = document.getElementById('Subs');
+      if (x.style.display == 'none')
+      {
+          x.style.display = 'block';
+      }
+      else
+      {
+          x.style.display = 'none';
+      }
+  }
+
+  </script>
+</head>
+
+<!-- ******************************* HTML starts here ******************************** -->
+
+<style>
+div.formsFood{display: none;}
+</style>
+
+<body>
+
+  <font face = "monaco">                  <!-- all characters are same width in monaco -->
+
+  <!-- 'form' collects user input via 'input' elements (text,checkboxes,buttons) -->
+  <!-- 'action=' specifies what to do when 'submit' button is clicked -->
+  <form method="post" name="forms">
+  <!--      action="mailto:gambleallan@aim.com?subject=Diorios Online Order"
+        onsubmit="return validateNameAndPrice()"
+        enctype="text/plain" > -->
+                                                <!-- action="desktop/submittal.html" -->
+                                                <!-- onsubmit="return validateName()"  -->
+
+    <div class="forms">
+      <div class="cell1">
+        <center>
+        <h3>Diorio's on North Ave</h3>
+        1125 North Ave, Grand Junction, Colorado 81501
+        <br />970-243-1700
+        <hr />
+        </center>
+      </div>
+
+
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;
+
+      <button style="width:100px;height:70px;background: url(pizzathumb.jpg);"
+          type="button" onclick="ShowPizza()"        ><mark>Pizza</mark>         </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+      <button style="width:100px;height:70px;background: url(strombolithumb.png);"
+          type="button" onclick="ShowStromboli()"    ><mark>Stromboli</mark>     </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+      <button style="width:100px;height:70px;background: url(sausagerollsthumb.jpg);"
+          type="button" onclick="ShowSausageRolls()" ><mark>SausageRolls</mark>  </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+      <button style="width:100px;height:70px;background: url(calzonethumb.jpg);"
+          type="button" onclick="ShowCalzone()"      ><mark>Calzone</mark>       </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+      <button style="width:100px;height:70px;background: url(saladthumb.png);"
+          type="button" onclick="ShowSalad()"        ><mark>Salads</mark>        </button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+      <button style="width:100px;height:70px;background: url(subthumb.jpg);"
+          type="button" onclick="ShowSubs()"         ><mark>Subs</mark>          </button>
+
+<!-- ********************************** Pizza ***************************** -->
+
+      <div id ="Pizza" class="formsFood">
+
+        <!-- ****************************** Pizza #1 *************************** -->
+        <br />
+
+        <!-- 'fieldset' draws a box around the included elements -->
+        <fieldset>
+
+          <legend>PIZZA #1 SIZE, TYPE AND TOPPINGS</legend>
+ 
+          <img src="sicilian.png" alt="Sicilian" 
+               style="float:right;width:192px;height:192px;">
+          <img src="newyork.png"  alt="New York" 
+               style="float:left;width:192px;height:192px;">
+          
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Slice
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          14"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          18"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Sicilian
+
+          <br />Cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_slice" onclick="addPrices()"/>
+          <p id="cheese_slice_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_14"    onclick="addPrices()"/>
+          <p id="cheese_14_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_18"    onclick="addPrices()"/>
+          <p id="cheese_18_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="cheese_Sicilian" onclick="addPrices()"/>
+          <p id="cheese_Sicilian_1" style="display: inline;"></p>
+
+          <br />All-The-Way(x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_slice"    onclick="addPrices()"/>
+          <p id="atw_slice_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_14"       onclick="addPrices()"/>
+          <p id="atw_14_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_18"       onclick="addPrices()"/>
+          <p id="atw_18_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="atw_Sicilian" onclick="addPrices()"/>
+          <p id="atw_Sicilian_1" style="display: inline;"></p>
+
+          <br />Veggie(✓)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_slice"    onclick="addPrices()"/>
+          <p id="veg_slice_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_14"       onclick="addPrices()"/>
+          <p id="veg_14_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_18"       onclick="addPrices()"/>
+          <p id="veg_18_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza" value="veg_Sicilian" onclick="addPrices()"/>
+          <p id="veg_Sicilian_1" style="display: inline;"></p>
+
+          <br />
+          Each Extra Topping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_slice_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_14_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_18_1" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_Sicilian_1" style="display: inline;"></p>
+
+          <div class="forms2" onclick="addPrices()">
+            <br />
+            <input type="checkbox" name="top" value="pepperoni"    /> Pepperoni(x)
+            &nbsp;
+            <input type="checkbox" name="top" value="onions"       /> Onions(x,✓)
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top" value="olives"       /> Olives(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top" value="sausage"      /> Sausage(x)
+            &nbsp;
+            <input type="checkbox" name="top" value="peppers"      /> Peppers(x,✓)
+            <br />
+            <input type="checkbox" name="top" value="pineapple"    /> Pineapple
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top" value="mushrooms"    /> Mushrooms(x,✓)
+            <input type="checkbox" name="top" value="garlic"       /> Garlic(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top" value="meatball"     /> Meatball 
+            <br />
+            <input type="checkbox" name="top" value="anchovies"    /> Anchovies
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top" value="extra_cheese" /> Extra Cheese
+            &nbsp;
+            <input type="checkbox" name="top" value="spinach"      /> Spinach
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top" value="bacon"        /> Canadian Bacon
+            <br />
+          </div>
+        </fieldset>
+
+        <!-- ****************************** Pizza #2 *************************** -->
+  
+        <br />
+        <fieldset>
+
+          <legend>PIZZA #2</legend>
+
+          <img src="sicilian.png" alt="Sicilian" 
+               style="float:right;width:192px;height:192px;">
+          <img src="newyork.png"  alt="New York" 
+               style="float:left;width:192px;height:192px;">
+        
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Slice
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          14"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          18"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Sicilian
+
+          <br />Cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="cheese_slice" onclick="addPrices()"/>
+          <p id="cheese_slice_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="cheese_14"    onclick="addPrices()"/>
+          <p id="cheese_14_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="cheese_18"    onclick="addPrices()"/>
+          <p id="cheese_18_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="radio" name="pizza2" value="cheese_Sicilian" onclick="addPrices()"/>
+          <p id="cheese_Sicilian_2" style="display: inline;"></p>
+
+          <br />All-The-Way(x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="atw_slice"    onclick="addPrices()"/>
+          <p id="atw_slice_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="atw_14"       onclick="addPrices()"/>
+          <p id="atw_14_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="atw_18"       onclick="addPrices()"/>
+          <p id="atw_18_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="atw_Sicilian" onclick="addPrices()"/>
+          <p id="atw_Sicilian_2" style="display: inline;"></p>
+
+          <br />Veggie(✓)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="veg_slice"    onclick="addPrices()"/>
+          <p id="veg_slice_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="veg_14"       onclick="addPrices()"/>
+          <p id="veg_14_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="veg_18"       onclick="addPrices()"/>
+          <p id="veg_18_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza2" value="veg_Sicilian" onclick="addPrices()"/>
+          <p id="veg_Sicilian_2" style="display: inline;"></p>
+
+          <br />
+          Each Extra Topping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_slice_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_14_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_18_2" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_Sicilian_2" style="display: inline;"></p>
+
+          <div class="forms3" onclick="addPrices()">
+            <br />
+            <input type="checkbox" name="top2" value="pepperoni"    /> Pepperoni(x)
+            &nbsp;
+            <input type="checkbox" name="top2" value="onions"       /> Onions(x,✓)
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top2" value="olives"       /> Olives(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top2" value="sausage"      /> Sausage(x)
+            &nbsp;
+            <input type="checkbox" name="top2" value="peppers"      /> Peppers(x,✓)
+            <br />
+            <input type="checkbox" name="top2" value="pineapple"    /> Pineapple
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top2" value="mushrooms"    /> Mushrooms(x,✓)
+            <input type="checkbox" name="top2" value="garlic"       /> Garlic(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top2" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top2" value="meatball"     /> Meatball 
+            <br />
+            <input type="checkbox" name="top2" value="anchovies"    /> Anchovies
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top2" value="extra_cheese" /> Extra Cheese
+            &nbsp;
+            <input type="checkbox" name="top2" value="spinach"      /> Spinach
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top2" value="bacon"        /> Canadian Bacon
+            <br />
+          </div>
+        </fieldset>
+
+        <!-- ****************************** Pizza #3 *************************** -->
+  
+        <br />
+        <fieldset>
+
+          <legend>PIZZA #3</legend>
+
+          <img src="sicilian.png" alt="Sicilian" 
+               style="float:right;width:192px;height:192px;">
+          <img src="newyork.png"  alt="New York" 
+               style="float:left;width:192px;height:192px;">
+        
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Slice
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          14"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          18"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Sicilian
+
+          <br />Cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="cheese_slice" onclick="addPrices()"/>
+          <p id="cheese_slice_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="cheese_14"    onclick="addPrices()"/>
+          <p id="cheese_14_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="cheese_18"    onclick="addPrices()"/>
+          <p id="cheese_18_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="radio" name="pizza3" value="cheese_Sicilian" onclick="addPrices()"/>
+          <p id="cheese_Sicilian_3" style="display: inline;"></p>
+
+          <br />All-The-Way(x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="atw_slice"    onclick="addPrices()"/>
+          <p id="atw_slice_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="atw_14"       onclick="addPrices()"/>
+          <p id="atw_14_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="atw_18"       onclick="addPrices()"/>
+          <p id="atw_18_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="atw_Sicilian" onclick="addPrices()"/>
+          <p id="atw_Sicilian_3" style="display: inline;"></p>
+
+          <br />Veggie(✓)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="veg_slice"    onclick="addPrices()"/>
+          <p id="veg_slice_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="veg_14"       onclick="addPrices()"/>
+          <p id="veg_14_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="veg_18"       onclick="addPrices()"/>
+          <p id="veg_18_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza3" value="veg_Sicilian" onclick="addPrices()"/>
+          <p id="veg_Sicilian_3" style="display: inline;"></p>
+
+          <br />
+          Each Extra Topping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_slice_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_14_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_18_3" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_Sicilian_3" style="display: inline;"></p>
+
+          <div class="forms3" onclick="addPrices()">
+            <br />
+            <input type="checkbox" name="top3" value="pepperoni"    /> Pepperoni(x)
+            &nbsp;
+            <input type="checkbox" name="top3" value="onions"       /> Onions(x,✓)
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top3" value="olives"       /> Olives(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top3" value="sausage"      /> Sausage(x)
+            &nbsp;
+            <input type="checkbox" name="top3" value="peppers"      /> Peppers(x,✓)
+            <br />
+            <input type="checkbox" name="top3" value="pineapple"    /> Pineapple
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top3" value="mushrooms"    /> Mushrooms(x,✓)
+            <input type="checkbox" name="top3" value="garlic"       /> Garlic(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top3" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top3" value="meatball"     /> Meatball 
+            <br />
+            <input type="checkbox" name="top3" value="anchovies"    /> Anchovies
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top3" value="extra_cheese" /> Extra Cheese
+            &nbsp;
+            <input type="checkbox" name="top3" value="spinach"      /> Spinach
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top3" value="bacon"        /> Canadian Bacon
+            <br />
+          </div>
+        </fieldset>
+
+        <!-- ****************************** Pizza #4 *************************** -->
+  
+        <br />
+        <fieldset>
+
+          <legend>PIZZA #4</legend>
+
+          <img src="sicilian.png" alt="Sicilian" 
+               style="float:right;width:192px;height:192px;">
+          <img src="newyork.png"  alt="New York" 
+               style="float:left;width:192px;height:192px;">
+        
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Slice
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          14"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          18"
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Sicilian
+
+          <br />Cheese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="cheese_slice" onclick="addPrices()"/>
+          <p id="cheese_slice_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="cheese_14"    onclick="addPrices()"/>
+          <p id="cheese_14_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="cheese_18"    onclick="addPrices()"/>
+          <p id="cheese_18_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="radio" name="pizza4" value="cheese_Sicilian" onclick="addPrices()"/>
+          <p id="cheese_Sicilian_4" style="display: inline;"></p>
+
+          <br />All-The-Way(x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="atw_slice"    onclick="addPrices()"/>
+          <p id="atw_slice_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="atw_14"       onclick="addPrices()"/>
+          <p id="atw_14_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="atw_18"       onclick="addPrices()"/>
+          <p id="atw_18_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="atw_Sicilian" onclick="addPrices()"/>
+          <p id="atw_Sicilian_4" style="display: inline;"></p>
+
+          <br />Veggie(✓)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="veg_slice"    onclick="addPrices()"/>
+          <p id="veg_slice_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="veg_14"       onclick="addPrices()"/>
+          <p id="veg_14_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="veg_18"       onclick="addPrices()"/>
+          <p id="veg_18_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="pizza4" value="veg_Sicilian" onclick="addPrices()"/>
+          <p id="veg_Sicilian_4" style="display: inline;"></p>
+
+          <br />
+          Each Extra Topping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_slice_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_14_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_18_4" style="display: inline;"></p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="top_Sicilian_4" style="display: inline;"></p>
+
+          <div class="forms4" onclick="addPrices()">
+            <br />
+            <input type="checkbox" name="top4" value="pepperoni"    /> Pepperoni(x)
+            &nbsp;
+            <input type="checkbox" name="top4" value="onions"       /> Onions(x,✓)
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top4" value="olives"       /> Olives(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top4" value="sausage"      /> Sausage(x)
+            &nbsp;
+            <input type="checkbox" name="top4" value="peppers"      /> Peppers(x,✓)
+            <br />
+            <input type="checkbox" name="top4" value="pineapple"    /> Pineapple
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top4" value="mushrooms"    /> Mushrooms(x,✓)
+            <input type="checkbox" name="top4" value="garlic"       /> Garlic(x,✓)
+            &nbsp;
+            <input type="checkbox" name="top4" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;
+            <input type="checkbox" name="top4" value="meatball"     /> Meatball 
+            <br />
+            <input type="checkbox" name="top4" value="anchovies"    /> Anchovies
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top4" value="extra_cheese" /> Extra Cheese
+            &nbsp;
+            <input type="checkbox" name="top4" value="spinach"      /> Spinach
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="top4" value="bacon"        /> Canadian Bacon
+            <br />
+          </div>
+        </fieldset>
+
+      </div>
+
+<!-- ********************************** Stromboli ***************************** -->
+
+      <div id ="Stromboli" class="formsFood">
+        <br />
+ 
+        <fieldset>
+          <legend>STROMBOLI (pizza roll in spiral crust with ham, 
+                             pepperoni, salami and provolone)
+          </legend>
+
+          <img src="stromboli.png" alt="Sicilian" 
+               style="float:left;width:128px;height:128px;">
+
+          <br />Small (4 servings)
+          <p id="small_stromboli_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="small_stromboli"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          <br />Large (6 servings)
+          <p id="large_stromboli_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="large_stromboli"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+        </fieldset>
+      </div>
+
+<!-- ********************************** SausageRolls ***************************** -->
+
+      <div id ="SausageRolls" class="formsFood">
+        <br />
+        <fieldset>
+
+          <legend>SAUSAGE ROLLS (Italian Sausage, Ricotta, Sweet Peppers, Provolone
+                  wrapped in crust)
+          </legend>
+
+          <img src="sausagerolls.png" alt="SausRolls" 
+               style="float:left;width:128px;height:128px;">
+
+          <br />
+          <p id="sausage_rolls_price" style="display: inline;"></p>
+          for an order of 6.  How many orders?
+          <input type="number" min="0" max="5" id="sausage_rolls"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+        </fieldset>
+      </div>                            
+
+<!-- ********************************** Calzone ***************************** -->
+
+      <div id ="Calzone" class="formsFood">
+        <br />
+
+        <fieldset>
+          <legend>CALZONE (pizza "turnover" with Ricotta and any 4 fillings)
+          </legend>
+
+          <img src="calzone.jpg" alt="Calzone" 
+               style="float:left;width:160px;height:160px;">
+
+          FAMILY SIZE:&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="family_calzone1_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="family_calzone1"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+            Choose 4 Fillings:
+
+            <br />
+            <input type="checkbox" name="fam_fil" value="pepperoni"    /> Pepperoni
+            &nbsp
+            <input type="checkbox" name="fam_fil" value="onions"       /> Onions
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="bacon"        /> Canadian Bacon
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="peppers"      /> Peppers
+            &nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="pineapple"    /> Pineapple
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="mushrooms"    /> Mushrooms
+            <input type="checkbox" name="fam_fil" value="sausage"      /> Sausage
+            <br />
+            <input type="checkbox" name="fam_fil" value="garlic"       /> Garlic
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="extra cheese" /> Extra Cheese
+            &nbsp; 
+            <input type="checkbox" name="fam_fil" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="olives"       /> Olives
+            &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="anchovies"    /> Anchovies
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="spinach"      /> Spinach
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="meatball"     /> Meatball     
+
+          <br />
+          <br />
+          <br />
+
+          FAMILY SIZE:&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="family_calzone2_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="family_calzone2"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+            Choose 4 Fillings:
+
+            <br />
+            <input type="checkbox" name="fam_fil" value="pepperoni"    /> Pepperoni
+            &nbsp
+            <input type="checkbox" name="fam_fil" value="onions"       /> Onions
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="bacon"        /> Canadian Bacon
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="peppers"      /> Peppers
+            &nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="pineapple"    /> Pineapple
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="mushrooms"    /> Mushrooms
+            <input type="checkbox" name="fam_fil" value="sausage"      /> Sausage
+            <br />
+            <input type="checkbox" name="fam_fil" value="garlic"       /> Garlic
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="extra cheese" /> Extra Cheese
+            &nbsp; 
+            <input type="checkbox" name="fam_fil" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="olives"       /> Olives
+            &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="fam_fil" value="anchovies"    /> Anchovies
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="spinach"      /> Spinach
+            &nbsp;
+            <input type="checkbox" name="fam_fil" value="meatball"     /> Meatball     
+
+          <br />
+          <br />
+          <br />
+          INDIVIDUAL SIZE:
+          <p id="individual_calzone1_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="individual_calzone1"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+            Choose 4 Fillings:
+
+            <br />
+
+            <input type="checkbox" name="ind_fil" value="pepperoni"    /> Pepperoni
+            &nbsp
+            <input type="checkbox" name="ind_fil" value="onions"       /> Onions
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="bacon"        /> Canadian Bacon
+            &nbsp;
+            <input type="checkbox" name="ind_fil" value="peppers"      /> Peppers
+            &nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="pineapple"    /> Pineapple
+            &nbsp
+            <input type="checkbox" name="ind_fil" value="mushrooms"    /> Mushrooms
+            <input type="checkbox" name="ind_fil" value="sausage"      /> Sausage
+            <br />
+            <input type="checkbox" name="ind_fil" value="garlic"       /> Garlic
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="extra cheese" /> Extra Cheese
+            &nbsp;  
+            <input type="checkbox" name="ind_fil" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="olives"       /> Olives
+            &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="anchovies"    /> Anchovies
+            &nbsp;
+            <input type="checkbox" name="ind_fil" value="spinach"      /> Spinach
+            &nbsp;
+            <input type="checkbox" name="ind_fil" value="meatball"     /> Meatball      
+
+          <br />
+          <br />
+          <br />
+          INDIVIDUAL SIZE:
+          <p id="individual_calzone2_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="individual_calzone2"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+            Choose 4 Fillings:
+
+            <br />
+
+            <input type="checkbox" name="ind_fil" value="pepperoni"    /> Pepperoni
+            &nbsp
+            <input type="checkbox" name="ind_fil" value="onions"       /> Onions
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="bacon"        /> Canadian Bacon
+            &nbsp;
+            <input type="checkbox" name="ind_fil" value="peppers"      /> Peppers
+            &nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="pineapple"    /> Pineapple
+            &nbsp
+            <input type="checkbox" name="ind_fil" value="mushrooms"    /> Mushrooms
+            <input type="checkbox" name="ind_fil" value="sausage"      /> Sausage
+            <br />
+            <input type="checkbox" name="ind_fil" value="garlic"       /> Garlic
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="extra cheese" /> Extra Cheese
+            &nbsp;  
+            <input type="checkbox" name="ind_fil" value="jalapenos"    /> Jalapenos
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="olives"       /> Olives
+            &nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="ind_fil" value="anchovies"    /> Anchovies
+            &nbsp;
+            <input type="checkbox" name="ind_fil" value="spinach"      /> Spinach
+            &nbsp;
+            <input type="checkbox" name="ind_fil" value="meatball"     /> Meatball      
+
+            <br />
+
+        </fieldset>
+      </div>
+
+<!-- ************************************* Salads **************************** -->
+
+
+      <div id ="Salad" class="formsFood">
+        <br />
+
+        <fieldset>
+          <legend>SALADS</legend>
+          <label>
+          &nbsp;
+          </label>
+          Dressings
+
+          <br />
+          Side:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               greens and veggies (serves one)
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="side_salad_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="side_salad"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vinaigrette:
+          <p id="vinaigrette_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="vinaigrette"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          <br />Garden:&nbsp;&nbsp;&nbsp;
+                greens and veggies (serves 2-3)
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="garden_salad_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="garden_salad"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Blue Cheese:
+          <p id="blue_cheese_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="blue_cheese"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          <br />Chef:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                greens, veggies, ham, turkey & provolone
+          <p id="chef_salad_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="chef_salad"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ranch:
+          <p id="ranch_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="ranch"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          <br />Antipasto:&nbsp;greens, meats, cheeses, peppers & olives
+          <p id="antipasto_salad_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="antipasto_salad"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          <br />Tuna Salad:albacore tuna, celery,onion & mayonnaise
+          <p id="tuna_salad_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="tuna_salad"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          <br />Rolls:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p id="rolls_price" style="display: inline;"></p>
+          How many?
+          <input type="number" min="0" max="5" id="rolls"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+        </fieldset>
+      </div>
+
+<!-- ************************************ Subs **************************** -->
+
+
+      <div id ="Subs" class="formsFood">
+        <br />
+
+	<fieldset>
+          <legend>SUBS</legend>
+
+          <img src="sub.jpg" alt="Sub" style="width:269px;height:128px;">
+
+          <br />
+          <label>
+          &nbsp
+          </label>
+          &nbsp;&nbsp;Full
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Half
+
+
+          <br />
+          <label>
+          Turkey
+          </label>
+
+          <p id="turkey_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="turkey_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="turkey_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="turkey_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+                     
+          <br />
+          <label>
+          Ham
+          </label>
+
+          <p id="ham_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="ham_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="ham_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="ham_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+          <br />
+          <label>
+          Salami
+          </label>
+
+          <p id="salami_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="salami_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="salami_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="salami_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+                     
+          <br />
+          <label>
+          Roast Beef
+          </label>
+
+          <p id="roast_beef_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="roast_beef_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="roast_beef_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="roast_beef_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          #1 Salami, Ham, Provolone
+          </label>
+
+          <p id="sub#1_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#1_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="sub#1_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#1_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+
+	  <br />
+          <label>
+          #2 Turkey, Ham, Provolone
+          </label>
+
+          <p id="sub#2_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#2_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="sub#2_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#2_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+
+	  <br />
+          <label>
+          #3 Roast Beef, Ham, Turkey, Salami, Provolone
+          </label>
+
+          <p id="sub#3_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#3_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="sub#3_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#3_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          #4 Capacollo, Salami, Pepperoni, Provolone
+          </label>
+
+          <p id="sub#4_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#4_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="sub#4_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="sub#4_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+
+	  <br />
+	  <br />
+
+	  ALL ABOVE SERVED ON a fresh-baked roll with mayo, mustard, vinaigrette, lettuce,
+           tomatoes, olives, and onions.
+
+	  <br />
+
+
+	  <br />
+          <label>
+          Mancinelli - Salami, Ham, Capacollo, Mortadella, Provolone, Lettuce, Peppers
+          </label>
+
+          <p id="mancinelli_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="mancinelli_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="mancinelli_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="mancinelli_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          Veggie - Mushrooms, Tomatoes, Onions, Olives, Lettuce, Peppers,
+          Provolone, Mustard, Mayo
+          </label>
+
+          <p id="veggie_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="veggie_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="veggie_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="veggie_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          Tuna - Albacore Tuna & veggies
+          </label>
+
+          <p id="tuna_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="tuna_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="tuna_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="tuna_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+	  
+	  <br />
+	  <br />
+
+	  HOT SUBS
+
+	  <br />
+
+	  <br />
+          <label>
+          Meatball Parmesan
+          </label>
+
+          <p id="meatball_parmesan_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="meatball_parmesan_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="meatball_parmesan_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="meatball_parmesan_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          Meatball without cheese
+          </label>
+
+          <p id="meatball_no_cheese_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="meatball_no_cheese_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="meatball_no_cheese_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="meatball_no_cheese_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          Italian Sausage without cheese
+          </label>
+
+          <p id="italian_no_cheese_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="italian_no_cheese_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="italian_no_cheese_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="italian_no_cheese_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+
+	  <br />
+          <label>
+          Italian Sausage Parmesan
+          </label>
+
+          <p id="italian_sausage_parmesan_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="italian_sausage_parmesan_full" 
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="italian_sausage_parmesan_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="italian_sausage_parmesan_half"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+
+
+	  <br />
+          <label>
+          Pastrami with tomatoes and mustard
+          </label>
+
+          <p id="pastrami_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="pastrami_full" value="0"
+                 onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="pastrami_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="pastrami_half" value="0"
+                 onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          Pastrami & Provolone with tomatoes and mustard
+          </label>
+
+          <p id="pastrami&provolone_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="pastrami&provolone_full" value="0"
+                 onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="pastrami&provolone_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="pastrami&provolone_half" value="0"
+                 onchange="addPrices()" style="text-align:center; width:35px">
+
+
+	  <br />
+          <label>
+          Reuben with corned beef, sauerkraut, swiss cheese, 1000 island
+          </label>
+
+          <p id="reuben_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="reuben_full" value="0"
+                 onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="reuben_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="reuben_half" value="0"
+                 onchange="addPrices()" style="text-align:center; width:35px">
+
+  
+	  <br />
+          <label>
+          Brooklyn Reuben with pastrami, sauerkraut, swiss cheese, 1000 island
+          </label>
+
+          <p id="brooklyn_reuben_full_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="brooklyn_reuben_full"
+                 value="0" onchange="addPrices()" style="text-align:center; width:35px">
+
+          &nbsp;&nbsp;
+          <p id="brooklyn_reuben_half_price" style="display: inline;"></p>
+          <input type="number" min="0" max="5" id="brooklyn_reuben_half" value="0"
+                 onchange="addPrices()" style="text-align:center; width:35px">
+
+
+
+          <!-- debug call: document.getElementById("debug").innerHTML = " "; -->
+          <p id="debug"></p>
+
+        </fieldset>
+      </div>                                                     <!-- end of Subs div -->
+
+    </div>
+  </form>
+
+<! ********************** Name, Confirm, Price, Place Order, Start Over ************* -->
+  <form method="post" name="formsubmit"
+    <div class="formsubmit"
+        action="mailto:gambleallan@aim.com?subject=Diorios Online Order"
+        onsubmit="return validateNameAndPrice()"
+        enctype="text/plain" >
+
+        <br />
+        <textarea cols="40" rows="20" style="font-size: 12pt" name="cart"></textarea>  
+
+        <br />
+        <textarea cols="40" rows="1" style="font-size: 12pt" name="price"
+                  readonly="readonly"> price </textarea>       
+                  <!-- readonly means user can't type into price box -->
+
+        <br />
+        Name <input name="name" />
+
+        <!-- submit button sends the form-data to wherever the form's action= specifies-->
+        <input type="submit" value="PLACE YOUR ORDER" />
+
+        <input type="reset" value="START OVER" />
+
+    </div>
+  </form>
+
+  <script>
+  InitializeStyleDisplay();
+  InitializePriceDisplay();
+  </script>
+
+</body>
+
+</html>
