@@ -29,7 +29,22 @@ function SaveSub($id, $name, $pricef, $priceh, $description, $temp)
 		$result = $stmt->execute(array(':name'=>$name));
 		var_dump($stmt->fetch());
 		return $result;
-	}function getAllSubs()
+	}
+	function getSubPriceFull($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT pricef FROM subs WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
+	function getSubPriceHalf($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT priceh FROM subs WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
+	function getAllSubs()
 	{
 		$allsubs = array();
 		$row = 1;

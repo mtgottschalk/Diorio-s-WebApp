@@ -26,6 +26,14 @@ function getSaladByName($name)
 	var_dump($stmt->fetch());
 	return $result;
 }
+function getPriceByName($name)
+{
+	global $pdo;
+	$stmt = $pdo->prepare("SELECT price FROM salads WHERE name=:name");
+	$result = $stmt->execute(array(':name'=>$name));
+	return $stmt->fetchColumn();
+	 
+}
 function getAllSalads()
 	{
 		$allsalads = array();

@@ -48,7 +48,7 @@ input[type = number]{width: 35px;}
  <button type="button" id="backtomenu" onclick="ShowMenu()">Main menu</button>
       <div id ="Pizza" >
 		 <!--onsubmit="return addPizzaToCart(document.getElementById('quanity').value,document.getElementById('size').value, document.getElementById('pizzaselect'));"-->
-      <form id ="PizzasForm2" action="addpizzastocart.php" method="POST">
+      <form id ="PizzasForm" action="addpizzastocart.php" method="POST">
 		 <input type="text" id="alltoppings" name="alltoppings"></input>
 	    Quanity<input type="text" id="quanity">
 	    </br>
@@ -66,7 +66,7 @@ input[type = number]{width: 35px;}
 		echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this);"><option name="custom" value="">Custom</option>');
 		while(!empty($allpizzas[$idp]))
        {
-		  echo('<option name="'.$allpizzas[$idp]["Name"].'" value="'.$allpizzas[$idp]["Toppings"].'">');
+		  echo('<option class="pizzanameoption" name="'.$allpizzas[$idp]["Name"].'" value="'.$allpizzas[$idp]["Toppings"].'">');
 		   echo($allpizzas[$idp]["Name"]);
 		   echo('</option>');
 		   $idp++;
@@ -126,13 +126,18 @@ input[type = number]{width: 35px;}
 <!-- Subs menu starts here -->
         <br />
 <div id="Subs" class ="formsFood">
+	<button id="ShowHotButton" onclick="ShowHot()">Hot Subs</button>
+	<button id="ShowColdButton" onclick="ShowCold()">Cold Subs</button>
+	<button id="ShowAllSubsButton" onclick="ShowAllSubs()">All Subs</button>
+	
 	<?php 
 	$sub = new Sub();
 	$allsubs = array();
 	$allsubs = $sub->getAllSubs();
 	  $idsub=1;
 	  $coldsubs = array();
-	   echo("<div id='hotsubs'><h1 class='title'>Hot Subs</h1>");
+	 
+	   echo("<div id='HotSubs'><h1 class='title'>Hot Subs</h1>");
        while(!empty($allsubs[$idsub]))
        {
 		   if($allsubs[$idsub]["Temp"] == "Hot")
@@ -143,22 +148,43 @@ input[type = number]{width: 35px;}
 		   echo($allsubs[$idsub]["PriceH"]);
 		   echo('<input type="checkbox" class="subprice full" name="full'.$allsubs[$idsub]["Name"].'" value="'.$allsubs[$idsub]["PriceF"].'">');
 		   echo($allsubs[$idsub]["PriceF"]);
-	   }else array_push($coldsubs,$allsubs[$idsub]);
-		   $idsub++;
+		   echo('<span class="subdescription">$'.$allsubs[$idsub]["Description"].'</span>');
+	   }else 
+	   {array_push($coldsubs,$allsubs[$idsub]);
+		   
 	   }
+	   $idsub++;
+   }
 	   echo('</div>');
 	   $idsub = 1;
-	   echo("<div id='coldsubs'><h1 class='title'>Cold Subs</h1>");
+	   echo("<div id='ColdSubs'><h1 class='title'>Cold Subs</h1>");
 	   while($idsub < count($coldsubs)+1)
 	   {
-		   		  echo('</br>');
+		   		  echo('</br><button id="'.$allsubs[$idsub]["Name"].'" onclick="ChooseSub(');
+		   		  echo("'");
+		   		  echo($allsubs[$idsub]["Name"]);
+		   		  echo("'");
+		   		  echo(')">');
 		   echo($allsubs[$idsub]["Name"]);
-		   echo('<input type="checkbox" class="subprice half" name="half'.$allsubs[$idsub]["Name"].'" value="'.$allsubs[$idsub]["PriceH"].'">');
-		   echo($allsubs[$idsub]["PriceH"].'</input>');
-		   echo('<input type="checkbox" class="subprice full" name="full'.$allsubs[$idsub]["Name"].'" value="'.$allsubs[$idsub]["PriceF"].'">');
-		   echo($allsubs[$idsub]["PriceF"].'</input>');
+		   echo('</button>');
+		   echo('<span class="subpricehalf">$'.$allsubs[$idsub]["PriceH"].'</span>');
+		   echo('<span class="subpricefull">$'.$allsubs[$idsub]["PriceF"].'</span>');
+		   echo('<span class="subdescription">'.$allsubs[$idsub]["Description"].'</span>');
 		   $idsub++;
-	   }  
+	   } 
+	   
+	   echo('<div id="SubUpdate"><form id="SubOrder" method="POST" action="addsubtocart.php">
+	   Sub Name<input type="text" id="SubChoosen" name="name">
+	   <select name="size"><option>Half</option><option value="Full">Full</option></select>
+	   <input type="checkbox" name="mayo" checked="checked">Mayo
+	   <input type="checkbox" name="mustard" checked="checked">Mustard
+	   <input type="checkbox" name="vinagrette" checked="checked">Vinagrette
+	   <input type="checkbox" name="lettuce" checked="checked">Lettuce
+	   <input type="checkbox" name="olives" checked="checked">Olives
+	   <input type="checkbox" name="onions" checked="checked">Onions
+	   <input type="checkbox" name="sweetpeppers" >Sweet Peppers
+	   <input type="checkbox" name="hotpeppers" >Hot Peppers
+	   Quanity<input type="text" name="quanity" ></br><input type="submit"></form> </div></div>');
 	   ?>
 	   </div>
           </div>
@@ -167,7 +193,14 @@ input[type = number]{width: 35px;}
       </div>
 
   <script>
+	  
+	document.getElementById('SubOrder').style.display = "none";
   document.getElementById('Pizza').style.display = "none";
+  document.getElementById('HotSubs').style.display = "none";
+  document.getElementById('ColdSubs').style.display = "none";
+    document.getElementById('ShowHotButton').style.display = "none";
+  document.getElementById('ShowColdButton').style.display = "none";
+  document.getElementById('ShowAllSubsButton').style.display = "none";
   //document.getElementById('Stromboli').style.display = "none";
   document.getElementById('Calzone').style.display = "none";
   document.getElementById('Salad').style.display = "none";
@@ -176,7 +209,14 @@ input[type = number]{width: 35px;}
   //document.getElementById('PizzaNum').style.display = "none";
   document.getElementById('CalzoneNum').style.display = "none";
    document.getElementById('backtomenu').style.display = "none";
-
+   document.getElementById('SubUpdate').style.display = "none";
+function ChooseSub(name)
+{
+	
+	document.getElementById('SubUpdate').style.display = "block";
+	document.getElementById('SubChoosen').value = name;
+	
+}
   function ShowPizza() {
       var x = document.getElementById('Pizza');
       if (x.style.display == 'none') {
@@ -197,6 +237,9 @@ input[type = number]{width: 35px;}
   document.getElementById('Calzone').style.display = "none";
   document.getElementById('Salad').style.display = "none";
   document.getElementById('Subs').style.display = "none";
+  document.getElementById('SubOrder').style.display = "none";
+  document.getElementById('HotSubs').style.display = "none";
+  document.getElementById('ColdSubs').style.display = "none";
    }
   function ShowStromboli() {
       var x = document.getElementById('Stromboli');
@@ -242,8 +285,14 @@ input[type = number]{width: 35px;}
       var x = document.getElementById('Subs');
       if (x.style.display == 'none') {
           x.style.display = 'block';
+             document.getElementById('ShowHotButton').style.display = "block";
+  document.getElementById('ShowColdButton').style.display = "block";
+  document.getElementById('ShowAllSubsButton').style.display = "block";
       } else {
           x.style.display = 'none';
+             document.getElementById('ShowHotButton').style.display = "none";
+  document.getElementById('ShowColdButton').style.display = "none";
+  document.getElementById('ShowAllSubsButton').style.display = "none";
       }
        document.getElementById("menu").style.display = "none";
       document.getElementById("backtomenu").style.display = "block";
@@ -267,6 +316,25 @@ input[type = number]{width: 35px;}
   document.addEventListener("selectionchange", function() {
    document.get
 });
+function ShowHot()
+{
+	document.getElementById('HotSubs').style.display = "block";
+  document.getElementById('ColdSubs').style.display = "none";
+  document.getElementById('SubOrder').style.display = "block";
+}
+function ShowCold()
+{
+	document.getElementById('HotSubs').style.display = "none";
+  document.getElementById('ColdSubs').style.display = "block";
+  document.getElementById('SubOrder').style.display = "block";
+}
+function ShowAllSubs()
+{
+	   document.getElementById('HotSubs').style.display = "block";
+  document.getElementById('ColdSubs').style.display = "block";
+  document.getElementById('SubOrder').style.display = "block";
+  
+}
 function initialCheck(item)
 {
 	//makes array of toppings that initially come on pizza this is important because 
@@ -299,6 +367,7 @@ function uncheckAll(formname){
   }
 	
 }
+
 function getalltoppings(formname){
 
 //makes array of all toppings checked when submitted
