@@ -1,0 +1,50 @@
+.title
+{
+color: blue;
+text-align: center;
+}
+
+#Subs
+{
+Display: inline;
+margin-left:auto;
+margin-right: auto;
+width: 60%
+}
+#hotsubs input
+{
+    margin-left: 80px;
+}
+#coldsubs input
+{
+ margin-left: 80px;
+}
+
+#salad input
+{
+    
+}
+.saladname
+{
+  
+}
+.saladprice
+{
+   margin-left: 80px;
+}
+.saladdescription
+{
+margin-left: 80px;
+}
+.subdescription
+{
+margin-left: 80px;
+}
+.subpricehalf
+{
+margin-left: 80px;
+}
+.subpricefull
+{
+margin-left: 80px;
+}
