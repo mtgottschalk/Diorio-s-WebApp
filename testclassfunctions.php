@@ -7,13 +7,12 @@
 	require_once("Fillings.Class.php");
 	require_once("Dressings.Class.php");
 	require_once("Other.Class.php");
+	require_once("Calzones.Class.php");
 	
 	
-	$other = new Other();
-	var_dump($other->getAllOther());
-	echo("\n");
-	echo $other->getTypeByName("Ham");
-	
+	$allcalzones = array();
+          $calzone = new Calzone();
+          $allcalzones = $calzone->getAllCalzones();
 	/*$pizza = new Pizza();
 	$allpizzas = array();
 	$allpizzas = $pizza->getAllPizzas();

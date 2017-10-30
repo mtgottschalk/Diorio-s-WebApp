@@ -8,6 +8,7 @@ require_once("Pizza.Class.php");
 	require_once("Cart.Class.php");
 	require_once("Config.php");
 	require_once("Other.Class.php");
+	require_once("Calzones.Class.php");
 	?>
 	<html>
 <head>
@@ -123,14 +124,24 @@ echo('<span class="rollsname"><input type="hidden" name="name'.$idrolls.'" value
       </div>
         <br />
         <div id="Calzone" class ="formsFood">
-        
-          </div>
-
-        </fieldset>
-        <div id="CalzoneNum" class ="formsFood">
-          <button type="button" onclick="ShowCalzone(); ShowCalzoneNum();">Hide</button>
+          <?php 
+          $allcalzones = array();
+          $calzone = new Calzone();
+          $allcalzones = $calzone->getAllCalzones();
+$idcalzones = 1;
+echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this);">');
+while(!empty($allcalzones[$idcalzones]))
+{
+	  echo('<option class="calzonenameoption" name="'.$allcalzones[$idcalzones]["Name"].'" value="'.$allcalzones[$idcalzones]["Name"].'">');
+		   echo($allcalzones[$idcalzones]["Name"]);
+		   echo('</option>');
+		   $idcalzones++;
+	   }
+	   echo('</select>');
+	echo('</br></br></br>');
+          ?>
         </div>
-      </fieldset>
+ 
         <br />
         <div id ="Salad" class="formsFood">
         <?php
@@ -239,6 +250,7 @@ echo('<span class="rollsname"><input type="hidden" name="name'.$idrolls.'" value
   <script>
 	  
 	document.getElementById('SubOrder').style.display = "none";
+	document.getElementById('backtomenu').style.display = "none";
   document.getElementById('Pizza').style.display = "none";
   document.getElementById('HotSubs').style.display = "none";
   document.getElementById('ColdSubs').style.display = "none";
@@ -251,7 +263,7 @@ echo('<span class="rollsname"><input type="hidden" name="name'.$idrolls.'" value
   document.getElementById('Subs').style.display = "none";
   document.getElementById('SausageRolls').style.display = "none";
   //document.getElementById('PizzaNum').style.display = "none";
-  document.getElementById('CalzoneNum').style.display = "none";
+ // document.getElementById('CalzoneNum').style.display = "none";
    document.getElementById('backtomenu').style.display = "none";
    document.getElementById('SubUpdate').style.display = "none";
 function ChooseSub(name)
@@ -284,6 +296,7 @@ function ChooseSub(name)
   document.getElementById('SubOrder').style.display = "none";
   document.getElementById('HotSubs').style.display = "none";
   document.getElementById('ColdSubs').style.display = "none";
+  document.getElementById('SausageRolls').style.display = "none";
    }
   function ShowStromboli() {
       var x = document.getElementById('Stromboli');
@@ -343,14 +356,6 @@ function ChooseSub(name)
   }
   function ShowPizzaNum() {
       var x = document.getElementById('PizzaNum');
-      if (x.style.display == 'none') {
-          x.style.display = 'block';
-      } else {
-          x.style.display = 'none';
-      }
-  }
-  function ShowCalzoneNum() {
-      var x = document.getElementById('CalzoneNum');
       if (x.style.display == 'none') {
           x.style.display = 'block';
       } else {
