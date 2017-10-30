@@ -7,6 +7,7 @@ require_once("Pizza.Class.php");
 	require_once("Toppings.Class.php");  
 	require_once("Cart.Class.php");
 	require_once("Config.php");
+	require_once("Other.Class.php");
 	?>
 	<html>
 <head>
@@ -64,7 +65,7 @@ input[type = number]{width: 35px;}
 		$allpizzas = array();
 		$allpizzas = $pizza->getAllPizzas();
 		$idp=1;
-		echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this);"><option name="custom" value="">Custom</option>');
+		echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this);">');
 		while(!empty($allpizzas[$idp]))
        {
 		  echo('<option class="pizzanameoption" name="'.$allpizzas[$idp]["Name"].'" value="'.$allpizzas[$idp]["Toppings"].'">');
@@ -90,6 +91,35 @@ input[type = number]{width: 35px;}
         <br/>
         </div>
         <div id="SausageRolls" class="formsFood">
+			<form id="sauasagerollsorder" method="POST" action="addsausagerollstocart.php">
+			 <?php 
+ $other = new Other();
+ $allother = array();
+ $allrolls = array();
+ $allother = $other->getAllOther();
+ $idrolls = 1;
+ 
+ while(!empty($allother[$idrolls]))
+{
+	if($allother[$idrolls]["Type"] == "Roll") array_push($allrolls, $allother[$idrolls]);
+	$idrolls++;
+}
+$idrolls = 0;
+while(!empty($allrolls[$idrolls]))
+{
+echo('<span class="rollsname"><input type="hidden" name="name'.$idrolls.'" value="'.$allrolls[$idrolls]["Name"].'">'.$allrolls[$idrolls]["Name"].'</span>');
+	echo('<span class="rollsprice"><input type="hidden" name="price'.$idrolls.'" value="'.$allrolls[$idrolls]["PriceS"].'">'.$allrolls[$idrolls]["PriceS"].'</span>');
+	echo('<span class="rollsdescription"><input type="hidden" name="description'.$idrolls.'" value="'.$allrolls[$idrolls]["Description"].'">'.$allrolls[$idrolls]["Description"].'</span>');
+	echo('<span class="rollsquanity">quanity<input type="text" name="rollsquanity'.$idrolls.'"></input>
+	</span>');
+	
+	$idrolls++;
+}
+ 
+ ?>
+ <input type="hidden" name="numberofrolltypes" value="<?php echo $idrolls;?>">
+ <input type="submit">
+ </form>
       </div>
         <br />
         <div id="Calzone" class ="formsFood">
@@ -188,12 +218,23 @@ input[type = number]{width: 35px;}
 	   Quanity<input type="text" name="quanity" ></br><input type="submit"></form> </div></div>');
 	   ?>
 	   </div>
-          </div>
+	   </div>
+          
 <div id= "cart">
-      <h1>Subtotal = $ <?php if(!empty($_SESSION["cart"]["prices"]))
+      <?php if(!empty($_SESSION["cart"]["prices"]))
+      {for($i =0; $i < count($_SESSION["cart"]["prices"]); $i++){
+      echo("<span class='CartName'><b>Name : </b>".$_SESSION["cart"]["names"][$i]."</span>");
+      echo("<span class='CartPrice'><b>Price : </b>".$_SESSION["cart"]["prices"][$i]."</span>"); 
+      echo("<span class='CartDescriptions'><b>Descriptions : </b>".$_SESSION["cart"]["descriptions"][$i]."</span>"); 
+      echo("</br>");
+  }
+  }
+      ?>
+		  <h1>Subtotal = $ <?php if(!empty($_SESSION["cart"]["prices"]))
       echo array_sum($_SESSION["cart"]["prices"]); ?> </h1></br>
       <h1>Total = $ <?php if(!empty($_SESSION["cart"]["prices"]))echo array_sum($_SESSION["cart"]["prices"])+(.08)*(array_sum($_SESSION["cart"]["prices"])); ?> </h1>
       </div>
+
 
   <script>
 	  

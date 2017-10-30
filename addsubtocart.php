@@ -23,6 +23,7 @@ $cart = new Cart();
 
 $cart->addPrice($price);
 $cart->addName($name);
+$cart->addDescription("Sub ");
 
 
 

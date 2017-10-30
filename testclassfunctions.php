@@ -4,8 +4,17 @@
 	require_once("Salad.Class.php");
 	require_once("Toppings.Class.php");
 	require_once("Config.php");
+	require_once("Fillings.Class.php");
+	require_once("Dressings.Class.php");
+	require_once("Other.Class.php");
 	
-	$pizza = new Pizza();
+	
+	$other = new Other();
+	var_dump($other->getAllOther());
+	echo("\n");
+	echo $other->getTypeByName("Ham");
+	
+	/*$pizza = new Pizza();
 	$allpizzas = array();
 	$allpizzas = $pizza->getAllPizzas();
 	//echo $allpizzas[2]["Name"];
@@ -23,7 +32,7 @@
 		$temp = "";
 	}
 	}
-	echo("toppings");*/
+	echo("toppings");
 	$pizzatoppings = array();
 	   echo $allpizzas[2]["Toppings"];
 	   var_dump($pizza->getPizzaToppings($allpizzas[2]["Toppings"]));
@@ -52,6 +61,6 @@
 	$allsalads = array();
 	$allsalads = $salad->getAllSalads();
 	//echo $allsalads[1]["Name"];
-	
+	*/
 	 
 	?>

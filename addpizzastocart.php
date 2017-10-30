@@ -56,7 +56,7 @@ $cart = new Cart();
 
 $cart->addPrice($price);
 $cart->addName($name);
-$cart->addDescription("blah blah");
+$cart->addDescription('Pizza w/'.$_POST["alltoppings"]);
 
 
 var_dump($_SESSION["cart"]["prices"]); 
