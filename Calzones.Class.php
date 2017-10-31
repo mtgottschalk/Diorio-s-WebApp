@@ -21,10 +21,10 @@ Class Calzone
 		echo "result: $result\n";
 		return $result;
 	}
-	function getFillingsByName($name)
+	function getToppingByName($name)
 	{
 		global $pdo;
-		$stmt = $pdo->prepare("SELECT fillings FROM calzones WHERE name=:name");
+		$stmt = $pdo->prepare("SELECT toppings FROM calzones WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
 		var_dump($stmt->fetch());
 		return $result;
@@ -32,7 +32,7 @@ Class Calzone
 	function getNameByFillings($toppings)
 	{
 		global $pdo;
-		$stmt = $pdo->prepare("SELECT name FROM calzones WHERE fillings=:fillings");
+		$stmt = $pdo->prepare("SELECT name FROM calzones WHERE toppings=:toppings");
 		$result = $stmt->execute(array(':toppings'=>$toppings));
 		return $stmt->fetchColumn();
 		
@@ -76,22 +76,22 @@ Class Calzone
 		$result = $stmt->execute(array(':name'=>$name));
 		return $stmt->fetchColumn();
 	}
-	function getCalzoneFillings($fillings)
+	function getCalzoneToppings($toppings)
 	{
 		$temp = "";
-		$allfillings = array();
-	for($i = 0; $i < strlen($fillings); $i++)
+		$alltoppings = array();
+	for($i = 0; $i < strlen($toppings); $i++)
 	{
-		if($fillings[$i] != " ")
+		if($toppings[$i] != " ")
 		{
-		$temp .= $fillings[$i];
+		$temp .= $toppings[$i];
 	}
 		else 
-		{array_push($allfillings, $temp);
+		{array_push($alltoppings, $temp);
 		$temp = "";
 	}
 	}
-	return $allfillings;	
+	return $alltoppings;	
 }
 
 }

@@ -13,6 +13,8 @@
 	$allcalzones = array();
           $calzone = new Calzone();
           $allcalzones = $calzone->getAllCalzones();
+          var_dump($allcalzones);
+          echo $allcalzones[1]["Toppings"];
 	/*$pizza = new Pizza();
 	$allpizzas = array();
 	$allpizzas = $pizza->getAllPizzas();

@@ -41,7 +41,7 @@ input[type = number]{width: 35px;}
 <div id="menu" style="text-align: center;">
        <button type="button" id="showpizza" onclick="ShowPizza()">Pizza</button>
       <button type="button" id="showstromboli" onclick="ShowStromboli()">Stromboli</button>
-      <button type="button" id="showsausagerolls" onclick="ShowSausageRolls()">SausageRolls</button>
+      <button type="button" id="showsausagerolls" onclick="ShowSausageRolls()">Rolls</button>
       <br />
       <button type="button" id="showcalzone" onclick="ShowCalzone()">Calzone</button>
       <button type="button" id="showsalad" onclick="ShowSalad()">Salad</button>
@@ -66,7 +66,9 @@ input[type = number]{width: 35px;}
 		$allpizzas = array();
 		$allpizzas = $pizza->getAllPizzas();
 		$idp=1;
-		echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this);">');
+		echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this,');
+		echo("'Pizza'");
+		echo(')">');
 		while(!empty($allpizzas[$idp]))
        {
 		  echo('<option class="pizzanameoption" name="'.$allpizzas[$idp]["Name"].'" value="'.$allpizzas[$idp]["Toppings"].'">');
@@ -92,7 +94,7 @@ input[type = number]{width: 35px;}
         <br/>
         </div>
         <div id="SausageRolls" class="formsFood">
-			<form id="sauasagerollsorder" method="POST" action="addsausagerollstocart.php">
+			<form id="rollsorder" method="POST" action="addrollstocart.php">
 			 <?php 
  $other = new Other();
  $allother = array();
@@ -112,7 +114,7 @@ echo('<span class="rollsname"><input type="hidden" name="name'.$idrolls.'" value
 	echo('<span class="rollsprice"><input type="hidden" name="price'.$idrolls.'" value="'.$allrolls[$idrolls]["PriceS"].'">'.$allrolls[$idrolls]["PriceS"].'</span>');
 	echo('<span class="rollsdescription"><input type="hidden" name="description'.$idrolls.'" value="'.$allrolls[$idrolls]["Description"].'">'.$allrolls[$idrolls]["Description"].'</span>');
 	echo('<span class="rollsquanity">quanity<input type="text" name="rollsquanity'.$idrolls.'"></input>
-	</span>');
+	</span></br>');
 	
 	$idrolls++;
 }
@@ -124,22 +126,38 @@ echo('<span class="rollsname"><input type="hidden" name="name'.$idrolls.'" value
       </div>
         <br />
         <div id="Calzone" class ="formsFood">
+			<form id="CalzoneOrder" method="POST" action="addcalzonetocart.php">
+				<input type = "text" id="allcalzonetoppings">
           <?php 
           $allcalzones = array();
           $calzone = new Calzone();
           $allcalzones = $calzone->getAllCalzones();
 $idcalzones = 1;
-echo('Type<select class="pizzanames" name="pizzaselect"  onchange="initialCheck(this);">');
+echo('Type<select class="calzonenames" name="calzoneselect"  onchange="initialCheckCalzone(this,');
+		echo("'Calzone'");
+		echo(')"><option value=""></option>');
 while(!empty($allcalzones[$idcalzones]))
 {
-	  echo('<option class="calzonenameoption" name="'.$allcalzones[$idcalzones]["Name"].'" value="'.$allcalzones[$idcalzones]["Name"].'">');
+	  echo('<option class="calzonenameoption" name="'.$allcalzones[$idcalzones]["Name"].'" value="'.$allcalzones[$idcalzones]["Toppings"].'">');
 		   echo($allcalzones[$idcalzones]["Name"]);
 		   echo('</option>');
 		   $idcalzones++;
 	   }
-	   echo('</select>');
+	   echo('</select>Size<select name="size"><option value="Medium">Medium</option><option value="Large">Large</option></select> Quanity<input type= text name="quanity">');
 	echo('</br></br></br>');
+	$topping = new Topping();
+       $alltoppings = array();
+       $alltoppings = $topping->getAllToppings();
+       $idfilling=1;
+       while(!empty($alltoppings[$idfilling]))
+       {
+	    echo('<input type="checkbox"  class="calzonetoppings" id="'.$alltoppings[$idfilling]["name"].'2" value="'.$alltoppings[$idfilling]["name"].'">');
+		   echo($alltoppings[$idfilling]["name"]);
+		    $idfilling++;
+		}
           ?>
+          <input type="submit">
+          </form>
         </div>
  
         <br />
@@ -163,7 +181,37 @@ while(!empty($allcalzones[$idcalzones]))
        <input type ="text" id="saladstoreturn" name="saladstoreturn">
        <input type="submit">
      </form> </div>
-
+<div id="Stromboli">
+	<form id="rollsorder" method="POST" action="addstrombollitocart.php">
+ <?php 
+ $other = new Other();
+ $allother = array();
+ $allstrombolli = array();
+ $allother = $other->getAllOther();
+ $idstromb = 1;
+ 
+ while(!empty($allother[$idstromb]))
+{
+	if($allother[$idstromb]["Type"] == "Strombolli") array_push($allstrombolli, $allother[$idstromb]);
+	$idstromb++;
+}
+$idstromb = 0;
+while(!empty($allstrombolli[$idstromb]))
+{
+echo('<span class="strombname"><input type="hidden" name="strombname'.$idstromb.'" value="'.$allstrombolli[$idstromb]["Name"].'">'.$allstrombolli[$idstromb]["Name"].'</span>');
+	echo('<span class="strombprice"><input type="hidden" name="strombprice'.$idstromb.'" value="'.$allstrombolli[$idstromb]["PriceS"].'">'.$allstrombolli[$idstromb]["PriceS"].'</span>');
+	echo('<span class="strombdescription"><input type="hidden" name="strombdescription'.$idstromb.'" value="'.$allstrombolli[$idstromb]["Description"].'">'.$allstrombolli[$idstromb]["Description"].'</span>');
+	echo('<span class="strombquanity">quanity<input type="text" name="strombquanity'.$idstromb.'"></input>
+	</span></br>');
+	
+	$idstromb++;
+}
+ 
+ ?>
+ <input type="hidden" name="numberofrolltypes" value="<?php echo $idstromb;?>">
+ <input type="submit">
+ </form>
+</div>
 
 <!-- Subs menu starts here -->
         <br />
@@ -257,7 +305,7 @@ while(!empty($allcalzones[$idcalzones]))
     document.getElementById('ShowHotButton').style.display = "none";
   document.getElementById('ShowColdButton').style.display = "none";
   document.getElementById('ShowAllSubsButton').style.display = "none";
-  //document.getElementById('Stromboli').style.display = "none";
+  document.getElementById('Stromboli').style.display = "none";
   document.getElementById('Calzone').style.display = "none";
   document.getElementById('Salad').style.display = "none";
   document.getElementById('Subs').style.display = "none";
@@ -289,7 +337,7 @@ function ChooseSub(name)
       document.getElementById("menu").style.display = "block"
       document.getElementById("backtomenu").style.display = "none";  
       document.getElementById('Pizza').style.display = "none";
-  //document.getElementById('Stromboli').style.display = "none";
+  document.getElementById('Stromboli').style.display = "none";
   document.getElementById('Calzone').style.display = "none";
   document.getElementById('Salad').style.display = "none";
   document.getElementById('Subs').style.display = "none";
@@ -384,25 +432,49 @@ function ShowAllSubs()
   document.getElementById('SubOrder').style.display = "block";
   
 }
-function initialCheck(item)
+function initialCheck(item, name)
 {
 	//makes array of toppings that initially come on pizza this is important because 
 	//if someone takes one of the toppings off the initial pizza but adds another topping
-	//they need to be charged for the additional topping I believe
-	uncheckAll("Pizza");
+	//they need to be charged for the additional topping I believe\
+	uncheckAll(name);
 	var temp = "";
-	var pizzatoppings = item.value;
-	for(var i=0; i < pizzatoppings.length-1; i++)
+	var toppings = item.value;
+	for(var i=0; i < toppings.length; i++)
 	{
-		if(pizzatoppings[i]!= " ")
+		if(toppings[i]!= " ")
 		{
-			temp+= pizzatoppings[i];
+			temp+= toppings[i];
 		}else 
 		{
 			document.getElementById(temp).checked = true;
 			temp = "";
 		}
 }
+			document.getElementById(temp).checked = true;
+			temp = "";
+}
+function initialCheckCalzone(item, name)
+{
+	//makes array of toppings that initially come on pizza this is important because 
+	//if someone takes one of the toppings off the initial pizza but adds another topping
+	//they need to be charged for the additional topping I believe\
+	uncheckAll(name);
+	var temp = "";
+	var toppings = item.value;
+	for(var i=0; i < toppings.length; i++)
+	{
+		if(toppings[i]!= " ")
+		{
+			temp+= toppings[i];
+		}else 
+		{
+			document.getElementById(temp+"2").checked = true;
+			temp = "";
+		}
+}
+			document.getElementById(temp+"2").checked = true;
+			temp = "";
 }
 function uncheckAll(formname){
 //unchecks all the checkboxes
@@ -417,12 +489,12 @@ function uncheckAll(formname){
 	
 }
 
-function getalltoppings(formname){
+function getalltoppings(formname, inputname){
 
 //makes array of all toppings checked when submitted
 	 var checkboxes = [];
 	 var alltoppings = []; 
-  checkboxes = document.getElementsByTagName('input');
+  checkboxes = document.getElementById(formname).getElementsByTagName('input')
  
   for (var i=0; i<checkboxes.length; i++)  {
     if (checkboxes[i].type == 'checkbox')   {
@@ -430,7 +502,7 @@ function getalltoppings(formname){
       alltoppings.push(checkboxes[i].value);
     }
   }
-  document.getElementById('alltoppings').value = alltoppings;
+  document.getElementById(inputname).value = alltoppings;
   return alltoppings;
 }
 function getallsalads(formname)
@@ -449,8 +521,11 @@ function getallsalads(formname)
   return allsalads;
 }
 $(".pizzatoppings").change(function() {
-    getalltoppings('pizza');
-}); // When input is checked changes value of alltoppings input box to equal the toppings checked
+    getalltoppings('Pizza', 'alltoppings');
+}); 
+$(".calzonetoppings").change(function() {
+    getalltoppings('Calzone', 'allcalzonetoppings');
+});// When input is checked changes value of alltoppings input box to equal the toppings checked
 
 $(".salad").change(function() {
     getallsalads('Salad');
