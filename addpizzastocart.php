@@ -6,12 +6,17 @@ require_once("Cart.Class.php");
 $pizza = new Pizza();
 $name = $pizza->getNameByToppings($_POST["pizzaselect"]);
 $price = 0.0;
+$quanity = $_POST["quanity"];
 //echo($_POST["pizzaselect"]);
 //echo($_POST["size"]);
 if($_POST["size"]=="slice")$price = $pizza->getPriceslByName($name);
 else if($_POST["size"]=="small")$price = $pizza->getPricesByName($name);
 else if($_POST["size"]=="medium")$price = $pizza->getPricembyName($name);
 else $price = $pizza->getPricelByName($name);
+
+$price = $price*$quanity;
+
+
 
 echo ('<h1>Size = '.$_POST["size"].'</h1></html>');
 echo ('<h1>Name = '.$name.'</h1>');
@@ -57,11 +62,9 @@ $cart = new Cart();
 $cart->addPrice($price);
 $cart->addName($name);
 $cart->addDescription('Pizza w/'.$_POST["alltoppings"]);
+$cart->addQuanity($quanity);
 
-
-var_dump($_SESSION["cart"]["prices"]); 
-var_dump($_SESSION["cart"]["names"]);
-var_dump($_SESSION["cart"]["descriptions"]);
+//$cart->addQuanity($quanity);
 
 
 ?>

@@ -19,4 +19,5 @@ $cart = new Cart();
 
 $cart->addPrice($price);
 $cart->addName($name);
-$cart->addDescription($size);
+$cart->addDescription("Calzone w/".$toppings);
+$cart->addQuanity($quanity);

@@ -24,7 +24,7 @@ $cart = new Cart();
 $cart->addPrice($price);
 $cart->addName($name);
 $cart->addDescription("Sub ");
-
+$cart->addQuanity($quanity);
 
 
 var_dump($_SESSION["cart"]["prices"]);

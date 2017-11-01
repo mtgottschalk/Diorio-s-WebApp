@@ -10,10 +10,15 @@ class Cart
 			$_SESSION["cart"]["names"]= array();
 			$_SESSION["cart"]["sizes"]= array();
 			$_SESSION["cart"]["descriptions"]=array();
+			$_SESSION["cart"]["quanity"]=array();
 		}
     }
     
-    function addPrice($price) {
+    function addQuanity($quanity) {
+		echo($quanity);
+		array_push($_SESSION["cart"]["quanity"],$quanity);
+	}
+	function addPrice($price) {
 		echo($price);
 		array_push($_SESSION["cart"]["prices"],$price);
 	}

@@ -29,6 +29,7 @@ $cart->addPrice($salad->getPriceByName($allsalads[$i]));
 $cart->addName($allsalads[$i]);
 $cart->addSize("regular");
 $cart->addDescription("Salad");
+$cart->addQuanity($_POST["quanity".$allsalads[$i]]);
 
 var_dump($_SESSION["cart"]["prices"]);
 var_dump($_SESSION["cart"]["sizes"]);

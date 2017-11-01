@@ -13,6 +13,8 @@ for($i=0; $i< $numberofrolltypes; $i++)
 {
 $name = $_POST['name'.$i.''];
 $quanity = $_POST['rollsquanity'.$i.''];
+if( $quanity!= 0 || $quanity != NULL)
+{
 $price = ($_POST['price'.$i.'']*$_POST['rollsquanity'.$i.'']);
 $description = $_POST['description'.$i.''];
 echo ('Name = '.$name.'</br>');
@@ -25,4 +27,6 @@ echo('Description = '.$description.'</br>');
 $cart->addPrice($price);
 $cart->addName($name);
 $cart->addDescription($description);
+$cart->addQuanity($quanity);
+}
 }

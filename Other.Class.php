@@ -41,14 +41,14 @@ Class Other
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT prices FROM other WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		return $stmt->fetch();
+		return $stmt->fetchcolumn();
 	}
 	function getPricelByName($name)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT pricel FROM other WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		return $stmt->fetch();
+		return $stmt->fetchcolumn();
 	}
 	function getAllOther()
 	{
