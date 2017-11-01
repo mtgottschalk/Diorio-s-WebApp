@@ -30,3 +30,5 @@ $cart->addDescription($description);
 $cart->addQuanity($quanity);
 }
 }
+
+header('Location: ./menu.php');

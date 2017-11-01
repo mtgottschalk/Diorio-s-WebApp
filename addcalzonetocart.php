@@ -21,3 +21,5 @@ $cart->addPrice($price);
 $cart->addName($name);
 $cart->addDescription("Calzone w/".$toppings);
 $cart->addQuanity($quanity);
+
+header('Location: ./menu.php');

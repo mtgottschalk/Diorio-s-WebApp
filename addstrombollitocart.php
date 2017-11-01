@@ -35,3 +35,5 @@ $cart->addSize("regular");
 $cart->addDescription("strombolli");
 $cart->addQuanity($quanity);
 }
+
+header('Location: ./menu.php');

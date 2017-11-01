@@ -30,6 +30,8 @@ $cart->addQuanity($quanity);
 var_dump($_SESSION["cart"]["prices"]);
 var_dump($_SESSION["cart"]["names"]);
 
+header('Location: ./menu.php');
+
 
 
 

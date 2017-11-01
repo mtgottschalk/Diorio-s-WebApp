@@ -162,14 +162,17 @@ while(!empty($allcalzones[$idcalzones]))
  
         <br />
         <div id ="Salad" class="formsFood">
+			<h1>Salads</h1>
         <?php
         echo('</br></br></br><form id="saladpicker" action="addsaladtocart.php" method="POST">');
        $salad = new Salad();
        $allsalads = array();
        $allsalads = $salad->getAllSalads();
        $ids=1;
+       
        while(!empty($allsalads[$ids]))
        {
+		   
 		  echo('</br><input type="checkbox" class="salad" name="'.$allsalads[$ids]["Name"].'" value="'.$allsalads[$ids]["Name"].'">');
 		   echo('<span class="saladname">'.$allsalads[$ids]["Name"].'</span>');
 		   echo('<span class="saladprice">$'.$allsalads[$ids]["Price"].'</span>');
@@ -271,15 +274,17 @@ while(!empty($allstrombolli[$idstromb]))
 	   echo('</div><div id="SubUpdate"><form id="SubOrder" method="POST" action="addsubtocart.php">
 	   Sub Name<input type="text" id="SubChoosen" name="name">
 	   <select name="size"><option>Half</option><option value="Full">Full</option></select>
-	   <input type="checkbox" name="mayo" checked="checked">Mayo
-	   <input type="checkbox" name="mustard" checked="checked">Mustard
-	   <input type="checkbox" name="vinagrette" checked="checked">Vinagrette
-	   <input type="checkbox" name="lettuce" checked="checked">Lettuce
-	   <input type="checkbox" name="olives" checked="checked">Olives
-	   <input type="checkbox" name="onions" checked="checked">Onions
-	   <input type="checkbox" name="sweetpeppers" >Sweet Peppers
-	   <input type="checkbox" name="hotpeppers" >Hot Peppers
-	   Quanity<input type="text" name="quanity" ></br><input type="submit"></form> </div></div>');
+	   <input type="checkbox" class="subtoppings" name="mayo" checked="checked" value="Mayo">Mayo
+	   <input type="checkbox" name="mustard" class="subtoppings" checked="checked" value="Mustard">Mustard
+	   <input type="checkbox" name="vinagrette" class="subtoppings" checked="checked" value="Vinagrette">Vinagrette
+	   <input type="checkbox" name="lettuce" class="subtoppings" checked="checked" value="Lettuce">Lettuce
+	   <input type="checkbox" name="olives" class="subtoppings" checked="checked" value="Olives">Olives
+	   <input type="checkbox" name="onions" class="subtoppings" checked="checked" value="Onions">Onions
+	   <input type="checkbox" name="sweetpeppers" class="subtoppings" value="Sweet Peppers">Sweet Peppers
+	   <input type="checkbox" name="hotpeppers" class="subtoppings" value="Hot Peppers">Hot Peppers
+	   Quanity<input type="text" name="quanity" ></br>
+	   Toppings<input type="text" id="toppingstoreturn" name="toppingstoreturn">
+	   <input type="submit"></form> </div></div>');
 	   ?>
 	   
 	   </div>
@@ -343,7 +348,7 @@ function ChooseSub(name)
       document.getElementById("menu").style.display = "block"
       document.getElementById("backtomenu").style.display = "none";  
       document.getElementById('Pizza').style.display = "none";
-  document.getElementById('Stromboli').style.display = "none";
+  document.getElementById('Strombolli').style.display = "none";
   document.getElementById('Calzone').style.display = "none";
   document.getElementById('Salad').style.display = "none";
   document.getElementById('Subs').style.display = "none";
@@ -540,6 +545,12 @@ $(".strombolli").change(function() {
     getallchecked('Strombolli','strombollistoreturn');
     
 });
+
+$(".subtoppings").change(function() {
+    getallchecked('Subs','toppingstoreturn');
+    
+});
+
   </script>
 </body>
 </html>

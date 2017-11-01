@@ -3,8 +3,10 @@
 <html>
 	
 	<body>
+		<div id="testadmin">
+			<h1>Add new Pizza</h1>
 	<form id="testpizza" method="POST" action="./Pizza.Add.php">
-	Name<input type="text" name="name"></input></br>
+	Name<input type="text" name="name" class=></input></br>
 	Price of small<input type="text" name="prices"></input></br>
 	Price of Medium<input type="text"  name="pricem"></input></br>
 	Price of Large<input type="text" name="pricel"></input></br>
@@ -13,7 +15,9 @@
 	<input type="submit">
 	</form>
 	</br></br>
+	<h1>Add new Sub</h1>
 		<form id="testsub" method="POST" action="./Sub.Add.php">
+			
 	Name<input type="text" name="name"></input></br>
 	Price of Full<input type="text" name="pricef"></input></br>
 	Price of Half<input type="text"  name="priceh"></input></br>
@@ -22,6 +26,7 @@
 	<input type="submit">
 	</form>
 	</br></br>
+	<h1>Add new Salad</h1>
 	<form id="testsalad" method="POST" action="./Salad.Add.php">
 	Name<input type="text" name="name"></input></br>
 	Price<input type="text" name="price"></input></br>
@@ -29,10 +34,28 @@
 	<input type="submit">
 	</form>
 	</br></br>
+	<h1>Add new Topping</h1>
 	<form id="testtoppings" method="POST" action="./Toppings.Add.php">
 	Name<input type="text" name="name"></input></br>
 	<input type="submit">
 	</form>
+	
+	</br></br>
+		<form id="Other" method="POST" action="./Other.Add.php">
+			<h1>Add new Roll or Stromboli</h1>
+	Name<input type="text" name="name"></input></br>
+	Price of Full<input type="text" name="pricem"></input></br>
+	Price of Half<input type="text"  name="pricel"></input></br>
+	Description<input type="text" name="description"></input></br>
+	Temp<input type="text" name="type"></input></br>
+	<input type="submit">
+	</form>
+	
+	</br></br>
+	
+	<h1>Add new Calzone</h1>
+	
+	</div>
 	</body>
 
 </html>

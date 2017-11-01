@@ -38,6 +38,7 @@ var_dump($_SESSION["cart"]["descriptions"]);
 
 }
 
+header('Location: ./menu.php');
 
 
 

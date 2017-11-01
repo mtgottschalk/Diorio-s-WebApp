@@ -66,5 +66,5 @@ $cart->addQuanity($quanity);
 
 //$cart->addQuanity($quanity);
 
-
+header('Location: ./menu.php');
 ?>
