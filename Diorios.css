@@ -1,7 +1,118 @@
 .title
 {
-color: blue;
+display: inline-block;
+ width:200px;
+ margin-right: 60px;
+ margin-bottom: 10px;
+}
+.pizzaquanity input[type=number]
+{
+	width: 100px;
+}
+.pizzasize select
+{
+	width: 100px;
+}
+.pizzanamesspan select
+{
+	width: 100px;
+}
+
+#pizza
+{
+width: 80%;
+margin-right: auto;
+margin-left:auto;
+}
+.pizzatoppingspan
+{
+	width: 150px;
+	margin-right:20px;
+	text-align: left;
+	float: left;
+
+}
+.submit
+{
+width: 100%;
+ height: 35px;
+
+}
+.header
+{
+    color:#008d55;
+    height : 200px;
+   width  : 100%;
+   background: linear-gradient(to bottom, 
+       #e60000    0%, #e60000  33.33%, 
+       white  0%, white 66.66%,        
+       #008000 0%);
+    text-decoration: underline;
+}
+select{
+    width: auto;
+    font-size: 14px;
+}
+#mainbody
+{
+	background-color: white;
+	width: 80%;
+	margin-right:auto;
+	margin-left:auto;
+}
+body
+{
+    background-color: rgb(68, 0, 0);;
+}
+.title
+{
+color: black;
+text-decoration: underline;
 text-align: center;
+}
+button
+{
+    background: #008d55;
+  background-image: -webkit-linear-gradient(top, #008d55, #03613b);
+  background-image: -moz-linear-gradient(top, #008d55, #03613b);
+  background-image: -ms-linear-gradient(top, #008d55, #03613b);
+  background-image: -o-linear-gradient(top, #008d55, #03613b);
+  background-image: linear-gradient(to bottom, #008d55, #03613b);
+  width:80%;
+   height: 35px;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+}
+
+button:hover {
+  background: #1ca870;
+  background-image: -webkit-linear-gradient(top, #1ca870, #1d855b);
+  background-image: -moz-linear-gradient(top, #1ca870, #1d855b);
+  background-image: -ms-linear-gradient(top, #1ca870, #1d855b);
+  background-image: -o-linear-gradient(top, #1ca870, #1d855b);
+  background-image: linear-gradient(to bottom, #1ca870, #1d855b);
+  text-decoration: none;
+}
+
+
+ input[type=submit]{
+    background: #008d55;
+  background-image: -webkit-linear-gradient(top, #008d55, #03613b);
+  background-image: -moz-linear-gradient(top, #008d55, #03613b);
+  background-image: -ms-linear-gradient(top, #008d55, #03613b);
+  background-image: -o-linear-gradient(top, #008d55, #03613b);
+  background-image: linear-gradient(to bottom, #008d55, #03613b);
+  -webkit-border-radius: 11;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  margin-right:auto;
+  margin-left:auto;
+
 }
 
 #Subs
@@ -9,7 +120,9 @@ text-align: center;
 Display: inline;
 margin-left:auto;
 margin-right: auto;
-width: 60%
+width: 60%;
+font-size: 14px;
+   
 }
 #hotsubs input
 {
@@ -20,9 +133,9 @@ width: 60%
  margin-left: 80px;
 }
 
-#salad input
+#salad
 {
-    
+    font-size: 14px;
 }
 .saladname
 {
@@ -48,3 +161,66 @@ margin-left: 80px;
 {
 margin-left: 80px;
 }
+.CartName
+{
+    margin-right:40px;
+}
+.CartPrice
+{
+    margin-right:40px;
+}
+.CartDescriptions
+{
+ margin-right:40px;
+}
+.CartQuanity
+{
+margin-right:40px;
+} 
+.rollsname
+{
+margin-right:40px;
+}
+.rollsprice
+{
+margin-right:40px;
+}
+.rollsdescription
+{
+margin-right:40px;
+}
+.rollsquanity
+{
+margin-right:40px;
+}
+
+      .formsFood{display: none;}
+
+        button{margin: 10px;}
+
+        input[type=number]{width: 70px;}
+	input[type=number] 
+	{
+	    font-size: 16px;
+	    padding: 0 8px;
+	}
+	input[type=number]::-webkit-inner-spin-button 
+	{ 
+	    -webkit-appearance: none;
+	    cursor:pointer;
+	    display:block;
+	    width:8px;
+	    color: #333;
+	    text-align:center;
+	    position:relative;
+	}    
+	input[type=number]::-webkit-inner-spin-button 
+	{ 
+	    background: #eee url('http://i.stack.imgur.com/YYySO.png') no-repeat 50% 50%;  
+	    width: 14px;
+	    height: 14px;
+	    padding: 4px;
+	    position: relative;
+	    right: 4px;
+	    border-radius: 28px;
+	}
