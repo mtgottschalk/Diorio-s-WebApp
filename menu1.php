@@ -49,36 +49,7 @@
 </head>
 
 <style>
-        .formsFood{display: none;}
-
-        button{margin: 10px;}
-
-        input[type=number]{width: 70px;}
-	input[type=number] 
-	{
-	    font-size: 16px;
-	    padding: 0 8px;
-	}
-	input[type=number]::-webkit-inner-spin-button 
-	{ 
-	    -webkit-appearance: none;
-	    cursor:pointer;
-	    display:block;
-	    width:8px;
-	    color: #333;
-	    text-align:center;
-	    position:relative;
-	}    
-	input[type=number]::-webkit-inner-spin-button 
-	{ 
-	    background: #eee url('http://i.stack.imgur.com/YYySO.png') no-repeat 50% 50%;  
-	    width: 14px;
-	    height: 14px;
-	    padding: 4px;
-	    position: relative;
-	    right: 4px;
-	    border-radius: 28px;
-	}
+  
 </style>
 
 
@@ -86,26 +57,24 @@
 
 
 <body>
-
+	
+<div id="mainbody">
+	<div id="fullheader">
+        <span id="DHeader"><h1>Diorios </h1></span>
+        <span id="address">1125 North Ave, Grand Junction, Colorado 81501
+        <br />970-243-1700</span>
+</div><br /><br />
     <font face = "monaco">
 
 
                               <!-- action="order submit.html"> -->
-
+<hr>
     <div class="forms">
-      <div class="cell1">
-        <center>
-        <h3>Diorios on North Ave</h3>
-        1125 North Ave, Grand Junction, Colorado 81501
-        <br />970-243-1700
-        <hr />
-        </center>
-    </div>
-
+		
     <div id="menu" style="text-align: center;">
       <button type="button" id="showpizza" onclick="ShowPizza()"
               style="width:100px;height:70px;background: url(pizzathumb.jpg);"
-              ><mark>Pizza</mark></button>
+              ></button>
       <button type="button" id="showstromboli" onclick="ShowStromboli()"
               style="width:100px;height:70px;background: url(strombolithumb.png);"
               ><mark>Stromboli</mark></button>
@@ -126,33 +95,22 @@
     </div>
 
     <p align="center">
-    <button type="button" id="backtomenu" onclick="ShowMenu()">BACK TO MAIN MENU</button>
+    <button type="button" id="backtomenu" onclick="ShowMenu()">Back To Menu</button>
     </p>
 
-    <div id="Pizza" style="text-align:center;  width:460px; margin:0px auto">
+    <div id="Pizza">
+		<h1>Select Pizza</h1>
       <!--onsubmit="return addPizzaToCart(document.getElementById('quanity').value,
                     document.getElementById('size').value, 
                     document.getElementById('pizzaselect'));"-->
 
       <form id ="PizzasForm" action="addpizzastocart.php" method="POST">
-            <img src="sicilian.png" alt="Sicilian" 
-                 style="float:right;width:130px;height:130px;">
-            <img src="newyork.png"  alt="New York" 
-                 style="float:left;width:130px;height:130px;">
+            <img src="pizza.jpeg" id="pizzapicture">
 
-            <input type="text" id="alltoppings" name="alltoppings"></input>
-            <br />
-            Quantity
-            <input type="number" name="quanity" id="quanity" min="0" max="5" value="0">
-            <br />
-	    Size
-
-            <select name="size" style="width:95px;">
-              <option name="slice" value="slice"  >Slice </option>
-	      <option name="small" value="small"  >Small </option>
-	      <option name="medium" value="medium">Medium</option>
-	      <option name="Large" value="Large"  >Large </option>
-	    </select>
+            <input type="hidden" id="alltoppings" name="alltoppings"></input>
+            
+			   
+           
 
 	    </br>
 
@@ -161,7 +119,7 @@
 	    $allpizzas = array();
 	    $allpizzas = $pizza->getAllPizzas();
 	    $idp=1;
-	    echo('Type <select class="pizzanames" name="pizzaselect" 
+	    echo('<span class="title">Type</span><span class="pizzanamesspan"><select class="pizzanames" name="pizzaselect" 
                      onchange="initialCheck(this,');
 	    echo("'Pizza'");
 	    echo(')">');
@@ -177,32 +135,43 @@
 		  $idp++;
 	    }
 
-	    echo('</select>');
+	    echo('</select></span><br />
+            
+            <span class="title">Quantity</span><span class="pizzaquanity"><input type="number"   name="quanity" id="quanity" min="0" max="5" value="0"></span>
+            <br />
+	    
+
+           <span class="title">Size</span><span class="pizzasize"><select name="size">   <option name="slice" value="slice"  >Slice </option>
+	      <option name="small" value="small"  >Small </option>
+	      <option name="medium" value="medium">Medium</option>
+	      <option name="Large" value="Large"  >Large </option>
+	    </select></span>');
 	    echo('</br></br></br>');
             $topping = new Topping();
             $alltoppings = array();
             $alltoppings = $topping->getAllToppings();
             $id=1;
-
+echo('<div id="toppingsdiv"><h1>Select Toppings</h1>');
             while(!empty($alltoppings[$id]))
             {
-	        echo('<input type="checkbox"  
+	        echo('<span class="pizzatoppingspan"><input type="checkbox"  
                      class="pizzatoppings" id="'.$alltoppings[$id]["name"].'" 
                      value="'.$alltoppings[$id]["name"].'">');
-		//echo($alltoppings[$id]["name"]);
+		echo($alltoppings[$id]["name"].'</span>');
                 //printf ("%'x-14s",$alltoppings[$id]["name"]);
-                echo str_replace("*","&nbsp;", str_pad($alltoppings[$id]["name"],14,"*"));
+               // echo str_replace("*","&nbsp;", str_pad($alltoppings[$id]["name"],14,"*"));
 
-                if ($id % 3 == 0)
-                  echo('<br />');
 
 		$id++;
             }
-
+echo('</div>');
             ?>
 
             <br />
-            <input type="submit" value="ADD THIS PIZZA TO THE ORDER">
+            <br />
+            <div>
+            <input type="submit" class="submit" value="Add Pizza To Cart">
+            </div>
       </form>
       <br/>
     </div>
@@ -211,8 +180,7 @@
     <div id="SausageRolls" class="formsFood" 
          style="text-align:center;  width:480px; margin:0px auto">
       <form id="rollsorder" method="POST" action="addrollstocart.php">
-        <img src="sausagerolls.png" alt="sausagerolls" 
-                 style="float:left;width:130px;height:130px;">
+        <img id="sausagerollspic" src="sausagerolls.png" alt="sausagerolls">
 
         <?php 
           $other = new Other();
@@ -320,15 +288,12 @@
 
           while(!empty($alltoppings[$idfilling]))
           {
-	    echo('<input type="checkbox"  class="calzonetoppings" 
+	    echo('<span class="pizzatoppingspan"><input type="checkbox"  class="calzonetoppings" 
                  id="'.$alltoppings[$idfilling]["name"].'2" 
                  value="'.$alltoppings[$idfilling]["name"].'">');
             //echo($alltoppings[$idfilling]["name"]);
-            echo str_replace("*","&nbsp;", 
-                             str_pad($alltoppings[$idfilling]["name"],14,"*"));
-
-            if ($idfilling % 3 == 0)
-              echo('<br />');
+            echo $alltoppings[$idfilling]["name"];
+              echo('</span>');
 
             $idfilling++;
           }
@@ -578,8 +543,8 @@
            <input type="submit" value="ADD SUB TO ORDER"></form> </div></div>');
 
 	?>
-    </div>
-
+    
+</div>
 <br />
           
 <div id= "cart">
@@ -597,7 +562,7 @@
       echo array_sum($_SESSION["cart"]["prices"]); ?> </h1></br>
       <h1>Total = $ <?php if(!empty($_SESSION["cart"]["prices"]))echo array_sum($_SESSION["cart"]["prices"])+(.08)*(array_sum($_SESSION["cart"]["prices"])); ?> </h1>
       </div>
-
+</div>
 
   <script>
 	  
