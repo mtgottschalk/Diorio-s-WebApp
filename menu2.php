@@ -2,13 +2,13 @@
   require_once("Pizza.Class.php");
 	require_once("Sub.Class.php");
 	require_once("Salad.Class.php");
-	require_once("Toppings.Class.php");  
+	require_once("Toppings.Class.php");
 	require_once("Cart.Class.php");
 	require_once("Config.php");
 	require_once("Other.Class.php");
 	require_once("Calzones.Class.php");
 
-  function dm($amount) 
+  function dm($amount)
   {
     $string = "" . $amount;
     $dec = strlen($string) - strpos($string,".");
@@ -24,7 +24,7 @@
 
 
 <script>
-  function dm(amount) 
+  function dm(amount)
   {
     string = "" + amount;
     dec = string.length - string.indexOf('.');
@@ -49,7 +49,7 @@
 </head>
 
 <style>
-  
+
 </style>
 
 
@@ -57,7 +57,7 @@
 
 
 <body>
-	
+
 <div id="mainbody">
 	<div id="fullheader">
         <span id="DHeader"><h1>Diorios </h1></span>
@@ -70,7 +70,7 @@
                               <!-- action="order submit.html"> -->
 <hr>
     <div class="forms">
-		
+
     <div id="menu" style="text-align: center;">
       <button type="button" id="showpizza" onclick="ShowPizza()"
               style="width:100px;height:70px;background: url(pizzathumb.jpg);"
@@ -91,7 +91,7 @@
              ><mark>Salads</mark></button>
       <button type="button" id="showsubs" onclick="ShowSubs()"
              style="width:100px;height:70px;background: url(subthumb.jpg);"
-             ><mark>Subs</mark></button> 
+             ><mark>Subs</mark></button>
     </div>
 
     <p align="center">
@@ -101,16 +101,16 @@
     <div id="Pizza">
 		<h1>Select Pizza</h1>
       <!--onsubmit="return addPizzaToCart(document.getElementById('quanity').value,
-                    document.getElementById('size').value, 
+                    document.getElementById('size').value,
                     document.getElementById('pizzaselect'));"-->
 
       <form id ="PizzasForm" action="addpizzastocart.php" method="POST">
             <img src="pizza.jpeg" id="pizzapicture">
 
             <input type="hidden" id="alltoppings" name="alltoppings"></input>
-            
-			   
-           
+
+
+
 
 	    </br>
 
@@ -119,7 +119,7 @@
 	    $allpizzas = array();
 	    $allpizzas = $pizza->getAllPizzas();
 	    $idp=1;
-	    echo('<span class="title">Type</span><span class="pizzanamesspan"><select class="pizzanames" name="pizzaselect" 
+	    echo('<span class="title">Type</span><span class="pizzanamesspan"><select class="pizzanames" name="pizzaselect"
                      onchange="initialCheck(this,');
 	    echo("'Pizza'");
 	    echo(')">');
@@ -127,8 +127,8 @@
 
 	    while(!empty($allpizzas[$idp]))
             {
-		 echo('<option class="pizzanameoption" 
-                       name="'.$allpizzas[$idp]["Name"].'" 
+		 echo('<option class="pizzanameoption"
+                       name="'.$allpizzas[$idp]["Name"].'"
                        value="'.$allpizzas[$idp]["Toppings"].'">');
 		  echo($allpizzas[$idp]["Name"]);
 		  echo('</option>');
@@ -136,10 +136,10 @@
 	    }
 
 	    echo('</select></span><br />
-            
+
             <span class="title">Quantity</span><span class="pizzaquanity"><input type="number"   name="quanity" id="quanity" min="0" max="5" value="0"></span>
             <br />
-	    
+
 
            <span class="title">Size</span><span class="pizzasize"><select name="size">   <option name="slice" value="slice"  >Slice </option>
 	      <option name="small" value="small"  >Small </option>
@@ -154,8 +154,8 @@
 echo('<div id="toppingsdiv"><h1>Select Toppings</h1>');
             while(!empty($alltoppings[$id]))
             {
-	        echo('<span class="pizzatoppingspan"><input type="checkbox"  
-                     class="pizzatoppings" id="'.$alltoppings[$id]["name"].'" 
+	        echo('<span class="pizzatoppingspan"><input type="checkbox"
+                     class="pizzatoppings" id="'.$alltoppings[$id]["name"].'"
                      value="'.$alltoppings[$id]["name"].'">');
 		echo($alltoppings[$id]["name"].'</span>');
                 //printf ("%'x-14s",$alltoppings[$id]["name"]);
@@ -177,21 +177,21 @@ echo('</div>');
     </div>
 
 
-    <div id="SausageRolls" class="formsFood" 
+    <div id="SausageRolls" class="formsFood"
          style="text-align:center;  width:480px; margin:0px auto">
       <form id="rollsorder" method="POST" action="addrollstocart.php">
         <img id="sausagerollspic" src="sausagerolls.png" alt="sausagerolls">
 
-        <?php 
+        <?php
           $other = new Other();
           $allother = array();
           $allrolls = array();
           $allother = $other->getAllOther();
           $idrolls = 1;
- 
+
           while(!empty($allother[$idrolls]))
           {
-	    if($allother[$idrolls]["Type"] == "Roll") 
+	    if($allother[$idrolls]["Type"] == "Roll")
               array_push($allrolls, $allother[$idrolls]);
 
 	    $idrolls++;
@@ -203,20 +203,20 @@ echo('</div>');
           {
             echo('<br />');
             echo('<span class="rollsname">
-                  <input type="hidden" name="name'.$idrolls.'" 
+                  <input type="hidden" name="name'.$idrolls.'"
                          value="'.$allrolls[$idrolls]["Name"].'">
                          '.$allrolls[$idrolls]["Name"].'</span>');
 
 	    echo('<span class="rollsdescription">
-                  <input type="hidden" name="description'.$idrolls.'" 
+                  <input type="hidden" name="description'.$idrolls.'"
                          value="'.$allrolls[$idrolls]["Description"].'">
                          '.$allrolls[$idrolls]["Description"].'</span>');
-            //echo str_replace("*","&nbsp;", 
+            //echo str_replace("*","&nbsp;",
                              //str_pad($allrolls[$idrolls]["Description"],14,"*"));
 
             echo('$');
 	    echo('<span class="rollsprice">
-                  <input type="hidden" name="price'.$idrolls.'" 
+                  <input type="hidden" name="price'.$idrolls.'"
                         value="'.$allrolls[$idrolls]["PriceS"].'">
                          '.$allrolls[$idrolls]["PriceS"].'</span>');
 
@@ -224,7 +224,7 @@ echo('</div>');
 
 
 
-            //echo str_replace("*","&nbsp;", 
+            //echo str_replace("*","&nbsp;",
                              //str_pad(dm($allrolls[$idrolls]["PriceS"]),6,"*"));
 
 	    echo('<span class="rollsquanity">Qty
@@ -233,9 +233,9 @@ echo('</div>');
                   </input>
                   </span></br>');
 
-	
+
 	    $idrolls++;
-          } 
+          }
         ?>
 
         <input type="hidden" name="numberofrolltypes" value="<?php echo $idrolls;?>">
@@ -249,32 +249,32 @@ echo('</div>');
     <div id="Calzone" class ="formsFood"
          style="text-align:center;  width:460px; margin:0px auto">
       <form id="CalzoneOrder" method="POST" action="addcalzonetocart.php">
-        <img src="calzone.jpg" alt="calzones" 
+        <img src="calzone.jpg" alt="calzones"
                  style="float:left;width:130px;height:130px;">
         <input type = "hidden" id="allcalzonetoppings" name="allcalzonetoppings">
 
-        <?php 
+        <?php
           $allcalzones = array();
           $calzone = new Calzone();
           $allcalzones = $calzone->getAllCalzones();
           $idcalzones = 1;
 
           echo('<br />');
-          echo('Type<select class="calzonenames" name="calzoneselect"       
+          echo('Type<select class="calzonenames" name="calzoneselect"
                onchange="initialCheckCalzone(this,');
           echo("'Calzone'");
 	  echo(')"><option value=""></option>');
- 
+
           while(!empty($allcalzones[$idcalzones]))
           {
-	    echo('<option class="calzonenameoption" name="'.$allcalzones[$idcalzones] 
+	    echo('<option class="calzonenameoption" name="'.$allcalzones[$idcalzones]
                  ["Name"].'" value="'.$allcalzones[$idcalzones]["Toppings"].'">');
             echo($allcalzones[$idcalzones]["Name"]);
             echo('</option>');
             $idcalzones++;
 	  }
 
-	  echo('</select><br />Size<select 
+	  echo('</select><br />Size<select
                name="size"><option value="Medium">Medium</option><option
                value="Large">Large</option></select>
                <br />
@@ -288,8 +288,8 @@ echo('</div>');
 
           while(!empty($alltoppings[$idfilling]))
           {
-	    echo('<span class="pizzatoppingspan"><input type="checkbox"  class="calzonetoppings" 
-                 id="'.$alltoppings[$idfilling]["name"].'2" 
+	    echo('<span class="pizzatoppingspan"><input type="checkbox"  class="calzonetoppings"
+                 id="'.$alltoppings[$idfilling]["name"].'2"
                  value="'.$alltoppings[$idfilling]["name"].'">');
             //echo($alltoppings[$idfilling]["name"]);
             echo $alltoppings[$idfilling]["name"];
@@ -303,7 +303,7 @@ echo('</div>');
         <input type="submit" value="ADD THESE CALZONES TO THE ORDER">
       </form>
     </div>
- 
+
 
     <div id="Salad" class="formsFood"
          style="text-align:center;  width:520px; margin:0px auto">
@@ -324,18 +324,18 @@ echo('</div>');
                  '.$allsalads[$ids]["Description"].')
                  </span>');
 
-            //echo str_replace("*","&nbsp;", 
+            //echo str_replace("*","&nbsp;",
                              //str_pad($allsalads[$ids]["Description"],23,"*"));
 
             echo('<span class="saladprice">$'.$allsalads[$ids]["Price"].'</span>');
             echo('$');
             echo str_replace("*","&nbsp;", str_pad(dm($allsalads[$ids]["Price"]),6,"*"));
 
-            echo('<input type="checkbox" class="salad" 
+            echo('<input type="checkbox" class="salad"
               name="'.$allsalads[$ids]["Name"].'" value="'.$allsalads[$ids]["Name"].'">');
 
             echo('<input class="quanity" type=number id ="quanity'.$allsalads[$ids]["Name"].'" name="quanity'.$allsalads[$ids]["Name"].'"
-                      min="0" max="5" value="0">');		   
+                      min="0" max="5" value="0">');
 	    $ids++;
           }
         ?>
@@ -351,19 +351,19 @@ echo('</div>');
     <div id="Strombolli"
          style="text-align:center;  width:480px; margin:0px auto">
       <form id="strombolliorder" method="POST" action="addstrombollitocart.php">
-        <img src="stromboli.png" alt="stromboli" 
+        <img src="stromboli.png" alt="stromboli"
              style="float:left;width:130px;height:130px;">
 
-        <?php 
+        <?php
           $other = new Other();
           $allother = array();
           $allstrombolli = array();
           $allother = $other->getAllOther();
           $idstromb = 1;
- 
+
           while(!empty($allother[$idstromb]))
           {
-	    if($allother[$idstromb]["Type"] == "Strombolli") 
+	    if($allother[$idstromb]["Type"] == "Strombolli")
               array_push($allstrombolli, $allother[$idstromb]);
 	    $idstromb++;
           }
@@ -371,25 +371,25 @@ echo('</div>');
           $idstromb = 0;
           while(!empty($allstrombolli[$idstromb]))
           {
-            echo('<span class="strombname"><input type="hidden" 
-                   name="strombname'.$idstromb.'" 
+            echo('<span class="strombname"><input type="hidden"
+                   name="strombname'.$idstromb.'"
                    value="'.$allstrombolli[$idstromb]["Name"].'"></span>');
 
 	    echo('<span class="strombdescription"><input type="hidden"
-                  name="strombdescription'.$idstromb.'" 
+                  name="strombdescription'.$idstromb.'"
                   value="'.$allstrombolli[$idstromb]["Description"].'">
                  '.$allstrombolli[$idstromb]["Description"].'</span>');
 
 	    echo('<span class="strombprice">
-                  <input type="hidden" name="strombprice'.$idstromb.'" 
+                  <input type="hidden" name="strombprice'.$idstromb.'"
                   value="'.$allstrombolli[$idstromb]["PriceS"].'">
                  '.$allstrombolli[$idstromb]["PriceS"].'
                  </span>');
             echo(' $');
-            //echo str_replace("*","&nbsp;", 
+            //echo str_replace("*","&nbsp;",
                             // str_pad(dm($allstrombolli[$idstromb]["PriceS"]),6,"*"));
-	    echo('<input type="checkbox" class="strombolli" 
-                 name="'.$allstrombolli[$idstromb]["Name"].'" 
+	    echo('<input type="checkbox" class="strombolli"
+                 name="'.$allstrombolli[$idstromb]["Name"].'"
                  value="'.$allstrombolli[$idstromb]["Name"].'">');
 	    echo('<span class="strombquanity">
                  Qty
@@ -397,10 +397,10 @@ echo('</div>');
                         min="0" max="5" value="0">
                  </input>
 	         </span></br>');
-	
+
 	    $idstromb++;
           }
- 
+
         ?>
 
         <span class="strombname"><input type="text" id="strombollistoreturn"
@@ -414,7 +414,7 @@ echo('</div>');
     <div id="Subs" class ="formsFood"
          style="text-align:center;  width:500px; margin:0px auto">
 
-        <img src="sub.jpg" alt="subs" 
+        <img src="sub.jpg" alt="subs"
              style="float:left; width:150px; height:70px; margin:5px auto">
 
 
@@ -422,14 +422,14 @@ echo('</div>');
 	<button id="ShowColdButton" onclick="ShowCold()">Cold Subs</button>
 	<button id="ShowAllSubsButton" onclick="ShowAllSubs()">All Subs</button>
 
-	
-	<?php 
+
+	<?php
 	  $sub = new Sub();
 	  $allsubs = array();
 	  $allsubs = $sub->getAllSubs();
 	  $idsub=1;
 	  $coldsubs = array();
-	 
+
 	  echo("<div id='HotSubs'><h1>Hot Subs</h1>");
           //echo str_replace("*","&nbsp;",str_pad("",25,"*"));
           //echo str_replace("*","&nbsp;",str_pad("Full",7,"*"));
@@ -440,23 +440,23 @@ echo('</div>');
           {
             if($allsubs[$idsub]["Temp"] == "Hot")
 	    {
-             // echo str_replace("*","&nbsp;", 
+             // echo str_replace("*","&nbsp;",
                              //str_pad($allsubs[$idsub]["Name"],8,"*"));
               //echo("(");
               echo('<span class="subdescription">
                     '.$allsubs[$idsub]["Description"].'</span>');
-              //echo str_replace("*","&nbsp;", 
+              //echo str_replace("*","&nbsp;",
                              //str_pad($allsubs[$idsub]["Description"],17,"*"));
               //echo(") ");
 
 
 	      echo('<span class="subpricehalf">$'.$allsubs[$idsub]["PriceH"].'</span>');
               echo('$');
-              //echo str_replace("*","&nbsp;", 
+              //echo str_replace("*","&nbsp;",
                             // str_pad(dm($allsubs[$idsub]["PriceH"]),6,"*"));
               echo('<span class="subpricefull">$'.$allsubs[$idsub]["PriceF"].'</span>');
               echo('$');
-              //echo str_replace("*","&nbsp;", 
+              //echo str_replace("*","&nbsp;",
                              //str_pad(dm($allsubs[$idsub]["PriceF"]),6,"*"));
 
 	      echo('<button id="'.$allsubs[$idsub]["Name"].'"  onclick="ChooseSub(');
@@ -470,9 +470,9 @@ echo('</div>');
 
               echo ('<br />');
 	    }
-            else 
+            else
 	    {
-              array_push($coldsubs,$allsubs[$idsub]);	   
+              array_push($coldsubs,$allsubs[$idsub]);
 	    }
 
 	    $idsub++;
@@ -488,22 +488,22 @@ echo('</div>');
 
 	  while($idsub < count($coldsubs)+1)
 	  {
-            //echo str_replace("*","&nbsp;", 
+            //echo str_replace("*","&nbsp;",
              //                str_pad($allsubs[$idsub]["Name"],8,"*"));
             //echo("(");
 	    echo('<span class="subdescription">
                  '.$allsubs[$idsub]["Description"].'</span>');
-            //echo str_replace("*","&nbsp;", 
+            //echo str_replace("*","&nbsp;",
                             // str_pad($allsubs[$idsub]["Description"],17,"*"));
             //echo(") ");
 
 	    echo('<span class="subpricehalf">$'.$allsubs[$idsub]["PriceH"].'</span>');
            // echo('$');
-           // echo str_replace("*","&nbsp;", 
+           // echo str_replace("*","&nbsp;",
                            //  str_pad(dm($allsubs[$idsub]["PriceH"]),6,"*"));
 	    echo('<span class="subpricefull">$'.$allsubs[$idsub]["PriceF"].'</span>');
             echo('$');
-            //echo str_replace("*","&nbsp;", 
+            //echo str_replace("*","&nbsp;",
                             // str_pad(dm($allsubs[$idsub]["PriceH"]),6,"*"));
 
             echo('<button id="'.$allsubs[$idsub]["Name"].'" onclick="ChooseSub(');
@@ -518,8 +518,8 @@ echo('</div>');
             echo('<br />');
 
             $idsub++;
-	  } 
-	   
+	  }
+
 	  echo('</div><div id="SubUpdate">
                 <form id="SubOrder" method="POST" action="addsubtocart.php">
 	   Sub Name<input type="text" id="SubChoosen" name="name">
@@ -543,17 +543,17 @@ echo('</div>');
            <input type="submit" value="ADD SUB TO ORDER"></form> </div></div>');
 
 	?>
-    
+
 </div>
 <br />
-          
+
 <div id= "cart">
       <?php if(!empty($_SESSION["cart"]["prices"]))
       {for($i =0; $i < count($_SESSION["cart"]["prices"]); $i++){
       echo("<span class='CartName'><b>Name : </b>".$_SESSION["cart"]["names"][$i]."</span>");
-      echo("<span class='CartPrice'><b>Price : </b>".$_SESSION["cart"]["prices"][$i]."</span>"); 
-      echo("<span class='CartDescriptions'><b>Descriptions : </b>".$_SESSION["cart"]["descriptions"][$i]."</span>"); 
-       echo("<span class='CartQuanity'><b>Quanity : </b>".$_SESSION["cart"]["quanity"][$i]."</span>"); 
+      echo("<span class='CartPrice'><b>Price : </b>".$_SESSION["cart"]["prices"][$i]."</span>");
+      echo("<span class='CartDescriptions'><b>Descriptions : </b>".$_SESSION["cart"]["descriptions"][$i]."</span>");
+       echo("<span class='CartQuanity'><b>Quanity : </b>".$_SESSION["cart"]["quanity"][$i]."</span>");
       echo("</br>");
   }
   }
@@ -565,7 +565,7 @@ echo('</div>');
 </div>
 
   <script>
-	  
+
 	  var saladquanity = document.getElementsByClassName("quanity");
 for(i = 0; i < saladquanity.length; i++) saladquanity[i].style.display = "none";
 	document.getElementById('SubOrder').style.display = "none";
@@ -589,10 +589,10 @@ for(i = 0; i < saladquanity.length; i++) saladquanity[i].style.display = "none";
 
 function ChooseSub(name)
 {
-	
+
 	document.getElementById('SubUpdate').style.display = "block";
 	document.getElementById('SubChoosen').value = name;
-	
+
 }
   function ShowPizza() {
       var x = document.getElementById('Pizza');
@@ -603,8 +603,8 @@ function ChooseSub(name)
       }
       document.getElementById("menu").style.display = "none";
       document.getElementById("backtomenu").style.display = "block";
-      
-      
+
+
   }
 function ShowStrombolli() {
       var x = document.getElementById('Strombolli');
@@ -615,12 +615,12 @@ function ShowStrombolli() {
       }
       document.getElementById("menu").style.display = "none";
       document.getElementById("backtomenu").style.display = "block";
-      
-      
+
+
   }
    function ShowMenu() {
       document.getElementById("menu").style.display = "block"
-      document.getElementById("backtomenu").style.display = "none";  
+      document.getElementById("backtomenu").style.display = "none";
       document.getElementById('Pizza').style.display = "none";
   document.getElementById('Strombolli').style.display = "none";
   document.getElementById('Calzone').style.display = "none";
@@ -715,11 +715,11 @@ function ShowAllSubs()
 	   document.getElementById('HotSubs').style.display = "block";
   document.getElementById('ColdSubs').style.display = "block";
   document.getElementById('SubOrder').style.display = "block";
-  
+
 }
 function initialCheck(item, name)
 {
-	//makes array of toppings that initially come on pizza this is important because 
+	//makes array of toppings that initially come on pizza this is important because
 	//if someone takes one of the toppings off the initial pizza but adds another topping
 	//they need to be charged for the additional topping I believe\
 	uncheckAll(name);
@@ -730,7 +730,7 @@ function initialCheck(item, name)
 		if(toppings[i]!= ",")
 		{
 			temp+= toppings[i];
-		}else 
+		}else
 		{
 			document.getElementById(temp).checked = true;
 			temp = "";
@@ -739,7 +739,7 @@ function initialCheck(item, name)
 }
 function initialCheckCalzone(item, name)
 {
-	//makes array of toppings that initially come on pizza this is important because 
+	//makes array of toppings that initially come on pizza this is important because
 	//if someone takes one of the toppings off the initial pizza but adds another topping
 	//they need to be charged for the additional topping I believe\
 	uncheckAll(name);
@@ -750,7 +750,7 @@ function initialCheckCalzone(item, name)
 		if(toppings[i]!= ",")
 		{
 			temp+= toppings[i];
-		}else 
+		}else
 		{
 			document.getElementById(temp+"2").checked = true;
 			temp = "";
@@ -759,24 +759,24 @@ function initialCheckCalzone(item, name)
 }
 function uncheckAll(formname){
 //unchecks all the checkboxes
-  var checkboxes = []; 
+  var checkboxes = [];
   checkboxes = document.getElementsByTagName('input');
- 
+
   for (var i=0; i<checkboxes.length; i++)  {
     if (checkboxes[i].type == 'checkbox')   {
       checkboxes[i].checked = false;
     }
   }
-	
+
 }
 
 function getalltoppings(formname, inputname){
 
 //makes array of all toppings checked when submitted
 	 var checkboxes = [];
-	 var alltoppings = []; 
+	 var alltoppings = [];
   checkboxes = document.getElementById(formname).getElementsByTagName('input')
- 
+
   for (var i=0; i<checkboxes.length; i++)  {
     if (checkboxes[i].type == 'checkbox')   {
       if(checkboxes[i].checked == true)
@@ -789,9 +789,9 @@ function getalltoppings(formname, inputname){
 function getallchecked(formname, inputname)
 {
 	var checkboxes = [];
-	 var all = []; 
+	 var all = [];
   checkboxes = document.getElementById(formname).getElementsByTagName('input');
- 
+
   for (var i=0; i<checkboxes.length; i++)  {
     if (checkboxes[i].type == 'checkbox')   {
       if(checkboxes[i].checked == true)
@@ -806,7 +806,7 @@ function getallchecked(formname, inputname)
 }
 $(".pizzatoppings").change(function() {
     getalltoppings('Pizza', 'alltoppings');
-}); 
+});
 $(".calzonetoppings").change(function() {
     getalltoppings('Calzone', 'allcalzonetoppings');
 });// When input is checked changes value of alltoppings input box to equal the toppings checked
@@ -816,7 +816,7 @@ $(".salad").change(function() {
 });
 $(".strombolli").change(function() {
     getallchecked('Strombolli','strombollistoreturn');
-    
+
 });
 $(".pizzanames").change(function() {
 	getalltoppings('Pizza', 'alltoppings');
@@ -829,7 +829,7 @@ $(".calzonenames").change(function() {
 </html>
 
 <!--function addPizzaToCart(quanity, size, name)
-{  
+{
 	var alltoppings = [];
 	alltoppings = getalltoppings('Pizza');
 	var initialtoppings = [];
@@ -842,8 +842,8 @@ $(".calzonenames").change(function() {
 		if(toppings[i]!= " ")
 		{
 			temp+= toppings[i];
-			
-		}else 
+
+		}else
 		{
 			initialtoppings.push(temp);
 			temp = "";
