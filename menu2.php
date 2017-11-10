@@ -548,6 +548,7 @@ echo('</div>');
 <br />
 
 <div id= "cart">
+<hr>
       <?php if(!empty($_SESSION["cart"]["prices"]))
       {for($i =0; $i < count($_SESSION["cart"]["prices"]); $i++){
       echo("<span class='CartName'><b>Name : </b>".$_SESSION["cart"]["names"][$i]."</span>");
@@ -558,10 +559,16 @@ echo('</div>');
   }
   }
       ?>
+      <hr>
 		  <h1>Subtotal = $ <?php if(!empty($_SESSION["cart"]["prices"]))
       echo array_sum($_SESSION["cart"]["prices"]); ?> </h1></br>
       <h1>Total = $ <?php if(!empty($_SESSION["cart"]["prices"]))echo array_sum($_SESSION["cart"]["prices"])+(.08)*(array_sum($_SESSION["cart"]["prices"])); ?> </h1>
       </div>
+      <div class = "footer">
+                  1125 North Ave, Grand Junction, Colorado 81501
+                                    <br>
+                                970-243-1700
+    </div>
 </div>
 
   <script>
