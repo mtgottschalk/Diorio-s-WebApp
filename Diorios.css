@@ -292,10 +292,23 @@ margin-right:40px;
    text-align: left;
    display: block;
  }
+.fillingsspan
+{
+ width: 150px;
+ margin-right:20px;
+ text-align: left;
+ float: left;
+}
+#fillingsdiv
+{
+width: 80%;
+margin-right: auto;
+margin-left:auto;
+}
 input[type=text]{text-align: center;display: block;
    margin-right:auto;margin-left: auto;}
-
 .footer{
-  text-align: center;
-  padding-bottom: 10px;
+   text-align: center;
+   padding-bottom: 10px;
+   color: rgb(68, 0, 0);
 }

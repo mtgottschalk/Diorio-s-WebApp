@@ -548,18 +548,21 @@ echo('</div>');
 <br />
 
 <div id= "cart">
-<hr>
+
       <?php if(!empty($_SESSION["cart"]["prices"]))
-      {for($i =0; $i < count($_SESSION["cart"]["prices"]); $i++){
+      {
+        echo("<hr>");
+        for($i =0; $i < count($_SESSION["cart"]["prices"]); $i++){
       echo("<span class='CartName'><b>Name : </b>".$_SESSION["cart"]["names"][$i]."</span>");
       echo("<span class='CartPrice'><b>Price : </b>".$_SESSION["cart"]["prices"][$i]."</span>");
       echo("<span class='CartDescriptions'><b>Descriptions : </b>".$_SESSION["cart"]["descriptions"][$i]."</span>");
        echo("<span class='CartQuanity'><b>Quanity : </b>".$_SESSION["cart"]["quanity"][$i]."</span>");
       echo("</br>");
   }
+  echo("<hr>");
   }
       ?>
-      <hr>
+
 		  <h1>Subtotal = $ <?php if(!empty($_SESSION["cart"]["prices"]))
       echo array_sum($_SESSION["cart"]["prices"]); ?> </h1></br>
       <h1>Total = $ <?php if(!empty($_SESSION["cart"]["prices"]))echo array_sum($_SESSION["cart"]["prices"])+(.08)*(array_sum($_SESSION["cart"]["prices"])); ?> </h1>

@@ -69,22 +69,42 @@ echo('</div>');
 	</form>
 
 	</br></br>
-		<form id="Other" method="POST" action="./Other.Add.php">
+		<form id="Other" method="POST" action="./Other.add.php">
 			<h1>Add new Roll or Stromboli</h1>
 	Name<input type="text" name="name"></input></br>
-	Price of Full<input type="text" name="pricem"></input></br>
-	Price of Half<input type="text"  name="pricel"></input></br>
+	Price of Full<input type="text" name="pricel"></input></br>
+	Price of Half<input type="text"  name="prices"></input></br>
 	Description<input type="text" name="description"></input></br>
+	Type<input type="text" name="type"></input></br>
 	<input type="submit">
 	</form>
 
 	</br></br>
-	<form id="Calzone" method="POST" action="./Calzone.add.php">
+	<form id="Calzone" method="POST" action="./Calzones.add.php">
 	<h1>Add new Calzone</h1>
 	Name<input type="text" name="name"></input></br>
 	Price of Large<input type="text" name="prices"></input></br>
 	Price of Small<input type="text"  name="pricel"></input></br>
 	Description<input type="text" name="description"></input></br>
+	Fillings<input type="text" id="fillings" name="fillings"></input></br>
+	<?php $topping = new Topping();
+            $alltoppings = array();
+            $alltoppings = $topping->getAllToppings();
+            $id=1;
+echo('<div id="fillingsdiv"><h1>Select Fillings</h1>');
+            while(!empty($alltoppings[$id]))
+            {
+	        echo('<span class="fillingsspan"><input type="checkbox"
+                     class="fillings" id="'.$alltoppings[$id]["name"].'"
+                     value="'.$alltoppings[$id]["name"].'">');
+		echo($alltoppings[$id]["name"].'</span>');
+                //printf ("%'x-14s",$alltoppings[$id]["name"]);
+               // echo str_replace("*","&nbsp;", str_pad($alltoppings[$id]["name"],14,"*"));
+
+
+		$id++;    }
+echo('</div>');
+?>
 	<input type="submit">
 
 	</div>
