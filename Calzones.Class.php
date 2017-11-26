@@ -13,26 +13,41 @@ Class Calzone
 		$fillings = "";
 	}
 	/*NEED FUNCTION GET PRICE BY SIZE*/
-	function saveCalzone($id, $name, $prices, $pricel, $description, $fillings)
+	function saveCalzone($id, $name, $prices, $pricel, $description, $toppings)
 	{
 		global $pdo;
-		$stmt = $pdo->prepare("INSERT INTO calzones (`id`, `name`, `prices`, `pricesl`, `description`, `fillings`) VALUES(:id, :name, :prices, :pricesl, :description, :fillings)");
-		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricem'=>$pricem, ':pricel'=>$pricel, ':pricesl'=>$pricesl, ':description'=>$description, ':fillings' =>$fillings));
+		$stmt = $pdo->prepare("INSERT INTO calzones (`id`, `name`, `prices`, `pricesl`, `description`, `toppings`) VALUES(:id, :name, :prices, :pricesl, :description, :toppings)");
+		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricem'=>$pricem, ':pricel'=>$pricel, ':pricesl'=>$pricesl, ':description'=>$description, ':toppings' =>$toppings));
 		echo "result: $result\n";
 		return $result;
 	}
-	function getToppingByName($name)
+	function updateCalzone($id, $name, $prices, $pricel, $description, $toppings)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("UPDATE `calzones` SET `name`=:name, `prices`=:prices, `pricel`=:pricel, `description`=:description, `toppings`=:toppings WHERE `calzones`.`id` =:id");
+		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricel'=>$pricel, ':description'=>$description, ':toppings'=>$toppings));
+		echo "result: $result\n";
+		return $result;
+	}
+	function getToppingsByName($name)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT toppings FROM calzones WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		var_dump($stmt->fetch());
-		return $result;
+		return $stmt->fetchColumn();
 	}
 	function getNameByFillings($toppings)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT name FROM calzones WHERE toppings=:toppings");
+		$result = $stmt->execute(array(':toppings'=>$toppings));
+		return $stmt->fetchColumn();
+		
+	}
+	function getIdByFillings($toppings)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT id FROM calzones WHERE toppings=:toppings");
 		$result = $stmt->execute(array(':toppings'=>$toppings));
 		return $stmt->fetchColumn();
 		
@@ -82,7 +97,7 @@ Class Calzone
 		$alltoppings = array();
 	for($i = 0; $i < strlen($toppings); $i++)
 	{
-		if($toppings[$i] != " ")
+		if($toppings[$i] != ",")
 		{
 		$temp .= $toppings[$i];
 	}
@@ -94,4 +109,12 @@ Class Calzone
 	return $alltoppings;	
 }
 
+
+function getDescriptionbyName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT description FROM calzones WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
 }

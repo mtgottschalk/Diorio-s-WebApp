@@ -19,7 +19,15 @@ Class Pizza
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("INSERT INTO pizza (`id`, `name`, `prices`, `pricem`, `pricel`, `pricesl`, `description`, `toppings`) VALUES(:id, :name, :prices, :pricem, :pricel, :pricesl, :description, :toppings)");
-		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricem'=>$pricem, ':pricel'=>$pricel, ':pricesl'=>$pricesl, ':description'=>$description, ':toppings' =>$toppings));
+		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricem'=>$pricem, ':pricel'=>$pricel, ':pricesl'=>$pricesl, ':description'=>$description, ':toppings'=>$toppings));
+		echo "result: $result\n";
+		return $result;
+	}
+	function updatePizza($id, $name, $prices, $pricem, $pricel, $pricesl, $description, $toppings)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("UPDATE `pizza` SET `name`=:name, `prices`=:prices, `pricem`=:pricem, `pricel`=:pricel, `pricesl`=:pricesl, `description`=:description, `toppings`=:toppings WHERE `pizza`.`id` =:id");
+		$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':prices'=>$prices, ':pricem'=>$pricem, ':pricel'=>$pricel, ':pricesl'=>$pricesl, ':description'=>$description, ':toppings'=>$toppings));
 		echo "result: $result\n";
 		return $result;
 	}
@@ -28,13 +36,29 @@ Class Pizza
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT toppings FROM pizza WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		var_dump($stmt->fetch());
-		return $result;
+		
+		return $stmt->fetchColumn();
+	}
+	function getIdByToppings($toppings)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT id FROM pizza WHERE toppings=:toppings");
+		$result = $stmt->execute(array(':toppings'=>$toppings));
+		
+		return $stmt->fetchColumn();
 	}
 	function getNameByToppings($toppings)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT name FROM pizza WHERE toppings=:toppings");
+		$result = $stmt->execute(array(':toppings'=>$toppings));
+		return $stmt->fetchColumn();
+		
+	}
+	function getPizzaByToppings($toppings)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT * FROM pizza WHERE toppings=:toppings");
 		$result = $stmt->execute(array(':toppings'=>$toppings));
 		return $stmt->fetchColumn();
 		
@@ -78,6 +102,7 @@ Class Pizza
 		$result = $stmt->execute(array(':name'=>$name));
 		return $stmt->fetchColumn();
 	}
+	
 	function getPricembyName($name)
 	{
 		global $pdo;
@@ -92,13 +117,20 @@ Class Pizza
 		$result = $stmt->execute(array(':name'=>$name));
 		return $stmt->fetchColumn();
 	}
+	function getDescriptionbyName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT description FROM pizza WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
 	function getPizzaToppings($pizzatoppings)
 	{
 		$temp = "";
 		$allpizzatoppings = array();
 	for($i = 0; $i < strlen($pizzatoppings); $i++)
 	{
-		if($pizzatoppings[$i] != " ")
+		if($pizzatoppings[$i] != ",")
 		{
 		$temp .= $pizzatoppings[$i];
 	}
