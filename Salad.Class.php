@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once("Config.php");
 
@@ -14,10 +14,19 @@ function __cunstruct()
 function SaveSalad($id, $name, $price, $description)
 {
 	global $pdo;
-	$stmt = $pdo->prepare("INSERT INTO salads(`id`, `name`, `price`, `description`)VALUES(:id, :name, :price, :description)");	
+	$stmt = $pdo->prepare("INSERT INTO salads(`id`, `name`, `price`, `description`)VALUES(:id, :name, :price, :description)");
 	$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':price'=>$price, ':description'=>$description));
     return $result;
 }
+
+function UpdateSalad($id, $name, $price, $description)
+{
+	global $pdo;
+	$stmt = $pdo->prepare("UPDATE `salads` SET `name`=:name, `price`=:price,  `description`=:description  WHERE `salads`.`id` =:id");
+	$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':price'=>$price, ':description'=>$description));
+    return $result;
+}
+
 function getSaladByName($name)
 {
 	global $pdo;
@@ -32,8 +41,35 @@ function getPriceByName($name)
 	$stmt = $pdo->prepare("SELECT price FROM salads WHERE name=:name");
 	$result = $stmt->execute(array(':name'=>$name));
 	return $stmt->fetchColumn();
-	 
+
 }
+
+function getDescriptionByName($name)
+{
+	global $pdo;
+	$stmt = $pdo->prepare("SELECT description FROM salads WHERE name=:name");
+	$result = $stmt->execute(array(':name'=>$name));
+	return $stmt->fetchColumn();
+
+}
+
+function getIdByName($name)
+{
+	global $pdo;
+	$stmt = $pdo->prepare("SELECT id FROM salads WHERE name=:name");
+	$result = $stmt->execute(array(':name'=>$name));
+	return $stmt->fetchColumn();
+}
+
+function getNamebyId($id)
+{
+	global $pdo;
+	$stmt = $pdo->prepare("SELECT name FROM salads WHERE id=:id");
+	$result = $stmt->execute(array(':id'=>$id));
+	return $stmt->fetchColumn();
+
+}
+
 function getAllSalads()
 	{
 		$allsalads = array();

@@ -137,7 +137,8 @@ button
  background-image: -ms-linear-gradient(top, #008d55, #03613b);
  background-image: -o-linear-gradient(top, #008d55, #03613b);
  background-image: linear-gradient(to bottom, #008d55, #03613b);
- width:80%;
+ width:25%;
+   text-align: center;
   height: 35px;
  color: #ffffff;
  font-size: 16px;
@@ -150,6 +151,7 @@ button:hover {
  text-decoration: none;
 }
 
+button.ShowButtons{width:18%}
 
 input[type=submit]{
    background: #008d55;
@@ -284,7 +286,7 @@ margin-right:40px;
 
 #testadmin{
    text-align: center;
-   display: grid;
+   display: block;
 }
 
  #cart{

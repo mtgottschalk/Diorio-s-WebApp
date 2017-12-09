@@ -41,6 +41,15 @@ echo('</div>');
 	<input type="submit">
 	</form>
 	</br></br>
+
+	<h1>Add new Topping</h1>
+	<form id="testtoppings" method="POST" action="./Toppings.Add.php">
+	Name<input type="text" name="name"></input></br>
+	<input type="submit">
+	</form>
+
+	</br></br>
+
 	<h1>Add new Sub</h1>
 		<form id="testsub" method="POST" action="./Sub.Add.php">
 
@@ -62,13 +71,7 @@ echo('</div>');
 	<input type="submit">
 	</form>
 	</br></br>
-	<h1>Add new Topping</h1>
-	<form id="testtoppings" method="POST" action="./Toppings.Add.php">
-	Name<input type="text" name="name"></input></br>
-	<input type="submit">
-	</form>
 
-	</br></br>
 		<form id="Other" method="POST" action="./Other.add.php">
 			<h1>Add new Roll or Stromboli</h1>
 	Name<input type="text" name="name"></input></br>

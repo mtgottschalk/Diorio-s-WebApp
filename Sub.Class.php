@@ -11,9 +11,9 @@ Class Sub
 		$pricef = 0.0;
 		$priceh = 0.0;
 		$temp = "none";
-		
+
 	}
-	
+
 function SaveSub($id, $name, $pricef, $priceh, $description, $temp)
 	{
 		global $pdo;
@@ -22,6 +22,15 @@ function SaveSub($id, $name, $pricef, $priceh, $description, $temp)
 		echo "result: $result\n";
 		return $result;
 	}
+
+	function UpdateSub($id, $name, $pricef, $priceh, $description, $temp)
+		{
+			global $pdo;
+			$stmt = $pdo->prepare("UPDATE `subs` SET `name`=:name, `pricef`=:pricef, `priceh`=:priceh, `description`=:description, `temp`=:temp WHERE `subs`.`id` =:id");
+			$result = $stmt->execute(array(':id'=>$id,':name'=>$name, ':pricef'=>$pricef, ':priceh'=>$priceh, ':description'=>$description, ':temp'=>$temp));
+			return $result;
+		}
+
 	function getSubByName($name)
 	{
 		global $pdo;
@@ -30,6 +39,39 @@ function SaveSub($id, $name, $pricef, $priceh, $description, $temp)
 		var_dump($stmt->fetch());
 		return $result;
 	}
+
+	function getDescriptionByName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT description FROM subs WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
+
+	function getTempByName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT temp FROM subs WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
+
+	function getIdByName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT id FROM subs WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
+
+	function getNamebyId($id)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT name FROM subs WHERE id=:id");
+		$result = $stmt->execute(array(':id'=>$id));
+		return $stmt->fetchColumn();
+	}
+
 	function getSubPriceFull($name)
 	{
 		global $pdo;
@@ -61,5 +103,5 @@ function SaveSub($id, $name, $pricef, $priceh, $description, $temp)
 	return $allsubs;
 	}
 
-		
+
 }

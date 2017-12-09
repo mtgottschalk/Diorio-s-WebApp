@@ -20,14 +20,41 @@ Class Other
 		$result = $stmt->execute(array(':id'=>$id, ':name'=>$name,':type'=>$type, 'prices'=>$prices, 'pricel'=>$pricel, 'description'=>$description));
 		return $result;
 	}
+
+	function UpdateOther($id, $name, $type, $prices, $pricel, $description)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("UPDATE `other` SET `name`=:name, `type`=:type, `prices`=:prices,`pricel`=:pricel,`description`=:description WHERE `other`.`id` =:id");
+		$result = $stmt->execute(array(':id'=>$id, ':name'=>$name,':type'=>$type, 'prices'=>$prices, 'pricel'=>$pricel, 'description'=>$description));
+		return $result;
+	}
+
 	function getTypeByName($name)
 	{
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT type FROM other WHERE name=:name");
 		$result = $stmt->execute(array(':name'=>$name));
-		var_dump($stmt->fetch());
-		return $result;
+		return $stmt->fetchColumn();
 	}
+
+	function getIdByName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT id FROM other WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+	}
+
+
+	function getNamebyId($id)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT name FROM other WHERE id=:id");
+		$result = $stmt->execute(array(':id'=>$id));
+		return $stmt->fetchColumn();
+
+	}
+
 	function getOtherByName($name)
 	{
 		global $pdo;
@@ -50,6 +77,16 @@ Class Other
 		$result = $stmt->execute(array(':name'=>$name));
 		return $stmt->fetchcolumn();
 	}
+
+	function getDescriptionByName($name)
+	{
+		global $pdo;
+		$stmt = $pdo->prepare("SELECT description FROM other WHERE name=:name");
+		$result = $stmt->execute(array(':name'=>$name));
+		return $stmt->fetchColumn();
+
+	}
+
 	function getAllOther()
 	{
 		$allother = array();
@@ -66,5 +103,5 @@ Class Other
 	}
 	return $allother;
 }
-	
+
 }
