@@ -28,7 +28,7 @@ if($size=="Full")
 echo($addprice);
 $alltoppings = array();
 $temp = "";
-for($i = 0; $i<strlen($_POST["allsubtoppings"]);$i++) 
+for($i = 0; $i<strlen($_POST["allsubtoppings"]);$i++)
 if($_POST["allsubtoppings"][$i]!= ",") $temp .= $_POST["allsubtoppings"][$i];
 else
 {
@@ -43,7 +43,7 @@ else
 		 $price+= $addprice;
 		 echo("hotpeppers");
 	 }
-	if($temp == "sweetpeppers") 
+	if($temp == "sweetpeppers")
 	{
 		 $price+= $addprice;
 		 echo("sweetpeppers");
@@ -60,7 +60,7 @@ if($temp == "extracheese")
 		 $price+= $addprice;
 		 echo("hotpeppers");
 	 }
-	if($temp == "sweetpeppers") 
+	if($temp == "sweetpeppers")
 	{
 		 $price+= $addprice;
 		 echo("sweetpeppers");
@@ -81,8 +81,5 @@ $cart->addQuanity($quanity);
 var_dump($_SESSION["cart"]["prices"]);
 var_dump($_SESSION["cart"]["names"]);
 
+header('Location: ./menu.php');
 //header('Location: ./menu1.php');
-
-
-
-

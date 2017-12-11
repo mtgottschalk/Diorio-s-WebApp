@@ -9,3 +9,4 @@ if(!empty($_POST))
 	$topping->SaveTopping(null, $_POST["name"]);
 	$topping->getToppingByName($_POST["name"]);
 }
+header('Location: ./admin.php');

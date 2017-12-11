@@ -11,3 +11,4 @@ $pizza->savePizza(null, $_POST["name"], $_POST["prices"], $_POST["pricem"], $_PO
 $pizza->getPizzabyName($_POST["name"]);
 echo('<html><br></html>');
 $pizza->getPricesbyName($_POST["name"]);
+header('Location: ./admin.php');

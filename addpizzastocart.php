@@ -25,7 +25,7 @@ else if($_POST["size"]=="medium")
 	$price = $pizza->getPricembyName($name);
 	$addprice = 1;
 }
-else 
+else
 {
 	$price = $pizza->getPricelByName($name);
 	$addprice = 1.50;
@@ -44,7 +44,7 @@ var_dump($_POST);
 
 $alltoppings = array();
 $temp = "";
-for($i = 0; $i<strlen($_POST["alltoppings"]);$i++) 
+for($i = 0; $i<strlen($_POST["alltoppings"]);$i++)
 if($_POST["alltoppings"][$i]!= ",") $temp .= $_POST["alltoppings"][$i];
 else
 {
@@ -55,7 +55,7 @@ else
 array_push($alltoppings, $temp);
 if($temp == "Extra Cheese") $ec = true;
 	$temp = "";
- if($ec == true) $price += $addprice;	
+ if($ec == true) $price += $addprice;
 if(count($alltoppings)>= 4) $price += $addprice *4;
 else { if(ec == true) $price += count($alltoppings)-1 * $addprice;
 	else $price += count($alltoppings) * $addprice;
@@ -69,15 +69,15 @@ $cart->addPrice($price);
 $cart->addName($name);
 $cart->addDescription('Pizza w/'.$_POST["alltoppings"]);
 $cart->addQuanity($quanity);
-
+header('Location: ./menu.php');
 //$cart->addQuanity($quanity);
 
 //header('Location: ./menu1.php');
-//.5 sm 1 med 1.50 large pizza extra cheese always costs 
+//.5 sm 1 med 1.50 large pizza extra cheese always costs
 //.25 half .50 full subs
 //
 /*$temp = "";
-for($i = 0; $i<strlen($_POST["pizzaselect"]);$i++) 
+for($i = 0; $i<strlen($_POST["pizzaselect"]);$i++)
 if($_POST["pizzaselect"][$i]!= ",") $temp .= $_POST["pizzaselect"][$i];
 else
 {
@@ -94,5 +94,3 @@ if($initialtoppings[$j] == $alltoppings[$i]) $count++;
 $additionaltoppings = count($alltoppings) - $count;
 */
 ?>
-
-

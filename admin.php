@@ -15,7 +15,7 @@ require_once("Other.Class.php");
   <script src="jquery-3.2.1.min.js"></script></head>
   <div id="mainbody">
 		<div id="testadmin">
-			<button name="ShowNewPizza" class = "ShowButtons" onclick="ShowNewPizza()" >New Pizza</button>
+			<button name="ShowNewPizza" class = "ShowButtons" onclick="ShowNewPizza();" >New Pizza</button>
 			<button name="ShowEditPizza" class = "ShowButtons" onclick="ShowEditPizza()" >Edit Pizza</button>
 		</br>
 			<button name="ShowNewTopping" class = "ShowButtons" onclick="ShowNewTopping()" >New Topping</button>
@@ -34,7 +34,7 @@ require_once("Other.Class.php");
 		</br>
 			<div id ="NewPizza" style="display:none">
 			<h1>Add new Pizza</h1>
-	<form id="Pizza" method="POST" action="./Pizza.Add.php">
+	<form id="Pizza" method="POST" action="./Pizza.Add.php" onsubmit="return ValidatePizza()">
 	Name<input type="text" name="name" class=></input></br>
 	Price of small<input type="text" name="prices"></input></br>
 	Price of Medium<input type="text"  name="pricem"></input></br>
@@ -89,7 +89,7 @@ echo('</div>');
 	    }
 	    echo('</select></form></span><br />');
 	    ?>
-	<form id="EditPizza" method="POST" action="./updatepizza.php">
+	<form id="EditPizza" method="POST" action="./updatepizza.php" onsubmit=" return ValidatePizzaEdit();">
 	Price of small<input type="text" id ="editprices" name="prices" value="<?php
 	if (isset($_GET["pizzaselect"]))
 	{
@@ -138,14 +138,8 @@ echo('</div>');
 	?>">
 
 	</input>
-	<input type="text" id="editname" name="name" value="<?php
-	if (isset($_GET["pizzaselect"]))
-	{
-		echo $pizza->getNameByToppings($_GET["pizzaselect"]);
-	}
 
-	?>"></input>
-	<input type="text" id="editidPizza" name="id" value="<?php
+	<input type="text" id="editidPizza" name="id"  style="display:none" value="<?php
 	if (isset($_GET["pizzaselect"]))
 	{
 		echo $pizza->getIdByToppings($_GET["pizzaselect"]);
@@ -179,7 +173,7 @@ echo('</div>');
 
 <div id="NewTopping" style="display:none">
 	<h1>Add new Topping</h1>
-	<form id="testtoppings" method="POST" action="./Toppings.Add.php">
+	<form id="testtoppings" method="POST" action="./Toppings.Add.php" onsubmit=" return ValidateToppings();">
 	Name<input type="text" name="name"></input></br>
 	<input type="submit">
 	</form>
@@ -189,7 +183,7 @@ echo('</div>');
 
 <div id= "NewSub" style="display:none">
 	<h1>Add new Sub</h1>
-		<form id="testsub" method="POST" action="./Sub.Add.php">
+		<form id="testsub" method="POST" action="./Sub.Add.php" onsubmit="return ValidateSub();">
 
 	Name<input type="text" name="name"></input></br>
 	Price of Full<input type="text" name="pricef"></input></br>
@@ -221,7 +215,7 @@ echo('</div>');
 			}
 			echo('</select></form></span><br />');
 			?>
-			<form id="EditSub" method="POST" action="./updatesub.php">
+			<form id="EditSub" method="POST" action="./updatesub.php" onsubmit=" return ValidateSubEdit();">
 
 				Name<input type="text" id="editnameSub" name="name" value="<?php
 				if (isset($_GET["subselect"]))
@@ -282,7 +276,7 @@ echo('</div>');
 
 <div id= "NewSalad" style="display:none">
 	<h1>Add new Salad</h1>
-	<form id="testsalad" method="POST" action="./Salad.Add.php">
+	<form id="testsalad" method="POST" action="./Salad.Add.php" onsubmit="return  ValidateSalad();">
 	Name<input type="text" name="name"></input></br>
 	Price<input type="text" name="price"></input></br>
 	Description<input type="text" name="description"></input></br>
@@ -301,6 +295,7 @@ echo('</div>');
 	    $idp=1;
 	echo('<span class="saladnamesspan"><form id="saladnamesubmit" method="GET" ><select class="editsaladnames" name="saladselect"
                      onchange="this.form.submit()">');
+echo('<option>Salads</option>');
 	    while(!empty($allsalads[$idp]))
             {
 		 echo('<option class="saladnameoption"
@@ -312,7 +307,7 @@ echo('</div>');
 	    echo('</select></form></span><br />');
 	    ?>
 
-			<form id="EditSalad" method="POST" action="./updatesalad.php">
+			<form id="EditSalad" method="POST" action="./updatesalad.php" onsubmit="return  ValidateSaladEdit();">
 
 			Name<input type="text" id="editnameSalad" name="name" value="<?php
 			if (isset($_GET["saladselect"]))
@@ -354,7 +349,7 @@ echo('</div>');
 	</div>
 
 <div id="NewOther" style="display:none">
-		<form id="Other" method="POST" action="./Other.Add.php">
+		<form id="Other" method="POST" action="./Other.Add.php" onsubmit="return  ValidateOther();">
 			<h1>Add new Roll or Stromboli</h1>
 	Name<input type="text" name="name"></input></br>
 	Price of Full<input type="text" name="pricel"></input></br>
@@ -385,7 +380,7 @@ echo('</div>');
 	    }
 	    echo('</select></form></span><br />');
 	    ?>
-			<form id="EditOther" method="POST" action="./updateother.php">
+			<form id="EditOther" method="POST" action="./updateother.php" onsubmit=" return ValidateOtherEdit();">
 
 			Name<input type="text" id="editnameOther" name="name" value="<?php
 			if (isset($_GET["otherselect"]))
@@ -445,7 +440,7 @@ echo('</div>');
 			</br></br></br></br></br></br>
 		</div>
 <div id="NewCalzone" style="display:none">
-	<form id="Calzone" method="POST" action="./Calzones.add.php">
+	<form id="Calzone" method="POST" action="./Calzones.add.php" onsubmit=" return ValidateCalzone();">
 	<h1>Add new Calzone</h1>
 	Name<input type="text" name="name"></input></br>
 	Price of Large<input type="text" name="prices"></input></br>
@@ -495,7 +490,7 @@ echo('</div>');
 	    }
 	    echo('</select></form></span><br />');
 	    ?>
-	<form id="EditCalzone" method="POST" action="./updatecalzone.php">
+	<form id="EditCalzone" method="POST" action="./updatecalzone.php" onsubmit=" return ValidateCalzoneEdit();">
 	Price of small<input type="text" id ="editprices" name="prices" value="<?php
 	if (isset($_GET["calzoneselect"]))
 	{
@@ -672,6 +667,321 @@ function initialCheckCalzone(item, name)
 			temp = "";
 		}
 }
+}
+
+function ValidatePizza(){
+	var name = document.forms["Pizza"]["name"].value;
+	var prices = document.forms["Pizza"]["prices"].value;
+	var pricem = document.forms["Pizza"]["pricem"].value;
+	var pricel = document.forms["Pizza"]["pricel"].value;
+	var pricesl = document.forms["Pizza"]["pricesl"].value;
+	var description = document.forms["Pizza"]["description"].value;
+	if (prices == "" || isNaN(prices) || prices < 0){
+		alert("Price of a small is empty or not a valid number");
+		return false;
+	}
+	else if (pricem == "" || isNaN(pricem) || pricem < 0) {
+		alert("Price of a medium is empty or not a valid number");
+		return false;
+	}
+	else if (pricel == "" || isNaN(pricel) || pricel < 0) {
+		alert("Price of a large is empty or not a valid number");
+		return false;
+	}
+	else if (pricesl == "" || isNaN(pricesl) || pricesl < 0) {
+		alert("Price of a slice is empty or not a valid number");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateToppings(){
+	var name = document.forms["testtoppings"]["name"].value;
+	if (name==""){
+		alert("Topping name can not be empty");
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+function ValidatePizzaEdit(){
+	var name = document.forms["PizzaEdit"]["name"].value;
+	var prices = document.forms["PizzaEdit"]["prices"].value;
+	var pricem = document.forms["PizzaEdit"]["pricem"].value;
+	var pricel = document.forms["PizzaEdit"]["pricel"].value;
+	var pricesl = document.forms["PizzaEdit"]["pricesl"].value;
+	var description = document.forms["PizzaEdit"]["description"].value;
+	if (prices == "" || isNaN(prices) || prices < 0){
+		alert("Price of a small is empty or not a valid number");
+		return false;
+	}
+	else if (pricem == "" || isNaN(pricem) || pricem < 0) {
+		alert("Price of a medium is empty or not a valid number");
+		return false;
+	}
+	else if (pricel == "" || isNaN(pricel) || pricel < 0) {
+		alert("Price of a large is empty or not a valid number");
+		return false;
+	}
+	else if (pricesl == "" || isNaN(pricesl) || pricesl < 0) {
+		alert("Price of a slice is empty or not a valid number");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateSubEdit(){
+	var name = document.forms["EditSub"]["name"].value;
+	var pricef = document.forms["EditSub"]["pricef"].value;
+	var priceh = document.forms["EditSub"]["priceh"].value;
+	var description = document.forms["EditSub"]["description"].value;
+	var temp = document.forms["EditSub"]["temp"].value;
+	if (pricef == "" || isNaN(pricef) || pricef < 0){
+		alert("Price of a full is empty or not a valid number");
+		return false;
+	}
+	else if (priceh == "" || isNaN(priceh) || priceh < 0) {
+		alert("Price of a half is empty or not a valid number");
+		return false;
+	}
+	else if (temp == "" ) {
+		alert("Temperature can not be empty");
+		return false;
+	}
+	else if (name == "" ) {
+		alert("Name can not be empty");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateSub(){
+	var name = document.forms["testsub"]["name"].value;
+	var pricef = document.forms["testsub"]["pricef"].value;
+	var priceh = document.forms["testsub"]["priceh"].value;
+	var description = document.forms["testsub"]["description"].value;
+	var temp = document.forms["testsub"]["temp"].value;
+	if (pricef == "" || isNaN(pricef) || pricef < 0){
+		alert("Price of a full is empty or not a valid number");
+		return false;
+	}
+	else if (priceh == "" || isNaN(priceh) || priceh < 0) {
+		alert("Price of a half is empty or not a valid number");
+		return false;
+	}
+	else if (temp == "" ) {
+		alert("Temperature can not be empty");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateSalad(){
+	var price = document.forms["testsalad"]["price"].value;
+	var name = document.forms["testsalad"]["name"].value;
+	var description = document.forms["testsalad"]["description"].value;
+
+	if (price == "" || isNaN(price) || price < 0){
+		alert("Price of a full is empty or not a valid number");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateSaladEdit(){
+	var price = document.forms["EditSalad"]["price"].value;
+	var name = document.forms["EditSalad"]["name"].value;
+	var description = document.forms["EditSalad"]["description"].value;
+
+	if (price == "" || isNaN(price) || price < 0){
+		alert("Price of a full is empty or not a valid number");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateOther(){
+	var name = document.forms["Other"]["name"].value;
+	var pricel = document.forms["Other"]["pricel"].value;
+	var prices = document.forms["Other"]["prices"].value;
+	var description = document.forms["Other"]["description"].value;
+	var type = document.forms["Other"]["type"].value;
+	if (pricel == "" || isNaN(pricel) || pricel < 0){
+		alert("Price of a large is empty or not a valid number");
+		return false;
+	}
+	else if (prices == "" || isNaN(prices) || prices < 0) {
+		alert("Price of a small is empty or not a valid number");
+		return false;
+	}
+	else if (type == "" ) {
+		alert("Type can not be empty");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateOtherEdit(){
+	var name = document.forms["EditOther"]["name"].value;
+	var pricel = document.forms["EditOther"]["pricel"].value;
+	var prices = document.forms["EditOther"]["prices"].value;
+	var description = document.forms["EditOther"]["description"].value;
+	var type = document.forms["EditOther"]["type"].value;
+	if (pricel == "" || isNaN(pricel) || pricel < 0){
+		alert("Price of a large is empty or not a valid number");
+		return false;
+	}
+	else if (prices == "" || isNaN(prices) || prices < 0) {
+		alert("Price of a small is empty or not a valid number");
+		return false;
+	}
+	else if (type == "" ) {
+		alert("Type can not be empty");
+		return false;
+	}
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateCalzone(){
+	var name = document.forms["Calzone"]["name"].value;
+	var pricel = document.forms["Calzone"]["pricel"].value;
+	var prices = document.forms["Calzone"]["prices"].value;
+	var description = document.forms["Calzone"]["description"].value;
+	if (pricel == "" || isNaN(pricel) || pricel < 0){
+		alert("Price of a large is empty or not a valid number");
+		return false;
+	}
+	else if (prices == "" || isNaN(prices) || prices < 0) {
+		alert("Price of a small is empty or not a valid number");
+		return false;
+	}
+
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
+}
+
+function ValidateCalzoneEdit(){
+	var name = document.forms["CalzoneEdit"]["name"].value;
+	var pricel = document.forms["CalzoneEdit"]["pricel"].value;
+	var prices = document.forms["CalzoneEdit"]["prices"].value;
+	var description = document.forms["CalzoneEdit"]["description"].value;
+	if (pricel == "" || isNaN(pricel) || pricel < 0){
+		alert("Price of a large is empty or not a valid number");
+		return false;
+	}
+	else if (prices == "" || isNaN(prices) || prices < 0) {
+		alert("Price of a small is empty or not a valid number");
+		return false;
+	}
+
+	else if (description == "") {
+		alert("Description can not be empty");
+		return false;
+	}
+	else if (name == "") {
+		alert("Name can not be empty");
+		return false;
+	}
+	else {
+		alert("Entered");
+		return true;
+	}
 }
 
 function ShowNewPizza(){

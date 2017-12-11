@@ -26,3 +26,4 @@ $cart->addPrice($price);
 $cart->addName($name);
 $cart->addDescription($description);
 }
+header('Location: ./menu.php');

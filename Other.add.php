@@ -9,3 +9,4 @@ if(!empty($_POST))
 	$other->SaveOther(null, $_POST["name"],$_POST["type"], $_POST["prices"], $_POST["pricel"], $_POST["description"]);
 	$other->GetOtherbyName($_POST["name"]);
 }
+header('Location: ./admin.php');
